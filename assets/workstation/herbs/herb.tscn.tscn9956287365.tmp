@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://ch06j3uikjcka"]
+
+[ext_resource type="Texture2D" uid="uid://b5v0j6hxoytvt" path="res://assets/workstation/herbs/herb_bark.png" id="1_kfisq"]
+[ext_resource type="Script" uid="uid://c2iopn0yibov1" path="res://assets/workstation/herbs/herb.gd" id="2_1qhqr"]
+[ext_resource type="Script" uid="uid://dblr0ule8vmou" path="res://assets/workstation/herbs/herb_click_target.gd" id="3_1qhqr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_emtpg"]
+size = Vector2(32, 32)
+
+[node name="Herb" type="Sprite2D"]
+texture = ExtResource("1_kfisq")
+script = ExtResource("2_1qhqr")
+
+[node name="ClickTarget" type="Area2D" parent="."]
+script = ExtResource("3_1qhqr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickTarget"]
+shape = SubResource("RectangleShape2D_emtpg")

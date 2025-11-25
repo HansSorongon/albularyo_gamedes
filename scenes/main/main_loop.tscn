@@ -1,0 +1,61 @@
+[gd_scene load_steps=11 format=3 uid="uid://cvhtpwumormog"]
+
+[ext_resource type="Texture2D" uid="uid://cpv3v0018eft" path="res://assets/background/game_background.png" id="1_l1b4v"]
+[ext_resource type="PackedScene" uid="uid://ch06j3uikjcka" path="res://assets/workstation/herbs/herb.tscn" id="1_naftw"]
+[ext_resource type="Script" uid="uid://br752qlu8numu" path="res://scenes/main/patient.gd" id="2_naftw"]
+[ext_resource type="Texture2D" uid="uid://cmssfptn6xb3j" path="res://assets/background/npc_background.png" id="2_xfve2"]
+[ext_resource type="Texture2D" uid="uid://4u30paakubgn" path="res://assets/workstation/herbs/herb_root.png" id="3_6ufpv"]
+[ext_resource type="Texture2D" uid="uid://b5v0j6hxoytvt" path="res://assets/workstation/herbs/herb_bark.png" id="4_eofcd"]
+[ext_resource type="Texture2D" uid="uid://6is5ut4gkpua" path="res://assets/workstation/herbs/herb_lagundi.png" id="4_o22mv"]
+[ext_resource type="Texture2D" uid="uid://be6b1ajemxs41" path="res://assets/workstation/herbs/herb_sampaguita.png" id="5_yfqjs"]
+[ext_resource type="Texture2D" uid="uid://c5ctaxl2q6nsp" path="res://assets/workstation/herbs/herb_dugo.png" id="6_o22mv"]
+[ext_resource type="Texture2D" uid="uid://b3koxwi55a278" path="res://assets/workstation/herbs/herb_ginhawa.png" id="7_jnr8r"]
+
+[node name="MainLoop" type="Node2D"]
+
+[node name="Workstation" type="Node2D" parent="."]
+
+[node name="Lagundi" parent="Workstation" instance=ExtResource("1_naftw")]
+position = Vector2(157, 19)
+texture = ExtResource("4_o22mv")
+
+[node name="Root" parent="Workstation" instance=ExtResource("1_naftw")]
+position = Vector2(189, 19)
+texture = ExtResource("3_6ufpv")
+herb_name = "Root"
+
+[node name="Bark" parent="Workstation" instance=ExtResource("1_naftw")]
+position = Vector2(221, 19)
+texture = ExtResource("4_eofcd")
+herb_name = "Bark"
+
+[node name="Sampaguita" parent="Workstation" instance=ExtResource("1_naftw")]
+position = Vector2(157, 54)
+texture = ExtResource("5_yfqjs")
+herb_name = "Sampaguita"
+
+[node name="Dugo" parent="Workstation" instance=ExtResource("1_naftw")]
+position = Vector2(189, 54)
+texture = ExtResource("6_o22mv")
+herb_name = "Dugo"
+
+[node name="Ginhawa" parent="Workstation" instance=ExtResource("1_naftw")]
+position = Vector2(221, 54)
+texture = ExtResource("7_jnr8r")
+herb_name = "Ginhawa"
+
+[node name="GameBackground" type="Sprite2D" parent="."]
+z_index = -10
+position = Vector2(120.00001, 67.49999)
+scale = Vector2(1, 0.99999994)
+texture = ExtResource("1_l1b4v")
+
+[node name="Patient" type="Node2D" parent="."]
+z_index = -20
+z_as_relative = false
+script = ExtResource("2_naftw")
+
+[node name="NpcBackground" type="Sprite2D" parent="."]
+z_index = -30
+position = Vector2(32.5, 32.5)
+texture = ExtResource("2_xfve2")
