@@ -1,61 +1,165 @@
-[gd_scene load_steps=11 format=3 uid="uid://cvhtpwumormog"]
+[gd_scene load_steps=21 format=3 uid="uid://cvhtpwumormog"]
 
 [ext_resource type="Texture2D" uid="uid://cpv3v0018eft" path="res://assets/background/game_background.png" id="1_l1b4v"]
-[ext_resource type="PackedScene" uid="uid://ch06j3uikjcka" path="res://assets/workstation/herbs/herb.tscn" id="1_naftw"]
+[ext_resource type="PackedScene" uid="uid://ch06j3uikjcka" path="res://scenes/workstation/herb.tscn" id="1_naftw"]
+[ext_resource type="Script" uid="uid://dkt7ee5n3gh3e" path="res://scenes/main/main_loop.gd" id="1_olyg1"]
+[ext_resource type="Script" uid="uid://c4k3aoq7o81c5" path="res://scenes/main/pentagram.gd" id="1_pyi1g"]
 [ext_resource type="Script" uid="uid://br752qlu8numu" path="res://scenes/main/patient.gd" id="2_naftw"]
 [ext_resource type="Texture2D" uid="uid://cmssfptn6xb3j" path="res://assets/background/npc_background.png" id="2_xfve2"]
 [ext_resource type="Texture2D" uid="uid://4u30paakubgn" path="res://assets/workstation/herbs/herb_root.png" id="3_6ufpv"]
+[ext_resource type="Texture2D" uid="uid://bmpfbm8mjrmpm" path="res://assets/workstation/pentagram/pentagram_circle.png" id="3_o22mv"]
+[ext_resource type="Script" uid="uid://cnyg40f75353a" path="res://scenes/main/pentagram_confirm.gd" id="4_5xoao"]
 [ext_resource type="Texture2D" uid="uid://b5v0j6hxoytvt" path="res://assets/workstation/herbs/herb_bark.png" id="4_eofcd"]
 [ext_resource type="Texture2D" uid="uid://6is5ut4gkpua" path="res://assets/workstation/herbs/herb_lagundi.png" id="4_o22mv"]
 [ext_resource type="Texture2D" uid="uid://be6b1ajemxs41" path="res://assets/workstation/herbs/herb_sampaguita.png" id="5_yfqjs"]
 [ext_resource type="Texture2D" uid="uid://c5ctaxl2q6nsp" path="res://assets/workstation/herbs/herb_dugo.png" id="6_o22mv"]
 [ext_resource type="Texture2D" uid="uid://b3koxwi55a278" path="res://assets/workstation/herbs/herb_ginhawa.png" id="7_jnr8r"]
+[ext_resource type="PackedScene" uid="uid://pe35hcx4pegf" path="res://scenes/workstation/PentagramPoint.tscn" id="9_yfqjs"]
+[ext_resource type="Texture2D" uid="uid://dxl7f4c1kpv30" path="res://assets/workstation/pentagram/pentagram.png" id="11_eofcd"]
+[ext_resource type="Texture2D" uid="uid://pyguyoj7h22c" path="res://assets/workstation/pentagram/pentagram_confirm.png" id="14_jnr8r"]
+[ext_resource type="AudioStream" uid="uid://dpjqk0axsu3l1" path="res://assets/audio/bgm.mp3" id="15_m757o"]
+[ext_resource type="Script" uid="uid://drbuaqfxp67ke" path="res://scenes/main/patient_path_follow.gd" id="16_h6rqw"]
+
+[sub_resource type="Curve2D" id="Curve2D_5xoao"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -53, 35, -37.443314, 0, 37.443314, 0, -12, 48, 0, 0, 0, 0, 34, 35)
+}
+point_count = 3
 
 [node name="MainLoop" type="Node2D"]
+script = ExtResource("1_olyg1")
 
 [node name="Workstation" type="Node2D" parent="."]
 
-[node name="Lagundi" parent="Workstation" instance=ExtResource("1_naftw")]
+[node name="Pentagram" type="Node2D" parent="Workstation"]
+script = ExtResource("1_pyi1g")
+
+[node name="PentagramConfirm" type="TextureButton" parent="Workstation/Pentagram"]
+offset_left = 211.0
+offset_top = 79.0
+offset_right = 237.0
+offset_bottom = 91.0
+texture_normal = ExtResource("14_jnr8r")
+script = ExtResource("4_5xoao")
+
+[node name="PentagramSprite" type="Sprite2D" parent="Workstation/Pentagram"]
+position = Vector2(119, 77)
+texture = ExtResource("11_eofcd")
+centered = false
+
+[node name="PentagramPoint1" parent="Workstation/Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("9_yfqjs")]
+position = Vector2(145, 78)
+
+[node name="PentagramPoint2" parent="Workstation/Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("9_yfqjs")]
+position = Vector2(199, 78)
+
+[node name="PentagramPoint3" parent="Workstation/Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("9_yfqjs")]
+position = Vector2(214, 102)
+
+[node name="PentagramPoint4" parent="Workstation/Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("9_yfqjs")]
+position = Vector2(173, 121)
+
+[node name="PentagramPoint5" parent="Workstation/Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("9_yfqjs")]
+position = Vector2(130, 102)
+
+[node name="PentagramPoint6" parent="Workstation/Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("9_yfqjs")]
+position = Vector2(173, 96)
+
+[node name="PentagramCircle" type="Sprite2D" parent="Workstation/Pentagram"]
+position = Vector2(128, 74)
+texture = ExtResource("3_o22mv")
+centered = false
+
+[node name="Herbs" type="Node2D" parent="Workstation"]
+
+[node name="BackgroundHerbs" type="Node2D" parent="Workstation/Herbs"]
+
+[node name="HerbDugo" type="Sprite2D" parent="Workstation/Herbs/BackgroundHerbs"]
+position = Vector2(189, 54)
+texture = ExtResource("6_o22mv")
+
+[node name="HerbGinhawa" type="Sprite2D" parent="Workstation/Herbs/BackgroundHerbs"]
+position = Vector2(221, 54)
+texture = ExtResource("7_jnr8r")
+
+[node name="HerbLagundi" type="Sprite2D" parent="Workstation/Herbs/BackgroundHerbs"]
 position = Vector2(157, 19)
 texture = ExtResource("4_o22mv")
 
-[node name="Root" parent="Workstation" instance=ExtResource("1_naftw")]
+[node name="HerbSampaguita" type="Sprite2D" parent="Workstation/Herbs/BackgroundHerbs"]
+position = Vector2(157, 54)
+texture = ExtResource("5_yfqjs")
+
+[node name="HerbRoot" type="Sprite2D" parent="Workstation/Herbs/BackgroundHerbs"]
+position = Vector2(189, 19)
+texture = ExtResource("3_6ufpv")
+
+[node name="HerbBark" type="Sprite2D" parent="Workstation/Herbs/BackgroundHerbs"]
+position = Vector2(221, 19)
+texture = ExtResource("4_eofcd")
+
+[node name="Lagundi" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
+position = Vector2(157, 19)
+texture = ExtResource("4_o22mv")
+
+[node name="Root" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
 position = Vector2(189, 19)
 texture = ExtResource("3_6ufpv")
 herb_name = "Root"
 
-[node name="Bark" parent="Workstation" instance=ExtResource("1_naftw")]
+[node name="Bark" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
 position = Vector2(221, 19)
 texture = ExtResource("4_eofcd")
 herb_name = "Bark"
 
-[node name="Sampaguita" parent="Workstation" instance=ExtResource("1_naftw")]
+[node name="Sampaguita" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
 position = Vector2(157, 54)
 texture = ExtResource("5_yfqjs")
 herb_name = "Sampaguita"
 
-[node name="Dugo" parent="Workstation" instance=ExtResource("1_naftw")]
+[node name="Dugo" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
 position = Vector2(189, 54)
 texture = ExtResource("6_o22mv")
 herb_name = "Dugo"
 
-[node name="Ginhawa" parent="Workstation" instance=ExtResource("1_naftw")]
+[node name="Ginhawa" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
 position = Vector2(221, 54)
 texture = ExtResource("7_jnr8r")
 herb_name = "Ginhawa"
 
 [node name="GameBackground" type="Sprite2D" parent="."]
 z_index = -10
-position = Vector2(120.00001, 67.49999)
 scale = Vector2(1, 0.99999994)
 texture = ExtResource("1_l1b4v")
+centered = false
 
-[node name="Patient" type="Node2D" parent="."]
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(-1, 0)
+curve = SubResource("Curve2D_5xoao")
+
+[node name="PatientPathFollow" type="PathFollow2D" parent="Path2D"]
+position = Vector2(33.999996, 35)
+rotation = 1.5275819
+progress = 123.266785
+rotates = false
+loop = false
+script = ExtResource("16_h6rqw")
+
+[node name="Patient" type="Node2D" parent="Path2D/PatientPathFollow"]
 z_index = -20
 z_as_relative = false
+position = Vector2(-36.392956, 31.457157)
+rotation = -1.5275819
 script = ExtResource("2_naftw")
 
 [node name="NpcBackground" type="Sprite2D" parent="."]
 z_index = -30
-position = Vector2(32.5, 32.5)
+position = Vector2(1, 1)
 texture = ExtResource("2_xfve2")
+centered = false
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_m757o")
+autoplay = true
+
+[node name="Dialogue" type="Node2D" parent="."]

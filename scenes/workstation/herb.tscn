@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://ch06j3uikjcka"]
+
+[ext_resource type="Script" uid="uid://c2iopn0yibov1" path="res://scenes/workstation/herb.gd" id="2_1qhqr"]
+[ext_resource type="AudioStream" uid="uid://xi3heakh0nvo" path="res://assets/audio/click.ogg" id="2_158qe"]
+[ext_resource type="AudioStream" uid="uid://bs57c4h8gbo3x" path="res://assets/audio/click_2.ogg" id="3_br1t4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_emtpg"]
+size = Vector2(32, 32)
+
+[node name="Herb" type="Sprite2D"]
+script = ExtResource("2_1qhqr")
+
+[node name="ClickTarget" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickTarget"]
+shape = SubResource("RectangleShape2D_emtpg")
+
+[node name="sfx_click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_158qe")
+
+[node name="sfx_click_2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_br1t4")

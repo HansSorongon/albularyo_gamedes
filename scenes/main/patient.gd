@@ -29,10 +29,19 @@ func generate_random_npc() -> Node2D:
 		var sprite = Sprite2D.new()
 		sprite.name = layer_name
 		sprite.texture = get_random_texture_from_folder(base_folder + layers[layer_name])
+		sprite.modulate = Color.BLACK
 		
 		npc.add_child(sprite)
 		
 	return npc
+
+func fade_in_npc(duration: float = 1.0):
+	var tween = create_tween()
+	tween.set_parallel(true)
+	
+	for child in npc_instance.get_children():
+		if child is Sprite2D:
+			tween.tween_property(child, "modulate", Color.WHITE, duration).set_delay(2.0)
 
 func get_random_texture_from_folder(folder_path: String) -> Texture2D:
 
@@ -55,8 +64,22 @@ func get_random_texture_from_folder(folder_path: String) -> Texture2D:
 	
 	return load(folder_path + chosen_file)
 
-func _ready():
-	randomize()
+func spawn_npc():
+	if npc_instance and npc_instance.is_inside_tree():
+		npc_instance.queue_free()
 	
 	npc_instance = generate_random_npc()
 	add_child(npc_instance)
+	fade_in_npc(1)
+	
+	# reset path
+	get_parent().time = 0
+
+func _ready():
+	randomize()
+	
+	spawn_npc()
+	
+func _input(event):
+	if event.is_action_pressed("ui_accept"):
+		spawn_npc()  # spawn a new NPC on ui_accept

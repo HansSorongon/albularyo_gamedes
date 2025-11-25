@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://pe35hcx4pegf"]
+
+[ext_resource type="Script" uid="uid://bxfybfsnmfke6" path="res://scenes/workstation/pentagram_point.gd" id="1_cmy3l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l5x01"]
+size = Vector2(20, 10)
+
+[node name="PentagramPoint" type="Area2D"]
+script = ExtResource("1_cmy3l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["pentagram_drop_zone"]]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_l5x01")
