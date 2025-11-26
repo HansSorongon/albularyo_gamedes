@@ -26,47 +26,47 @@ stream = ExtResource("4_y8cto")
 
 [node name="Checkboxes" type="Node2D" parent="."]
 
-[node name="Checkbox" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+[node name="pale_skin" parent="Checkboxes" instance=ExtResource("5_fyc85")]
 position = Vector2(-70, -54)
 
-[node name="Checkbox2" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+[node name="pale_lips" parent="Checkboxes" instance=ExtResource("5_fyc85")]
 position = Vector2(-70, -43)
 
-[node name="Checkbox3" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+[node name="sweat" parent="Checkboxes" instance=ExtResource("5_fyc85")]
 position = Vector2(-70, -32)
 
-[node name="Checkbox4" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+[node name="fever" parent="Checkboxes" instance=ExtResource("5_fyc85")]
 position = Vector2(-70, -21)
 
-[node name="Checkbox5" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+[node name="sunken_eyes" parent="Checkboxes" instance=ExtResource("5_fyc85")]
 position = Vector2(-70, -10)
 
-[node name="Checkbox6" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+[node name="red_eyes" parent="Checkboxes" instance=ExtResource("5_fyc85")]
 position = Vector2(-70, 1)
 
-[node name="Checkbox7" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+[node name="runny_nose" parent="Checkboxes" instance=ExtResource("5_fyc85")]
 position = Vector2(-70, 12)
 
-[node name="Checkbox8" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+[node name="red_nose" parent="Checkboxes" instance=ExtResource("5_fyc85")]
 position = Vector2(-70, 23)
 
-[node name="Checkbox9" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+[node name="hollow_cheeks" parent="Checkboxes" instance=ExtResource("5_fyc85")]
 position = Vector2(-70, 34)
 
-[node name="Checkbox10" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+[node name="rashes" parent="Checkboxes" instance=ExtResource("5_fyc85")]
 position = Vector2(-70, 45)
 
-[node name="Checkbox11" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+[node name="wound" parent="Checkboxes" instance=ExtResource("5_fyc85")]
 position = Vector2(4, -54)
 
-[node name="Checkbox12" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+[node name="chest_pain" parent="Checkboxes" instance=ExtResource("5_fyc85")]
 position = Vector2(4, -43)
 
-[node name="Checkbox13" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+[node name="cough" parent="Checkboxes" instance=ExtResource("5_fyc85")]
 position = Vector2(4, -32)
 
-[node name="Checkbox14" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+[node name="sore_throat" parent="Checkboxes" instance=ExtResource("5_fyc85")]
 position = Vector2(4, -21)
 
-[node name="Checkbox15" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+[node name="headache" parent="Checkboxes" instance=ExtResource("5_fyc85")]
 position = Vector2(4, -10)

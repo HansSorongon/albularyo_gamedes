@@ -116,7 +116,7 @@ void fragment() {
 shader = SubResource("Shader_qryyp")
 shader_parameter/debug = false
 shader_parameter/pallet_size = 3
-shader_parameter/flame_height = 2.7800000000000002
+shader_parameter/flame_height = 2.78
 shader_parameter/flame_width = 2.26
 shader_parameter/flame_taper = 0.535
 shader_parameter/flame_flicker = 0.5

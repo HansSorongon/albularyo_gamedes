@@ -23,6 +23,10 @@ var occupied_names = {
 	"PentagramPoint6": null
 }
 
+var potencies: Dictionary = {}
+
+signal changed_potency()
+
 func _ready():
 	load_herb_mappings()
 	
@@ -35,6 +39,7 @@ func occupy_zone(zone: String, herb_sprite: Sprite2D, herb_name: String):
 	
 	occupied_zones[zone] = herb_sprite
 	occupied_names[zone] = herb_name
+	change_potency()
 	
 	var node = get_node(zone)
 	if node:
@@ -50,6 +55,7 @@ func remove_herb(zone):
 			herb_sprite.queue_free()
 		occupied_zones[zone] = null
 		occupied_names[zone] = null
+		change_potency()
 		
 		var node = get_node(NodePath(zone))
 		if node:
@@ -68,37 +74,37 @@ func load_herb_mappings():
 
 	herb_mappings = json.get_data()
 
-func _confirm_craft():
+func change_potency():
 	
-	var potencies: Dictionary = {}
+	potencies.clear()
+	
+	var catalyst = occupied_names["PentagramPoint6"]
+	
+	if catalyst:
+		for symptom in herb_mappings["herbs"][catalyst]["symptoms"]:
+			#if herb_mappings["herbs"][catalyst]["symptoms"][symptom]["type"] == "Primary":
+			potencies[symptom] = potencies.get(symptom, 0) + herb_mappings["herbs"][catalyst]["symptoms"][symptom]["soloValue"]
+			
+		for point in occupied_names.keys():
+			if point == "PentagramPoint6":
+				continue
+				
+			var current_herb = occupied_names[point]
+
+			if current_herb:
+				
+				if current_herb == catalyst:
+					continue
+				
+				for symptom in herb_mappings["herbs"][current_herb]["symptoms"]:
+					if herb_mappings["herbs"][current_herb]["symptoms"][symptom]["type"] == "Secondary":
+						#print(herb_mappings["herbs"][current_herb]["symptoms"][symptom])q
+						potencies[symptom] = potencies.get(symptom, 0) + herb_mappings["herbs"][current_herb]["symptoms"][symptom]["interactions"][catalyst]
+		
+	changed_potency.emit()
+
+func _confirm_craft():
 	
 	if not occupied_zones["PentagramPoint6"]:
 		MessageManager.show_message("No catalyst selected!")
 		return
-	
-	var catalyst = occupied_names["PentagramPoint6"]
-	
-	#print(herb_mappings["herbs"][catalyst])
-	
-	for symptom in herb_mappings["herbs"][catalyst]["symptoms"]:
-		#if herb_mappings["herbs"][catalyst]["symptoms"][symptom]["type"] == "Primary":
-		potencies[symptom] = potencies.get(symptom, 0) + herb_mappings["herbs"][catalyst]["symptoms"][symptom]["soloValue"]
-		
-	for point in occupied_names.keys():
-		if point == "PentagramPoint6":
-			continue
-			
-		var current_herb = occupied_names[point]
-
-		if current_herb:
-			
-			if current_herb == catalyst:
-				continue
-			
-			for symptom in herb_mappings["herbs"][current_herb]["symptoms"]:
-				if herb_mappings["herbs"][current_herb]["symptoms"][symptom]["type"] == "Secondary":
-					#print(herb_mappings["herbs"][current_herb]["symptoms"][symptom])q
-					potencies[symptom] = potencies.get(symptom, 0) + herb_mappings["herbs"][current_herb]["symptoms"][symptom]["interactions"][catalyst]
-	
-	print(potencies)
-	#print(herb_mappings["herbs"][catalyst]["symptoms"])
