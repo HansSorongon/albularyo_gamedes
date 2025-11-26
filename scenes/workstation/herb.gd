@@ -47,14 +47,20 @@ func _check_drop_target():
 		if area.is_in_group("pentagram_drop_zone"):
 			
 			var zone = area.name
+			
 			if pentagram.is_zone_occupied(zone):
 				continue
-			
+				
+			# make sure there is a catalyst first
+			if not pentagram.occupied_zones["PentagramPoint6"] and not zone == "PentagramPoint6":
+				continue
+				
 			var new_herb = Sprite2D.new()
 			new_herb.texture = texture
 			new_herb.position = area.global_position
+			new_herb.z_index = 0
 			get_parent().add_child(new_herb)
-			pentagram.occupy_zone(zone, new_herb)
+			pentagram.occupy_zone(zone, new_herb, herb_name)
 			
 			break
 			

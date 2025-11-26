@@ -61,9 +61,9 @@ var npc_instance: Node2D = null
 func generate_symptoms():
 	symptoms.clear()
 	
-	# 3-5 symptoms
-	var num_symptoms = randi() % 3 + 3
-	
+	# 2-3 symptoms
+	var num_symptoms = randi() % 2 + 2
+		
 	var pool = possible_symptoms.duplicate()
 	pool.shuffle()
 	

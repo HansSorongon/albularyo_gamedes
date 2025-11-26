@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cvhtpwumormog"]
+[gd_scene load_steps=29 format=3 uid="uid://cvhtpwumormog"]
 
 [ext_resource type="Texture2D" uid="uid://cpv3v0018eft" path="res://assets/background/game_background.png" id="1_l1b4v"]
 [ext_resource type="PackedScene" uid="uid://ch06j3uikjcka" path="res://scenes/workstation/herb.tscn" id="1_naftw"]
@@ -15,11 +15,40 @@
 [ext_resource type="Texture2D" uid="uid://b3koxwi55a278" path="res://assets/workstation/herbs/herb_ginhawa.png" id="7_jnr8r"]
 [ext_resource type="PackedScene" uid="uid://pe35hcx4pegf" path="res://scenes/workstation/PentagramPoint.tscn" id="9_yfqjs"]
 [ext_resource type="Texture2D" uid="uid://dxl7f4c1kpv30" path="res://assets/workstation/pentagram/pentagram.png" id="11_eofcd"]
+[ext_resource type="AudioStream" uid="uid://bl4rpeyyyted6" path="res://assets/audio/click_remove.ogg" id="13_wh6i2"]
 [ext_resource type="Texture2D" uid="uid://pyguyoj7h22c" path="res://assets/workstation/pentagram/pentagram_confirm.png" id="14_jnr8r"]
 [ext_resource type="AudioStream" uid="uid://dpjqk0axsu3l1" path="res://assets/audio/bgm.mp3" id="15_m757o"]
 [ext_resource type="Shader" uid="uid://87k5bptnb1d8" path="res://scenes/main/night_shader.gdshader" id="18_isaxb"]
 [ext_resource type="PackedScene" uid="uid://c3f5eobhumfge" path="res://scenes/main/checklist_toggle.tscn" id="19_h6rqw"]
 [ext_resource type="Texture2D" uid="uid://1nxi17npukpj" path="res://assets/workstation/candle.png" id="20_isaxb"]
+[ext_resource type="Texture2D" uid="uid://chw76k6sft5nm" path="res://assets/workstation/bowl.png" id="20_r5fat"]
+[ext_resource type="Shader" uid="uid://bmnooa5ldqv2m" path="res://scenes/main/flame.gdshader" id="21_22fp7"]
+[ext_resource type="Texture2D" uid="uid://wjlyw6tyblxi" path="res://assets/workstation/tawas.png" id="21_wh6i2"]
+[ext_resource type="Texture2D" uid="uid://cp1pcuo3v2c4b" path="res://assets/workstation/flame.png" id="22_1v0k2"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_22fp7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r5fat"]
+shader = ExtResource("21_22fp7")
+shader_parameter/debug = false
+shader_parameter/pallet_size = 3
+shader_parameter/flame_height = 2.7800000000000002
+shader_parameter/flame_width = 2.04
+shader_parameter/flame_taper = 0.535
+shader_parameter/flame_flicker = 0.5
+shader_parameter/step_frequency = 8.0
+shader_parameter/scroll_speed = 0.3
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_22fp7")
+shader_parameter/flame_0 = Color(0.96862745, 0.8901961, 0.5764706, 1)
+shader_parameter/flame_1 = Color(1, 0.9019608, 0.3764706, 1)
+shader_parameter/flame_2 = Color(1, 0.9019608, 0.3764706, 1)
+shader_parameter/flame_3 = Color(0, 0, 0, 0.8)
+shader_parameter/flame_4 = Color(0, 0, 0, 0.3019608)
+shader_parameter/thresh_f0 = 0.05
+shader_parameter/thresh_f1 = 0.15
+shader_parameter/thresh_f2 = 0.3
+shader_parameter/thresh_f3 = 0.5
+shader_parameter/thresh_f4 = 0.7
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eexwu"]
 shader = ExtResource("18_isaxb")
@@ -29,6 +58,25 @@ shader_parameter/night_tint = Color(0, 0.10266678, 0.44, 1)
 
 [node name="MainLoop" type="Node2D"]
 script = ExtResource("1_olyg1")
+
+[node name="Bowl" type="Sprite2D" parent="."]
+position = Vector2(107, 61)
+texture = ExtResource("20_r5fat")
+
+[node name="Tawas" type="Sprite2D" parent="Bowl"]
+position = Vector2(-1, -12)
+texture = ExtResource("21_wh6i2")
+
+[node name="Candle" type="Sprite2D" parent="."]
+position = Vector2(105, 63)
+texture = ExtResource("20_isaxb")
+centered = false
+
+[node name="Flame2" type="Sprite2D" parent="Candle"]
+material = SubResource("ShaderMaterial_r5fat")
+position = Vector2(7, -2)
+texture = ExtResource("22_1v0k2")
+centered = false
 
 [node name="Workstation" type="Node2D" parent="."]
 
@@ -71,6 +119,9 @@ position = Vector2(128, 74)
 texture = ExtResource("3_o22mv")
 centered = false
 
+[node name="SfxRemove" type="AudioStreamPlayer" parent="Workstation/Pentagram"]
+stream = ExtResource("13_wh6i2")
+
 [node name="Herbs" type="Node2D" parent="Workstation"]
 
 [node name="BackgroundHerbs" type="Node2D" parent="Workstation/Herbs"]
@@ -100,30 +151,36 @@ position = Vector2(221, 19)
 texture = ExtResource("4_eofcd")
 
 [node name="Lagundi" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
+z_index = 10
 position = Vector2(157, 19)
 texture = ExtResource("4_o22mv")
 
 [node name="Root" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
+z_index = 10
 position = Vector2(189, 19)
 texture = ExtResource("3_6ufpv")
 herb_name = "Root"
 
 [node name="Bark" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
+z_index = 10
 position = Vector2(221, 19)
 texture = ExtResource("4_eofcd")
 herb_name = "Bark"
 
 [node name="Sampaguita" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
+z_index = 10
 position = Vector2(157, 54)
 texture = ExtResource("5_yfqjs")
 herb_name = "Sampaguita"
 
 [node name="Dugo" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
+z_index = 10
 position = Vector2(189, 54)
 texture = ExtResource("6_o22mv")
 herb_name = "Dugo"
 
 [node name="Ginhawa" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
+z_index = 10
 position = Vector2(221, 54)
 texture = ExtResource("7_jnr8r")
 herb_name = "Ginhawa"
@@ -149,10 +206,3 @@ autoplay = true
 
 [node name="ChecklistControl" parent="." instance=ExtResource("19_h6rqw")]
 position = Vector2(284, 190)
-
-[node name="Candle" type="Sprite2D" parent="."]
-position = Vector2(105, 63)
-texture = ExtResource("20_isaxb")
-centered = false
-
-[node name="Flame" type="Sprite2D" parent="Candle"]

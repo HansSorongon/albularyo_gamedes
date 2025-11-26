@@ -11,7 +11,12 @@ func _ready():
 	connect("mouse_exited", Callable(self, "_on_mouse_exited"))
 
 func _button_pressed():
-	print("Confirmed.")
+	
+	var pentagram = get_parent()
+	
+	if not pentagram.occupied_zones["PentagramPoint6"]:
+		print("No catalyst!")
+	
 	confirm_pressed.emit()
 
 func _on_mouse_entered():
