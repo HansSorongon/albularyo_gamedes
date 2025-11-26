@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dehe2b5pyoyl3"]
+
+[ext_resource type="Script" uid="uid://cgpq1nqsuqhud" path="res://scenes/main/patient_path.gd" id="1_0w0f1"]
+[ext_resource type="Script" uid="uid://drbuaqfxp67ke" path="res://scenes/main/patient_path_follow.gd" id="1_vypb8"]
+[ext_resource type="Script" uid="uid://br752qlu8numu" path="res://scenes/main/patient.gd" id="2_0w0f1"]
+
+[sub_resource type="Curve2D" id="Curve2D_5xoao"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -53, 35, -37.443314, 0, 37.443314, 0, -12, 48, 0, 0, 0, 0, 34, 35)
+}
+point_count = 3
+
+[node name="PatientPath" type="Path2D"]
+curve = SubResource("Curve2D_5xoao")
+script = ExtResource("1_0w0f1")
+
+[node name="PatientPathFollow" type="PathFollow2D" parent="."]
+position = Vector2(33.999996, 35)
+rotation = 1.5275819
+progress = 123.266785
+rotates = false
+loop = false
+script = ExtResource("1_vypb8")
+
+[node name="Patient" type="Node2D" parent="PatientPathFollow"]
+z_index = -20
+z_as_relative = false
+position = Vector2(-36.392956, 31.457157)
+rotation = -1.5275819
+script = ExtResource("2_0w0f1")

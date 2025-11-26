@@ -12,6 +12,7 @@ var original_position: Vector2
 var original_scale: Vector2
 
 func _ready():
+	
 	original_position = position
 	original_scale = $ClickTarget/CollisionShape2D.scale
 	

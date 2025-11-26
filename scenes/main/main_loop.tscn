@@ -1,10 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://cvhtpwumormog"]
+[gd_scene load_steps=22 format=3 uid="uid://cvhtpwumormog"]
 
 [ext_resource type="Texture2D" uid="uid://cpv3v0018eft" path="res://assets/background/game_background.png" id="1_l1b4v"]
 [ext_resource type="PackedScene" uid="uid://ch06j3uikjcka" path="res://scenes/workstation/herb.tscn" id="1_naftw"]
 [ext_resource type="Script" uid="uid://dkt7ee5n3gh3e" path="res://scenes/main/main_loop.gd" id="1_olyg1"]
 [ext_resource type="Script" uid="uid://c4k3aoq7o81c5" path="res://scenes/main/pentagram.gd" id="1_pyi1g"]
-[ext_resource type="Script" uid="uid://br752qlu8numu" path="res://scenes/main/patient.gd" id="2_naftw"]
 [ext_resource type="Texture2D" uid="uid://cmssfptn6xb3j" path="res://assets/background/npc_background.png" id="2_xfve2"]
 [ext_resource type="Texture2D" uid="uid://4u30paakubgn" path="res://assets/workstation/herbs/herb_root.png" id="3_6ufpv"]
 [ext_resource type="Texture2D" uid="uid://bmpfbm8mjrmpm" path="res://assets/workstation/pentagram/pentagram_circle.png" id="3_o22mv"]
@@ -18,13 +17,15 @@
 [ext_resource type="Texture2D" uid="uid://dxl7f4c1kpv30" path="res://assets/workstation/pentagram/pentagram.png" id="11_eofcd"]
 [ext_resource type="Texture2D" uid="uid://pyguyoj7h22c" path="res://assets/workstation/pentagram/pentagram_confirm.png" id="14_jnr8r"]
 [ext_resource type="AudioStream" uid="uid://dpjqk0axsu3l1" path="res://assets/audio/bgm.mp3" id="15_m757o"]
-[ext_resource type="Script" uid="uid://drbuaqfxp67ke" path="res://scenes/main/patient_path_follow.gd" id="16_h6rqw"]
+[ext_resource type="Shader" uid="uid://87k5bptnb1d8" path="res://scenes/main/night_shader.gdshader" id="18_isaxb"]
+[ext_resource type="PackedScene" uid="uid://c3f5eobhumfge" path="res://scenes/main/checklist_toggle.tscn" id="19_h6rqw"]
+[ext_resource type="Texture2D" uid="uid://1nxi17npukpj" path="res://assets/workstation/candle.png" id="20_isaxb"]
 
-[sub_resource type="Curve2D" id="Curve2D_5xoao"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -53, 35, -37.443314, 0, 37.443314, 0, -12, 48, 0, 0, 0, 0, 34, 35)
-}
-point_count = 3
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eexwu"]
+shader = ExtResource("18_isaxb")
+shader_parameter/progress = 0.0
+shader_parameter/day_tint = Color(1, 1, 1, 1)
+shader_parameter/night_tint = Color(0, 0.10266678, 0.44, 1)
 
 [node name="MainLoop" type="Node2D"]
 script = ExtResource("1_olyg1")
@@ -133,27 +134,9 @@ scale = Vector2(1, 0.99999994)
 texture = ExtResource("1_l1b4v")
 centered = false
 
-[node name="Path2D" type="Path2D" parent="."]
-position = Vector2(-1, 0)
-curve = SubResource("Curve2D_5xoao")
-
-[node name="PatientPathFollow" type="PathFollow2D" parent="Path2D"]
-position = Vector2(33.999996, 35)
-rotation = 1.5275819
-progress = 123.266785
-rotates = false
-loop = false
-script = ExtResource("16_h6rqw")
-
-[node name="Patient" type="Node2D" parent="Path2D/PatientPathFollow"]
-z_index = -20
-z_as_relative = false
-position = Vector2(-36.392956, 31.457157)
-rotation = -1.5275819
-script = ExtResource("2_naftw")
-
 [node name="NpcBackground" type="Sprite2D" parent="."]
 z_index = -30
+material = SubResource("ShaderMaterial_eexwu")
 position = Vector2(1, 1)
 texture = ExtResource("2_xfve2")
 centered = false
@@ -163,3 +146,13 @@ stream = ExtResource("15_m757o")
 autoplay = true
 
 [node name="Dialogue" type="Node2D" parent="."]
+
+[node name="ChecklistControl" parent="." instance=ExtResource("19_h6rqw")]
+position = Vector2(284, 190)
+
+[node name="Candle" type="Sprite2D" parent="."]
+position = Vector2(105, 63)
+texture = ExtResource("20_isaxb")
+centered = false
+
+[node name="Flame" type="Sprite2D" parent="Candle"]

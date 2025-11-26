@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://bk4fuuu580wia"]
+
+[ext_resource type="Script" uid="uid://dvrsbj1oqgck0" path="res://scenes/dialogue/dialogue_box.gd" id="1_6uen5"]
+[ext_resource type="Texture2D" uid="uid://bwbpoyjarr14o" path="res://assets/ui/dialogue/dialog.png" id="2_eprfq"]
+[ext_resource type="FontFile" uid="uid://b5bptjjfvw3i2" path="res://assets/ui/dialogue/tiny5.ttf" id="3_gm23c"]
+[ext_resource type="AudioStream" uid="uid://c527smwm4oxpx" path="res://assets/audio/bleep008.ogg" id="4_gm23c"]
+
+[node name="DialogueBox" type="MarginContainer"]
+script = ExtResource("1_6uen5")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_eprfq")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_gm23c")
+theme_override_font_sizes/font_size = 8
+
+[node name="LetterDisplayTimer" type="Timer" parent="."]
+
+[node name="sfx_dialogue" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_gm23c")
+volume_db = 10.0
+
+[connection signal="timeout" from="LetterDisplayTimer" to="." method="_on_letter_display_timer_timeout"]

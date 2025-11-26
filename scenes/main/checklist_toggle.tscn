@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://c3f5eobhumfge"]
+
+[ext_resource type="Texture2D" uid="uid://cc0t02i6a611g" path="res://assets/ui/checklist.png" id="1_276pp"]
+[ext_resource type="Script" uid="uid://cx6eif4ur4uoa" path="res://scenes/main/checklist_toggle.gd" id="2_276pp"]
+[ext_resource type="AudioStream" uid="uid://bv44d7bjcalhe" path="res://assets/audio/checklist_flip.ogg" id="3_7fces"]
+[ext_resource type="AudioStream" uid="uid://b2ph5pk8mrpji" path="res://assets/audio/checklist_flip_down.ogg" id="4_y8cto"]
+[ext_resource type="PackedScene" uid="uid://g16om7yqrxwd" path="res://scenes/main/checkbox.tscn" id="5_fyc85"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y8cto"]
+size = Vector2(156, 134)
+
+[node name="ChecklistControl" type="Sprite2D"]
+texture = ExtResource("1_276pp")
+script = ExtResource("2_276pp")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_y8cto")
+
+[node name="SfxOpen" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_7fces")
+
+[node name="SfxClose" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_y8cto")
+
+[node name="Checkboxes" type="Node2D" parent="."]
+
+[node name="Checkbox" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+position = Vector2(-70, -54)
+
+[node name="Checkbox2" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+position = Vector2(-70, -43)
+
+[node name="Checkbox3" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+position = Vector2(-70, -32)
+
+[node name="Checkbox4" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+position = Vector2(-70, -21)
+
+[node name="Checkbox5" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+position = Vector2(-70, -10)
+
+[node name="Checkbox6" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+position = Vector2(-70, 1)
+
+[node name="Checkbox7" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+position = Vector2(-70, 12)
+
+[node name="Checkbox8" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+position = Vector2(-70, 23)
+
+[node name="Checkbox9" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+position = Vector2(-70, 34)
+
+[node name="Checkbox10" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+position = Vector2(-70, 45)
+
+[node name="Checkbox11" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+position = Vector2(4, -54)
+
+[node name="Checkbox12" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+position = Vector2(4, -43)
+
+[node name="Checkbox13" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+position = Vector2(4, -32)
+
+[node name="Checkbox14" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+position = Vector2(4, -21)
+
+[node name="Checkbox15" parent="Checkboxes" instance=ExtResource("5_fyc85")]
+position = Vector2(4, -10)

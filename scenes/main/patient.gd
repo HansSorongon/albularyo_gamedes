@@ -1,5 +1,46 @@
 extends Node2D
 
+var dialogue_symptoms: Dictionary = {
+	"chest_pain": ["My chest feels tight.", "It hurts when I breathe deeply.", "I feel heaviness on my chest."],
+	"cough": ["My cough keeps coming back.", "My cough gets worse at night.", "I've been coughing for a month now."],
+	"sore_throat": ["It's painful when I swallow.", "My throat is hoarse.", "It's hard to speak."],
+	"headache": ["My head hurts when I wake up.", "My head is throbbing.", "It feels like the world is spinning."]
+}
+
+var possible_symptoms: Array[String] = [
+	"pale_skin",
+	"pale_lips",
+	"sweat",
+	"fever",
+	"sunken_eyes",
+	"red_eyes",
+	"runny_nose",
+	"red_nose",
+	"hollow_cheeks",
+	"rashes",
+	"wound",
+	"chest_pain",
+	"cough",
+	"sore_throat",
+	"headache"
+]
+
+var visual_symptoms: Array[String] = [
+	"pale_lips",
+	"sweat",
+	"fever",
+	"sunken_eyes",
+	"red_eyes",
+	"runny_nose",
+	"red_nose",
+	"hollow_cheeks",
+	"rashes",
+	"wound",
+]
+
+var symptoms: Array[String] = []
+var patient_dialogue: Array[String] = ["Magandang araw, Albularyo."]
+
 var layers = {
 	"HairBack": "hair_back/",
 	"BaseFace": "base_face/",
@@ -11,11 +52,23 @@ var layers = {
 }
 
 var gender_folders = {
-	"Male": "res://assets/npc/npc_m/",
-	"Female": "res://assets/npc/npc_f/"
+	"M": "res://assets/npc/npc_m/",
+	"F": "res://assets/npc/npc_f/"
 }
 
 var npc_instance: Node2D = null
+
+func generate_symptoms():
+	symptoms.clear()
+	
+	# 3-5 symptoms
+	var num_symptoms = randi() % 3 + 3
+	
+	var pool = possible_symptoms.duplicate()
+	pool.shuffle()
+	
+	for i in range(num_symptoms):
+		symptoms.append(pool[i])
 
 func generate_random_npc() -> Node2D:
 	var npc = Node2D.new()
@@ -26,13 +79,41 @@ func generate_random_npc() -> Node2D:
 	var base_folder = gender_folders[random_gender]
 	
 	for layer_name in layers.keys():
+		
+		var path = base_folder + layers[layer_name]
+		
+		if symptoms.has("pale_skin") and layer_name == "BaseFace":
+			path += "sprite_" + random_gender + "_paleskin/"
+		
 		var sprite = Sprite2D.new()
 		sprite.name = layer_name
-		sprite.texture = get_random_texture_from_folder(base_folder + layers[layer_name])
+		sprite.texture = get_random_texture_from_folder(path)
 		sprite.modulate = Color.BLACK
 		
 		npc.add_child(sprite)
 		
+	for symptom in symptoms:
+		if visual_symptoms.has(symptom):
+			var symptom_name = symptom
+			if (symptom == "wound"):
+				symptom_name += "_" + str(randi() % 2 + 1)
+			
+			var path = base_folder + "visual_symptoms/" + symptom_name + ".png"
+
+			var sprite = Sprite2D.new()
+			sprite.name = symptom
+			sprite.texture = load(path)
+			sprite.modulate = Color.BLACK
+			
+			if symptom_name == "fever" or true:
+				var base_face = npc.get_node("BaseFace")
+				base_face.add_sibling(sprite)
+			else:
+				npc.add_child(sprite)
+		
+		if dialogue_symptoms.has(symptom):
+			patient_dialogue.append(dialogue_symptoms[symptom][randi() % dialogue_symptoms[symptom].size()])
+			
 	return npc
 
 func fade_in_npc(duration: float = 1.0):
@@ -65,6 +146,9 @@ func get_random_texture_from_folder(folder_path: String) -> Texture2D:
 	return load(folder_path + chosen_file)
 
 func spawn_npc():
+	
+	generate_symptoms()
+	
 	if npc_instance and npc_instance.is_inside_tree():
 		npc_instance.queue_free()
 	
@@ -72,14 +156,12 @@ func spawn_npc():
 	add_child(npc_instance)
 	fade_in_npc(1)
 	
+	if not DialogueManager.is_dialog_active:
+		DialogueManager.start_dialog(patient_dialogue)
+	
 	# reset path
 	get_parent().time = 0
 
 func _ready():
 	randomize()
-	
 	spawn_npc()
-	
-func _input(event):
-	if event.is_action_pressed("ui_accept"):
-		spawn_npc()  # spawn a new NPC on ui_accept
