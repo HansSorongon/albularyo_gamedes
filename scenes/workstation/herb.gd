@@ -52,8 +52,8 @@ func _check_drop_target():
 				continue
 				
 			# make sure there is a catalyst first
-			if not pentagram.occupied_zones["PentagramPoint6"] and not zone == "PentagramPoint6":
-				continue
+			#if not pentagram.occupied_zones["PentagramPoint6"] and not zone == "PentagramPoint6":
+				#continue
 				
 			var new_herb = Sprite2D.new()
 			new_herb.texture = texture

@@ -1,0 +1,281 @@
+[gd_scene load_steps=12 format=3 uid="uid://cfxd1fnbvxnxb"]
+
+[ext_resource type="Script" uid="uid://bqay1d7jl085p" path="res://scenes/main/red_candles.gd" id="1_svxdf"]
+[ext_resource type="Texture2D" uid="uid://c71ituvyw8ljv" path="res://assets/workstation/red_candle.png" id="2_324gd"]
+[ext_resource type="Texture2D" uid="uid://cp1pcuo3v2c4b" path="res://assets/workstation/flame.png" id="3_701og"]
+[ext_resource type="Texture2D" uid="uid://bkf2lrw4hnkxk" path="res://assets/workstation/flame_base.png" id="4_6vrae"]
+
+[sub_resource type="Shader" id="Shader_qryyp"]
+code = "shader_type canvas_item;
+// Debug mode to see the raw flame shape
+uniform bool debug = false;
+// Number of color bands in the flame (3-4 recommended for pixel art)
+uniform int pallet_size = 4;
+// Flame shape controls
+uniform float flame_height = 1.0; // How tall the flame is
+uniform float flame_width = 0.7; // How wide the flame is (increased for more body)
+uniform float flame_taper = 1.2; // How much it tapers at top (lower = more body)
+uniform float flame_flicker = 0.2; // How much the flame flickers
+uniform float step_frequency = 8.0; // How \"choppy\" the animation is (higher = more steps)
+uniform float scroll_speed = 0.1; // How fast it actually moves
+// Noise texture for flame animation (use low-res noise for pixel art)
+uniform sampler2D noise_tex: filter_nearest, repeat_enable;
+// Flame colors (from hottest/center to coolest/outer) - pixel art palette
+uniform vec4 flame_0: source_color = vec4(1.0, 1.0, 0.8, 1.0); // Bright yellow core
+uniform vec4 flame_1: source_color = vec4(1.0, 0.7, 0.2, 1.0); // Orange
+uniform vec4 flame_2: source_color = vec4(0.9, 0.3, 0.1, 1.0); // Red-orange
+uniform vec4 flame_3: source_color = vec4(0.6, 0.2, 0.1, 0.8); // Dark red edge
+uniform vec4 flame_4: source_color = vec4(0.4, 0.1, 0.0, 0.3); // Very dark edge
+// Brightness thresholds for each color band (tuned for 16x16)
+uniform float thresh_f0 = 0.05;
+uniform float thresh_f1 = 0.15;
+uniform float thresh_f2 = 0.3;
+uniform float thresh_f3 = 0.5;
+uniform float thresh_f4 = 0.7;
+void fragment() {
+	// Snap to pixel grid for crisp pixel art
+	vec2 pixel_uv = floor(UV / TEXTURE_PIXEL_SIZE) * TEXTURE_PIXEL_SIZE;
+	// Center the UV coordinates
+	vec2 uv = pixel_uv;
+	uv.x = (uv.x - 0.5) * 2.0; // Range from -1 to 1
+	uv.y = 1.0 - uv.y; // Flip Y so flame goes upward
+	// Create small candle flame shape (optimized for 16x16)
+	// Classic candle flame: rounded bottom, pointed top
+	// Vertical gradient: strong at bottom (y=0), weak at top (y=1)
+	float vertical_strength = 1.0 - uv.y; // Bottom (0) = 1.0, Top (1) = 0.0
+	vertical_strength = pow(vertical_strength, 1.0 / flame_height); // Control height
+	// Taper the width as we go up (uv.y increases going up)
+	float width_at_height = mix(flame_width, flame_width * 0.15, pow(uv.y, flame_taper));
+	float horizontal_falloff = 1.0 - (abs(uv.x) / width_at_height);
+	horizontal_falloff = max(0.0, horizontal_falloff);
+	// Combine for final shape
+	float base_flame = vertical_strength * horizontal_falloff * 1.5;
+	// Add pixel-stepped animation for flickering
+	float time_step = floor(TIME * step_frequency) / step_frequency;
+	vec2 noise_uv = vec2(pixel_uv.x * 0.5, pixel_uv.y * 0.8 + time_step * scroll_speed);
+	vec4 noise_color = texture(noise_tex, noise_uv);
+	float noise_val = (noise_color.r + noise_color.g + noise_color.b) / 3.0;
+	// Apply noise to create flickering effect
+	float flicker = (noise_val - 0.5) * flame_flicker;
+	base_flame += flicker;
+	// Add secondary noise for detail
+	vec2 detail_uv = vec2(pixel_uv.x * 2.0, pixel_uv.y * 1.5 + time_step * scroll_speed * 1.5);
+	vec4 detail_noise = texture(noise_tex, detail_uv);
+	float detail_val = (detail_noise.r + detail_noise.g + detail_noise.b) / 3.0;
+	base_flame += (detail_val - 0.5) * 0.08;
+	// Clamp the result
+	float map_lum = clamp(base_flame, 0.0, 1.0);
+	// Apply color bands based on luminance thresholds (inverted logic - higher values = hotter)
+	if (map_lum > thresh_f4 && pallet_size >= 1) {
+		COLOR = flame_0;
+	} else if (map_lum > thresh_f3 && pallet_size >= 2) {
+		COLOR = flame_1;
+	} else if (map_lum > thresh_f2 && pallet_size >= 3) {
+		COLOR = flame_2;
+	} else if (map_lum > thresh_f1 && pallet_size >= 4) {
+		COLOR = flame_3;
+	} else if (map_lum > thresh_f0 && pallet_size >= 5) {
+		COLOR = flame_4;
+	} else {
+		COLOR = vec4(0.0, 0.0, 0.0, 0.0); // Transparent background
+	}
+	// Debug mode shows the raw luminance map
+	if (debug) {
+		COLOR = vec4(vec3(map_lum), 1.0);
+	}
+}"
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_22fp7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ynl2v"]
+shader = SubResource("Shader_qryyp")
+shader_parameter/debug = false
+shader_parameter/pallet_size = 3
+shader_parameter/flame_height = 2.78
+shader_parameter/flame_width = 2.26
+shader_parameter/flame_taper = 0.535
+shader_parameter/flame_flicker = 0.5
+shader_parameter/step_frequency = 8.0
+shader_parameter/scroll_speed = 0.3
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_22fp7")
+shader_parameter/flame_0 = Color(0.96862745, 0.8901961, 0.5764706, 1)
+shader_parameter/flame_1 = Color(1, 0.9019608, 0.3764706, 1)
+shader_parameter/flame_2 = Color(1, 0.9019608, 0.3764706, 1)
+shader_parameter/flame_3 = Color(0, 0, 0, 0.8)
+shader_parameter/flame_4 = Color(0, 0, 0, 0.3019608)
+shader_parameter/thresh_f0 = 0.05
+shader_parameter/thresh_f1 = 0.15
+shader_parameter/thresh_f2 = 0.3
+shader_parameter/thresh_f3 = 0.5
+shader_parameter/thresh_f4 = 0.7
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kgr6p"]
+shader = SubResource("Shader_qryyp")
+shader_parameter/debug = false
+shader_parameter/pallet_size = 3
+shader_parameter/flame_height = 2.78
+shader_parameter/flame_width = 2.26
+shader_parameter/flame_taper = 0.535
+shader_parameter/flame_flicker = 0.5
+shader_parameter/step_frequency = 8.0
+shader_parameter/scroll_speed = 0.3
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_22fp7")
+shader_parameter/flame_0 = Color(0.96862745, 0.8901961, 0.5764706, 1)
+shader_parameter/flame_1 = Color(1, 0.9019608, 0.3764706, 1)
+shader_parameter/flame_2 = Color(1, 0.9019608, 0.3764706, 1)
+shader_parameter/flame_3 = Color(0, 0, 0, 0.8)
+shader_parameter/flame_4 = Color(0, 0, 0, 0.3019608)
+shader_parameter/thresh_f0 = 0.05
+shader_parameter/thresh_f1 = 0.15
+shader_parameter/thresh_f2 = 0.3
+shader_parameter/thresh_f3 = 0.5
+shader_parameter/thresh_f4 = 0.7
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_umiu5"]
+shader = SubResource("Shader_qryyp")
+shader_parameter/debug = false
+shader_parameter/pallet_size = 3
+shader_parameter/flame_height = 2.78
+shader_parameter/flame_width = 2.26
+shader_parameter/flame_taper = 0.535
+shader_parameter/flame_flicker = 0.5
+shader_parameter/step_frequency = 8.0
+shader_parameter/scroll_speed = 0.3
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_22fp7")
+shader_parameter/flame_0 = Color(0.96862745, 0.8901961, 0.5764706, 1)
+shader_parameter/flame_1 = Color(1, 0.9019608, 0.3764706, 1)
+shader_parameter/flame_2 = Color(1, 0.9019608, 0.3764706, 1)
+shader_parameter/flame_3 = Color(0, 0, 0, 0.8)
+shader_parameter/flame_4 = Color(0, 0, 0, 0.3019608)
+shader_parameter/thresh_f0 = 0.05
+shader_parameter/thresh_f1 = 0.15
+shader_parameter/thresh_f2 = 0.3
+shader_parameter/thresh_f3 = 0.5
+shader_parameter/thresh_f4 = 0.7
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7fx7v"]
+shader = SubResource("Shader_qryyp")
+shader_parameter/debug = false
+shader_parameter/pallet_size = 3
+shader_parameter/flame_height = 2.78
+shader_parameter/flame_width = 2.26
+shader_parameter/flame_taper = 0.535
+shader_parameter/flame_flicker = 0.5
+shader_parameter/step_frequency = 8.0
+shader_parameter/scroll_speed = 0.3
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_22fp7")
+shader_parameter/flame_0 = Color(0.96862745, 0.8901961, 0.5764706, 1)
+shader_parameter/flame_1 = Color(1, 0.9019608, 0.3764706, 1)
+shader_parameter/flame_2 = Color(1, 0.9019608, 0.3764706, 1)
+shader_parameter/flame_3 = Color(0, 0, 0, 0.8)
+shader_parameter/flame_4 = Color(0, 0, 0, 0.3019608)
+shader_parameter/thresh_f0 = 0.05
+shader_parameter/thresh_f1 = 0.15
+shader_parameter/thresh_f2 = 0.3
+shader_parameter/thresh_f3 = 0.5
+shader_parameter/thresh_f4 = 0.7
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r5fat"]
+shader = SubResource("Shader_qryyp")
+shader_parameter/debug = false
+shader_parameter/pallet_size = 3
+shader_parameter/flame_height = 2.78
+shader_parameter/flame_width = 2.26
+shader_parameter/flame_taper = 0.535
+shader_parameter/flame_flicker = 0.5
+shader_parameter/step_frequency = 8.0
+shader_parameter/scroll_speed = 0.3
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_22fp7")
+shader_parameter/flame_0 = Color(0.96862745, 0.8901961, 0.5764706, 1)
+shader_parameter/flame_1 = Color(1, 0.9019608, 0.3764706, 1)
+shader_parameter/flame_2 = Color(1, 0.9019608, 0.3764706, 1)
+shader_parameter/flame_3 = Color(0, 0, 0, 0.8)
+shader_parameter/flame_4 = Color(0, 0, 0, 0.3019608)
+shader_parameter/thresh_f0 = 0.05
+shader_parameter/thresh_f1 = 0.15
+shader_parameter/thresh_f2 = 0.3
+shader_parameter/thresh_f3 = 0.5
+shader_parameter/thresh_f4 = 0.7
+
+[node name="RedCandles" type="Node2D"]
+script = ExtResource("1_svxdf")
+
+[node name="RedCandle" type="Sprite2D" parent="."]
+position = Vector2(-43, -17)
+texture = ExtResource("2_324gd")
+
+[node name="Flame" type="Sprite2D" parent="RedCandle"]
+visible = false
+material = SubResource("ShaderMaterial_ynl2v")
+position = Vector2(-5, -18)
+texture = ExtResource("3_701og")
+centered = false
+
+[node name="FlameBase" type="Sprite2D" parent="RedCandle"]
+visible = false
+position = Vector2(0, -8)
+texture = ExtResource("4_6vrae")
+
+[node name="RedCandle2" type="Sprite2D" parent="."]
+position = Vector2(-17, -29)
+texture = ExtResource("2_324gd")
+
+[node name="Flame" type="Sprite2D" parent="RedCandle2"]
+visible = false
+material = SubResource("ShaderMaterial_kgr6p")
+position = Vector2(-5, -18)
+texture = ExtResource("3_701og")
+centered = false
+
+[node name="FlameBase" type="Sprite2D" parent="RedCandle2"]
+visible = false
+position = Vector2(0, -8)
+texture = ExtResource("4_6vrae")
+
+[node name="RedCandle3" type="Sprite2D" parent="."]
+position = Vector2(9, -17)
+texture = ExtResource("2_324gd")
+
+[node name="Flame" type="Sprite2D" parent="RedCandle3"]
+visible = false
+material = SubResource("ShaderMaterial_umiu5")
+position = Vector2(-5, -18)
+texture = ExtResource("3_701og")
+centered = false
+
+[node name="FlameBase" type="Sprite2D" parent="RedCandle3"]
+visible = false
+position = Vector2(0, -8)
+texture = ExtResource("4_6vrae")
+
+[node name="RedCandle4" type="Sprite2D" parent="."]
+position = Vector2(-3, 1)
+texture = ExtResource("2_324gd")
+
+[node name="Flame" type="Sprite2D" parent="RedCandle4"]
+visible = false
+material = SubResource("ShaderMaterial_7fx7v")
+position = Vector2(-5, -18)
+texture = ExtResource("3_701og")
+centered = false
+
+[node name="FlameBase" type="Sprite2D" parent="RedCandle4"]
+visible = false
+position = Vector2(0, -8)
+texture = ExtResource("4_6vrae")
+
+[node name="RedCandle5" type="Sprite2D" parent="."]
+position = Vector2(-29, 1)
+texture = ExtResource("2_324gd")
+
+[node name="Flame" type="Sprite2D" parent="RedCandle5"]
+visible = false
+material = SubResource("ShaderMaterial_r5fat")
+position = Vector2(-5, -18)
+texture = ExtResource("3_701og")
+centered = false
+
+[node name="FlameBase" type="Sprite2D" parent="RedCandle5"]
+visible = false
+position = Vector2(0, -8)
+texture = ExtResource("4_6vrae")

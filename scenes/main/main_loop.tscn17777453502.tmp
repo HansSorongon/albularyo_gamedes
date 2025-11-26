@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cvhtpwumormog"]
+[gd_scene load_steps=30 format=3 uid="uid://cvhtpwumormog"]
 
 [ext_resource type="Texture2D" uid="uid://cpv3v0018eft" path="res://assets/background/game_background.png" id="1_l1b4v"]
 [ext_resource type="PackedScene" uid="uid://ch06j3uikjcka" path="res://scenes/workstation/herb.tscn" id="1_naftw"]
@@ -25,10 +25,6 @@
 [ext_resource type="Texture2D" uid="uid://wjlyw6tyblxi" path="res://assets/workstation/tawas.png" id="21_wh6i2"]
 [ext_resource type="Texture2D" uid="uid://cp1pcuo3v2c4b" path="res://assets/workstation/flame.png" id="22_1v0k2"]
 [ext_resource type="PackedScene" uid="uid://cfxd1fnbvxnxb" path="res://scenes/main/red_candles.tscn" id="25_wh6i2"]
-[ext_resource type="Texture2D" uid="uid://c3uqkhmcsly4y" path="res://assets/workstation/paper.png" id="25_xtyir"]
-[ext_resource type="Texture2D" uid="uid://bpbbahsnkwba6" path="res://assets/ui/dialogue/dialogue_icon.png" id="27_eergd"]
-[ext_resource type="Texture2D" uid="uid://cr2b8yye4bf5n" path="res://assets/ui/book_toggle.png" id="28_kgr6p"]
-[ext_resource type="Script" uid="uid://co0plr4sjtyp0" path="res://scenes/main/dialogue_repeat_button.gd" id="29_kgr6p"]
 
 [sub_resource type="Shader" id="Shader_qryyp"]
 code = "shader_type canvas_item;
@@ -293,22 +289,5 @@ z_index = 20
 z_as_relative = false
 position = Vector2(284, 190)
 
-[node name="Paper" type="Sprite2D" parent="."]
-position = Vector2(52, 106)
-texture = ExtResource("25_xtyir")
-
 [node name="RedCandles" parent="." instance=ExtResource("25_wh6i2")]
-position = Vector2(68, 109)
-
-[node name="BookToggle" type="Sprite2D" parent="."]
-position = Vector2(109, 118)
-texture = ExtResource("28_kgr6p")
-centered = false
-
-[node name="DialogueRepeatButton" type="TextureButton" parent="BookToggle"]
-offset_left = 20.0
-offset_top = 6.0
-offset_right = 28.0
-offset_bottom = 14.0
-texture_normal = ExtResource("27_eergd")
-script = ExtResource("29_kgr6p")
+position = Vector2(68, 112)

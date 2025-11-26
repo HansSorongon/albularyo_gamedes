@@ -2,6 +2,7 @@ extends TextureButton
 
 var normal_color := Color(1,1,1,1)
 var hover_color := Color(1.2,1.2,1.2,1)  # slightly brighter
+@onready var sfx_remove: AudioStreamPlayer = $"../SfxRemove"
 
 signal confirm_pressed()
 
@@ -11,12 +12,7 @@ func _ready():
 	connect("mouse_exited", Callable(self, "_on_mouse_exited"))
 
 func _button_pressed():
-	
-	var pentagram = get_parent()
-	
-	if not pentagram.occupied_zones["PentagramPoint6"]:
-		print("No catalyst!")
-	
+	sfx_remove.play()
 	confirm_pressed.emit()
 
 func _on_mouse_entered():

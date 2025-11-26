@@ -27,6 +27,8 @@ var possible_symptoms: Array[String] = [
 	"Headache"
 ]
 
+signal checklist_changed()
+
 func _ready():
 	
 	for i in range(15):
@@ -38,12 +40,15 @@ func _ready():
 
 	$Area2D.mouse_entered.connect(_on_mouse_entered)
 
+	for i in range(15):
+		var checkbox = get_node("Checkboxes").get_child(i)
+		checkbox.checkbox_changed.connect(_checkbox_changed)
+
 func _on_mouse_entered():
 	if not is_open:
 		sfx_open.play()
 		is_open = true
 		target_position = closed_position + slide_offset  # move diagonally
-		print("open")
 
 func _process(delta):
 	# Check mouse x position for automatic closing
@@ -52,7 +57,9 @@ func _process(delta):
 		is_open = false
 		sfx_close.play()
 		target_position = closed_position
-		print("close")
 
 	# Smooth movement towards target
 	position = position.lerp(target_position, delta * slide_speed / slide_offset.length())
+
+func _checkbox_changed():
+	checklist_changed.emit()

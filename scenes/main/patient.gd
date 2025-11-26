@@ -162,6 +162,15 @@ func spawn_npc():
 	# reset path
 	get_parent().time = 0
 
+func _repeat_dialogue():
+	if not DialogueManager.is_dialog_active:
+		DialogueManager.start_dialog(patient_dialogue)
+
 func _ready():
+	
+	var root_node = get_tree().current_scene
+	#print(root_node.get_node("BookToggle").get_node("DialogueRepeatButton"))
+	root_node.get_node("BookToggle/DialogueRepeatButton").pressed.connect(_repeat_dialogue)
+	
 	randomize()
 	spawn_npc()

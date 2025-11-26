@@ -1,9 +1,14 @@
 extends Node2D
 
+@onready var sfx_light: AudioStreamPlayer = $SfxLight
+@onready var sfx_extinguish: AudioStreamPlayer = $SfxExtinguish
+
 @export var is_toggled: bool = false
 @export var normal_color: Color = Color(1, 1, 1, 1)    # normal color
 @export var hovered_color: Color = Color(1.2, 1.2, 1.2, 1) # hover "brightened" color
 @onready var sfx_tick: AudioStreamPlayer = $SfxTick
+
+signal checkbox_changed()
 
 func _ready():
 	$CheckMark.visible = is_toggled
@@ -25,6 +30,7 @@ func _on_click(viewport, event, idx):
 		if count < 5 or is_toggled:
 			sfx_tick.play()
 			toggle()
+			checkbox_changed.emit()
 
 func _on_hover():
 	$Box.modulate = hovered_color
@@ -33,5 +39,11 @@ func _on_hover_exit():
 	$Box.modulate = normal_color
 
 func toggle():
+	
+	if (is_toggled):
+		sfx_extinguish.play()
+	else:
+		sfx_light.play()
+	
 	is_toggled = !is_toggled
 	$CheckMark.visible = is_toggled

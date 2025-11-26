@@ -5,10 +5,12 @@ extends Node2D
 var current_patient = null
 
 func _ready():
-	spawn_patient()
 	
 	get_viewport().physics_object_picking_sort = true
 	get_viewport().physics_object_picking_first_only = true
+	
+	
+	spawn_patient()
 
 func _input(event):
 	if event is InputEventKey and event.pressed:
@@ -16,7 +18,6 @@ func _input(event):
 			get_tree().quit()
 		if event.keycode == KEY_R:
 			spawn_patient()
-
 			
 func spawn_patient():
 	if current_patient:

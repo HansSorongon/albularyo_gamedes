@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://g16om7yqrxwd"]
+[gd_scene load_steps=9 format=3 uid="uid://g16om7yqrxwd"]
 
 [ext_resource type="Script" uid="uid://dwuop4ax7ukak" path="res://scenes/main/checkbox.gd" id="1_lxi5r"]
 [ext_resource type="Texture2D" uid="uid://dfiuhs4xf4l4f" path="res://assets/ui/checkbox_unchecked.png" id="1_qkkco"]
 [ext_resource type="Texture2D" uid="uid://c5sefbebd0r3p" path="res://assets/ui/check.png" id="2_lxi5r"]
 [ext_resource type="FontFile" uid="uid://b5bptjjfvw3i2" path="res://assets/ui/dialogue/tiny5.ttf" id="3_ptftm"]
 [ext_resource type="AudioStream" uid="uid://8n5d5fw42yrr" path="res://assets/audio/click_3.ogg" id="5_ptftm"]
+[ext_resource type="AudioStream" uid="uid://drwli7wcujfbf" path="res://assets/audio/light_flame.ogg" id="6_ch3kj"]
+[ext_resource type="AudioStream" uid="uid://daiqx4gcj5rwv" path="res://assets/audio/extinguish.mp3" id="7_p6t0k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lxi5r"]
 size = Vector2(59, 8)
@@ -39,3 +41,11 @@ theme_override_font_sizes/font_size = 8
 
 [node name="SfxTick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_ptftm")
+
+[node name="SfxLight" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_ch3kj")
+volume_db = -10.0
+
+[node name="SfxExtinguish" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_p6t0k")
+volume_db = -10.0
