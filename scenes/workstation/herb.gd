@@ -59,12 +59,16 @@ func _check_drop_target():
 			new_herb.texture = texture
 			new_herb.position = area.global_position
 			new_herb.z_index = 0
-			get_parent().add_child(new_herb)
+
+			get_parent().get_parent().get_node("Pentagram").get_node("HerbSprites").add_child(new_herb)
+			
 			pentagram.occupy_zone(zone, new_herb, herb_name)
 			
 			break
 			
 	position = original_position
+
+
 
 func _on_mouse_entered():
 	modulate = hover_color

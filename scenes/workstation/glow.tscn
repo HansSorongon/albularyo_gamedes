@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://wkjfv51hhf55"]
+
+[ext_resource type="Texture2D" uid="uid://k04fwqi1cnch" path="res://assets/workstation/glow.png" id="1_0qeqa"]
+[ext_resource type="Script" uid="uid://cob2kppqpg58h" path="res://scenes/workstation/glow.gd" id="2_lbnjn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uqui6"]
+
+[node name="Glow" type="Sprite2D"]
+material = SubResource("ShaderMaterial_uqui6")
+texture = ExtResource("1_0qeqa")
+script = ExtResource("2_lbnjn")

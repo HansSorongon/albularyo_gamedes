@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://chvfbmwlgbrp8"]
+
+[ext_resource type="Shader" uid="uid://3yjnj73niw7j" path="res://scenes/burn.gdshader" id="1_akh6b"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bl13t"]
+
+[resource]
+shader = ExtResource("1_akh6b")
+shader_parameter/progress = -0.145
+shader_parameter/noiseForce = 0.31
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_bl13t")
+shader_parameter/burnColor = Color(0.72625774, 0.33329123, 0.18827176, 1)
+shader_parameter/borderWidth = 0.05
+shader_parameter/direction = 120.285

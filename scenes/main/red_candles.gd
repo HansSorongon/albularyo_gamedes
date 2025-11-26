@@ -4,6 +4,8 @@ extends Node2D
 @onready var sfx_extinguish: AudioStreamPlayer = $SfxExtinguish
 @onready var sfx_feedback: AudioStreamPlayer = $SfxFeedback
 
+var GlowScene := preload("res://scenes/workstation/glow.tscn")
+
 var active_checkboxes: Array[String] = []
 
 func _ready():
@@ -19,7 +21,13 @@ func _ready():
 var min_flame_vals = [0.315, 1.25, 0.2]
 var max_flame_vals = [2.78, 2.26, 0.8]
 
+func clear_glows():
+	for glow in get_tree().get_nodes_in_group("glows"):
+		glow.queue_free()
+
 func _on_change_potency():
+	
+	clear_glows()
 	
 	var pentagram = get_parent().get_node("Workstation/Pentagram")
 
@@ -39,6 +47,15 @@ func _on_change_potency():
 			
 			if ratio >= 1:
 				sfx_feedback.play()
+				var glow := GlowScene.instantiate()
+				
+				var candle := get_child(index)  # example if you're inside a loop
+				glow.add_to_group("glows")
+				candle.add_child(glow)
+
+				# Optional: Position glow at center of flame/candle
+				glow.position = Vector2.ZERO
+				glow.position += Vector2(0, -10)
 			
 			get_child(index).get_node("Flame").material.set_shader_parameter("flame_height", new_flame_height)
 			get_child(index).get_node("Flame").material.set_shader_parameter("flame_width", new_flame_width)

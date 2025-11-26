@@ -158,6 +158,8 @@ func spawn_npc():
 	
 	if not DialogueManager.is_dialog_active:
 		DialogueManager.start_dialog(patient_dialogue)
+		
+	print(symptoms)
 	
 	# reset path
 	get_parent().time = 0

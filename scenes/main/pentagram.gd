@@ -1,6 +1,9 @@
 extends Node2D
 
+@onready var sfx_burn: AudioStreamPlayer = $SfxBurn
 @onready var sfx_remove: AudioStreamPlayer = $SfxRemove
+@onready var sfx_poof: AudioStreamPlayer = $SfxPoof
+var burn_material: ShaderMaterial = preload("res://shaders/burn_mat.tres")
 
 var herb_mappings_json_path = "res://data/herb_mapping.json"
 var herb_mappings: Dictionary
@@ -34,7 +37,69 @@ func _ready():
 	
 func is_zone_occupied(zone) -> bool:
 	return occupied_zones.has(zone) and occupied_zones[zone] != null
+
+func destroy_herbs() -> void:
+	var herb_container = get_node("HerbSprites")
+	var herbs = herb_container.get_children()
 	
+	# If nothing to burn → just clear immediately
+	if herbs.is_empty():
+		_clear_all_zones()
+		return
+	
+	# Play burn SFX once at the start
+	sfx_burn.play()
+	
+	var herbs_to_burn: int = 0
+	for child in herbs:
+		if not child or not child is Sprite2D:
+			continue
+			
+		herbs_to_burn += 1
+		
+		# Make sure it has its own material instance
+		if child.material and child.material is ShaderMaterial:
+			child.material = child.material.duplicate()  # Important!
+		else:
+			child.material = burn_material.duplicate()
+		
+		# Reset progress to -1.5 or 0 so the burn starts fresh
+		child.material.set_shader_parameter("progress", -1.5)
+		
+		# Create a tween for this herb
+		var tween = create_tween()
+		tween.set_parallel(false)  # We want finished signal after all its tweens
+		
+		# Burn animation
+		tween.tween_property(
+			child.material,
+			"shader_parameter/progress",
+			1.5,
+			1.8  # Slightly longer than before for nice overlap
+		).set_ease(Tween.EASE_IN)
+		
+		# When THIS herb finishes burning → check if all are done
+		tween.tween_callback(func():
+			herbs_to_burn -= 1
+			if herbs_to_burn <= 0:
+				_clear_all_zones()
+		)
+	
+	# If somehow zero valid herbs, clear immediately
+	if herbs_to_burn == 0:
+		_clear_all_zones()
+
+
+# Helper function — put your zone clearing logic here
+func _clear_all_zones() -> void:
+	for zone in occupied_zones.keys():
+		if occupied_zones[zone]:
+			remove_herb(zone)
+	
+	# Optional: clear the container too
+	for child in get_node("HerbSprites").get_children():
+		child.queue_free()
+
 func occupy_zone(zone: String, herb_sprite: Sprite2D, herb_name: String):
 	
 	occupied_zones[zone] = herb_sprite
@@ -48,7 +113,6 @@ func occupy_zone(zone: String, herb_sprite: Sprite2D, herb_name: String):
 func remove_herb(zone):
 	
 	if occupied_zones[zone]:
-		sfx_remove.play()
 		
 		var herb_sprite = occupied_zones[zone]
 		if herb_sprite.is_inside_tree():
@@ -105,6 +169,13 @@ func change_potency():
 
 func _confirm_craft():
 	
+	destroy_herbs()
+	
 	if not occupied_zones["PentagramPoint6"]:
 		MessageManager.show_message("No catalyst selected!")
 		return
+		
+	sfx_poof.play()
+	$ExplosionParticles.restart()
+		
+	print(potencies)

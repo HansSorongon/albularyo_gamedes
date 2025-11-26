@@ -12,7 +12,6 @@ func _ready():
 	connect("mouse_exited", Callable(self, "_on_mouse_exited"))
 
 func _button_pressed():
-	sfx_remove.play()
 	confirm_pressed.emit()
 
 func _on_mouse_entered():

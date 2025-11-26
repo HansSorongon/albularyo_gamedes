@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cvhtpwumormog"]
+[gd_scene load_steps=35 format=3 uid="uid://cvhtpwumormog"]
 
 [ext_resource type="Texture2D" uid="uid://cpv3v0018eft" path="res://assets/background/game_background.png" id="1_l1b4v"]
 [ext_resource type="PackedScene" uid="uid://ch06j3uikjcka" path="res://scenes/workstation/herb.tscn" id="1_naftw"]
@@ -15,9 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://b3koxwi55a278" path="res://assets/workstation/herbs/herb_ginhawa.png" id="7_jnr8r"]
 [ext_resource type="PackedScene" uid="uid://pe35hcx4pegf" path="res://scenes/workstation/PentagramPoint.tscn" id="9_yfqjs"]
 [ext_resource type="Texture2D" uid="uid://dxl7f4c1kpv30" path="res://assets/workstation/pentagram/pentagram.png" id="11_eofcd"]
-[ext_resource type="AudioStream" uid="uid://drwli7wcujfbf" path="res://assets/audio/light_flame.ogg" id="13_ynl2v"]
+[ext_resource type="AudioStream" uid="uid://bl4rpeyyyted6" path="res://assets/audio/click_remove.ogg" id="13_wh6i2"]
 [ext_resource type="Texture2D" uid="uid://pyguyoj7h22c" path="res://assets/workstation/pentagram/pentagram_confirm.png" id="14_jnr8r"]
-[ext_resource type="AudioStream" uid="uid://doa6mfbatmlrl" path="res://assets/audio/poof.wav" id="15_7fx7v"]
 [ext_resource type="AudioStream" uid="uid://dpjqk0axsu3l1" path="res://assets/audio/bgm.mp3" id="15_m757o"]
 [ext_resource type="Shader" uid="uid://87k5bptnb1d8" path="res://scenes/main/night_shader.gdshader" id="18_isaxb"]
 [ext_resource type="PackedScene" uid="uid://c3f5eobhumfge" path="res://scenes/main/checklist_toggle.tscn" id="19_h6rqw"]
@@ -30,8 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://bpbbahsnkwba6" path="res://assets/ui/dialogue/dialogue_icon.png" id="27_eergd"]
 [ext_resource type="Texture2D" uid="uid://cr2b8yye4bf5n" path="res://assets/ui/book_toggle.png" id="28_kgr6p"]
 [ext_resource type="Script" uid="uid://co0plr4sjtyp0" path="res://scenes/main/dialogue_repeat_button.gd" id="29_kgr6p"]
-[ext_resource type="PackedScene" uid="uid://y1y2clwa1r82" path="res://scenes/workstation/explosion_particles.tscn" id="30_ynl2v"]
-[ext_resource type="Script" uid="uid://dej0pu6muw8kg" path="res://scenes/workstation/explosion_particles.gd" id="31_umiu5"]
+[ext_resource type="PackedScene" uid="uid://wkjfv51hhf55" path="res://scenes/workstation/glow.tscn" id="30_ynl2v"]
 
 [sub_resource type="Shader" id="Shader_qryyp"]
 code = "shader_type canvas_item;
@@ -206,17 +204,8 @@ position = Vector2(128, 74)
 texture = ExtResource("3_o22mv")
 centered = false
 
-[node name="HerbSprites" type="Node2D" parent="Workstation/Pentagram"]
-
-[node name="SfxBurn" type="AudioStreamPlayer" parent="Workstation/Pentagram"]
-stream = ExtResource("13_ynl2v")
-
-[node name="SfxPoof" type="AudioStreamPlayer" parent="Workstation/Pentagram"]
-stream = ExtResource("15_7fx7v")
-
-[node name="ExplosionParticles" parent="Workstation/Pentagram" instance=ExtResource("30_ynl2v")]
-position = Vector2(172, 103)
-script = ExtResource("31_umiu5")
+[node name="SfxRemove" type="AudioStreamPlayer" parent="Workstation/Pentagram"]
+stream = ExtResource("13_wh6i2")
 
 [node name="Herbs" type="Node2D" parent="Workstation"]
 
@@ -324,3 +313,6 @@ offset_right = 28.0
 offset_bottom = 14.0
 texture_normal = ExtResource("27_eergd")
 script = ExtResource("29_kgr6p")
+
+[node name="Glow" parent="." instance=ExtResource("30_ynl2v")]
+position = Vector2(117, 69)

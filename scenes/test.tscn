@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxx7incmjobwu"]
+
+[ext_resource type="Material" uid="uid://chvfbmwlgbrp8" path="res://shaders/burn_mat.tres" id="1_bl13t"]
+[ext_resource type="Texture2D" uid="uid://cp1pcuo3v2c4b" path="res://assets/workstation/flame.png" id="2_iyx0m"]
+
+[node name="Test" type="Node2D"]
+
+[node name="Flame" type="Sprite2D" parent="."]
+material = ExtResource("1_bl13t")
+position = Vector2(95, 63)
+texture = ExtResource("2_iyx0m")
