@@ -164,6 +164,41 @@ func spawn_npc():
 	# reset path
 	get_parent().time = 0
 
+func npc_leave(duration: float = 2.0):
+	if not npc_instance or not npc_instance.is_inside_tree():
+		return
+	
+	# Get the PathFollow2D parent
+	var path_follow = get_parent()
+	
+	if path_follow is PathFollow2D:
+		var tween = create_tween()
+		tween.set_parallel(false)  # Sequential, not parallel
+		
+		# Move backwards along the path (from current position to 0)
+		tween.tween_property(path_follow, "progress_ratio", 0.0, duration)
+		
+		# Fade out while walking back
+		var fade_tween = create_tween()
+		fade_tween.set_parallel(true)
+		for child in npc_instance.get_children():
+			if child is Sprite2D:
+				fade_tween.tween_property(child, "modulate", Color.BLACK, duration * 0.8)
+		
+		await tween.finished
+	else:
+		# Fallback: just fade if not on a path
+		var tween = create_tween()
+		tween.set_parallel(true)
+		for child in npc_instance.get_children():
+			if child is Sprite2D:
+				tween.tween_property(child, "modulate", Color.BLACK, duration)
+		await tween.finished
+	
+	if npc_instance and npc_instance.is_inside_tree():
+		npc_instance.queue_free()
+		npc_instance = null
+
 func _repeat_dialogue():
 	if not DialogueManager.is_dialog_active:
 		DialogueManager.start_dialog(patient_dialogue)

@@ -3,7 +3,7 @@ extends Node
 # Preload your floating message scene
 var floating_message_scene := preload("res://scenes/ui/message.tscn")
 
-func show_message(text: String):
+func show_message(text: String, offset: Vector2 = Vector2(0, 0)):
 	var msg := floating_message_scene.instantiate()
 
 	var label: Label = msg.get_node("Label")
@@ -16,7 +16,7 @@ func show_message(text: String):
 	var msg_size = label.get_minimum_size()  # or .rect_size if using Control
 
 	# Initial position slightly above the cursor
-	var pos = mouse_pos + Vector2(0, -10)
+	var pos = mouse_pos + Vector2(0, -10) + offset
 
 	# Clamp to stay fully inside viewport
 	pos.x = clamp(pos.x, 0, viewport_size.x - msg_size.x / 2)

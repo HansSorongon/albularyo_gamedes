@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cvhtpwumormog"]
+[gd_scene load_steps=41 format=3 uid="uid://cvhtpwumormog"]
 
 [ext_resource type="Texture2D" uid="uid://cpv3v0018eft" path="res://assets/background/game_background.png" id="1_l1b4v"]
 [ext_resource type="PackedScene" uid="uid://ch06j3uikjcka" path="res://scenes/workstation/herb.tscn" id="1_naftw"]
@@ -32,6 +32,9 @@
 [ext_resource type="Script" uid="uid://co0plr4sjtyp0" path="res://scenes/main/dialogue_repeat_button.gd" id="29_kgr6p"]
 [ext_resource type="PackedScene" uid="uid://y1y2clwa1r82" path="res://scenes/workstation/explosion_particles.tscn" id="30_ynl2v"]
 [ext_resource type="Script" uid="uid://dej0pu6muw8kg" path="res://scenes/workstation/explosion_particles.gd" id="31_umiu5"]
+[ext_resource type="Script" uid="uid://b44hole47ia3q" path="res://scenes/main/patient_area.gd" id="33_2wxho"]
+[ext_resource type="AudioStream" uid="uid://8n5d5fw42yrr" path="res://assets/audio/click_3.ogg" id="33_rmity"]
+[ext_resource type="AudioStream" uid="uid://c85qdupi0gda" path="res://assets/audio/gold.wav" id="34_v2yyn"]
 
 [sub_resource type="Shader" id="Shader_qryyp"]
 code = "shader_type canvas_item;
@@ -143,6 +146,9 @@ shader_parameter/progress = 0.0
 shader_parameter/day_tint = Color(1, 1, 1, 1)
 shader_parameter/night_tint = Color(0, 0.10266678, 0.44, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v2yyn"]
+size = Vector2(63, 63)
+
 [node name="MainLoop" type="Node2D"]
 script = ExtResource("1_olyg1")
 
@@ -215,6 +221,8 @@ stream = ExtResource("13_ynl2v")
 stream = ExtResource("15_7fx7v")
 
 [node name="ExplosionParticles" parent="Workstation/Pentagram" instance=ExtResource("30_ynl2v")]
+z_index = 10
+z_as_relative = false
 position = Vector2(172, 103)
 script = ExtResource("31_umiu5")
 
@@ -324,3 +332,17 @@ offset_right = 28.0
 offset_bottom = 14.0
 texture_normal = ExtResource("27_eergd")
 script = ExtResource("29_kgr6p")
+
+[node name="SfxClick" type="AudioStreamPlayer" parent="BookToggle"]
+stream = ExtResource("33_rmity")
+
+[node name="PatientArea" type="Area2D" parent="."]
+position = Vector2(11, 11)
+script = ExtResource("33_2wxho")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PatientArea"]
+position = Vector2(21.5, 21.5)
+shape = SubResource("RectangleShape2D_v2yyn")
+
+[node name="SfxGold" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("34_v2yyn")

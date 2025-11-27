@@ -178,4 +178,17 @@ func _confirm_craft():
 	sfx_poof.play()
 	$ExplosionParticles.restart()
 		
-	print(potencies)
+	var bottle_scene = preload("res://scenes/workstation/bottle.tscn")
+	var new_potion = bottle_scene.instantiate()
+	
+	# BUG ! hacked to fix for now
+	new_potion.global_position = $PentagramPoint6.position - Vector2(15, 30)
+	new_potion.potencies = potencies.duplicate()
+	
+	new_potion.scale = Vector2(0.1, 0.1)
+	var tween = create_tween()
+	tween.set_parallel(false)
+	tween.tween_property(new_potion, "scale", Vector2(1, 1), 0.4).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	#tween.tween_property(new_potion, "modulate:a", 1.0, 0.2).from(0.0)
+
+	get_tree().current_scene.add_child(new_potion)
