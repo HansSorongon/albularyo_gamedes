@@ -7,12 +7,22 @@ var current_patient = null
 var day_earnings: int = 0
 var day_reputation = 0.0
 
+var day_seconds = 180
+var night_progress = 0.0
+
+var is_spawning = true
+
 func _ready():
 	
 	get_viewport().physics_object_picking_sort = true
 	get_viewport().physics_object_picking_first_only = true
 	
 	spawn_patient()
+	
+	$FullDayTimer.wait_time = day_seconds
+	
+	$FullDayTimer.start()
+	$NightTimer.start()
 
 func _input(event):
 	if event is InputEventKey and event.pressed:
@@ -55,10 +65,28 @@ func sell_potion(potencies):
 			
 	MessageManager.show_message("+" + str(total_money_earned) + " P")
 	current_patient.get_node("PatientPathFollow/Patient").npc_leave()
+	$ChecklistControl.clear_checkboxes()
+	$RedCandles.hide_flames()
 	
-	get_tree().create_timer(2.0).timeout.connect(spawn_patient)
+	if is_spawning:
+		get_tree().create_timer(2.0).timeout.connect(spawn_patient)
+	else:
+		get_tree().create_timer(2).timeout.connect(end_day)
+		
+		
+func end_day():
+	
+	GameState.day_earnings = day_earnings
+	GameState.total_money += day_earnings
+	GameState.day_reputation = day_reputation
 
-	
-	#sfx_gold.play()
-	#print("Sold potion ")
-	#print(potencies)
+	TransitionScript.fade_to_scene_path("res://scenes/results/results.tscn")
+
+func _on_night_timer_timeout() -> void:
+	if night_progress < 1.0:
+		night_progress += 1.0 / day_seconds
+		$NpcBackground.material.set_shader_parameter("progress", night_progress)
+
+func _on_full_day_timer_timeout() -> void:
+	print("ready for next day")
+	is_spawning = false

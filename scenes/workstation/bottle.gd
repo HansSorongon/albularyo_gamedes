@@ -36,7 +36,7 @@ func _on_input_event(_viewport, event: InputEvent, _shape_idx: int) -> void:
 		for area in overlapping:
 			if area.name == "PatientArea":
 				
-				var pentagram = get_parent().sell_potion(potencies)
+				var pentagram = await get_parent().sell_potion(potencies)
 				queue_free()
 
 	if event.is_action_pressed("right_click"):

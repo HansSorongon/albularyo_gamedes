@@ -50,6 +50,11 @@ func _on_mouse_entered():
 		is_open = true
 		target_position = closed_position + slide_offset  # move diagonally
 
+func clear_checkboxes():
+	for checkbox in $Checkboxes.get_children():
+		if checkbox.is_toggled:
+			checkbox.toggle()
+
 func _process(delta):
 	# Check mouse x position for automatic closing
 	var mouse_pos = get_viewport().get_mouse_position()

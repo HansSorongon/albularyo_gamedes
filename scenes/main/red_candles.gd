@@ -80,6 +80,10 @@ func hide_flame(candle_no: int):
 	get_child(candle_no).get_node("FlameBase").visible = false
 	get_child(candle_no).get_node("Flame").visible = false
 
+func hide_flames():
+	for i in range(5):
+		hide_flame(i)
+
 func _checklist_changed():
 	
 	active_checkboxes.clear()

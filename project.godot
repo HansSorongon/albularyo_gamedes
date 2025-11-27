@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 
 DialogueManager="*res://scenes/dialogue/dialogue_manager.gd"
 MessageManager="*res://scenes/ui/message_manager.gd"
+GameState="*res://scenes/globals/GameState.gd"
+TransitionScript="*res://scenes/globals/TransitionScript.gd"
 
 [display]
 
