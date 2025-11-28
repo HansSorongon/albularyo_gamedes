@@ -1,6 +1,8 @@
 extends Node2D
 
 @onready var area := $Area2D
+@onready var sfx_bottle: AudioStreamPlayer = $SfxBottle
+@onready var sfx_bottle_drop: AudioStreamPlayer = $SfxBottleDrop
 
 var is_dragging := false
 var drag_offset := Vector2.ZERO
@@ -25,12 +27,14 @@ func _process(_delta: float) -> void:
 
 func _on_input_event(_viewport, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_action_pressed("click"):
+		sfx_bottle.play()
 		is_dragging = true
 		drag_offset = global_position - get_global_mouse_position()
 		z_index = 10
 		modulate = Color.WHITE  # reset from hover when dragging starts
 		
 	elif event.is_action_released("click"):
+		sfx_bottle_drop.play()
 		is_dragging = false
 		z_index = 0
 		var overlapping = $Area2D.get_overlapping_areas()

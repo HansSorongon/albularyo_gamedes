@@ -4,6 +4,13 @@ extends Sprite2D
 @onready var sfx_click: AudioStreamPlayer = $sfx_click
 @onready var sfx_click_2: AudioStreamPlayer = $sfx_click_2
 
+@onready var sfx_bark: AudioStreamPlayer = $SfxBark
+@onready var sfx_berry: AudioStreamPlayer = $SfxBerry
+@onready var sfx_lagundi: AudioStreamPlayer = $SfxLagundi
+@onready var sfx_root: AudioStreamPlayer = $SfxRoot
+@onready var sfx_sampaguita: AudioStreamPlayer = $SfxSampaguita
+@onready var sfx_seed: AudioStreamPlayer = $SfxSeed
+
 var hover_color := Color(1.2, 1.2, 1.2, 1)
 var normal_color := Color(1, 1, 1, 1)
 
@@ -62,6 +69,20 @@ func _check_drop_target():
 			new_herb.z_index = 0
 
 			get_parent().get_parent().get_node("Pentagram").get_node("HerbSprites").add_child(new_herb)
+			
+			match herb_name:
+				"Sampaguita":
+					sfx_sampaguita.play()
+				"Bark":
+					sfx_bark.play()
+				"Root":
+					sfx_root.play()
+				"Ginhawa":
+					sfx_seed.play()
+				"Lagundi":
+					sfx_lagundi.play()
+				"Dugo":
+					sfx_berry.play()
 			
 			pentagram.occupy_zone(zone, new_herb, herb_name)
 			

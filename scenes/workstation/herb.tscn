@@ -1,8 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://ch06j3uikjcka"]
+[gd_scene load_steps=11 format=3 uid="uid://ch06j3uikjcka"]
 
 [ext_resource type="Script" uid="uid://c2iopn0yibov1" path="res://scenes/workstation/herb.gd" id="2_1qhqr"]
 [ext_resource type="AudioStream" uid="uid://xi3heakh0nvo" path="res://assets/audio/click.ogg" id="2_158qe"]
 [ext_resource type="AudioStream" uid="uid://bs57c4h8gbo3x" path="res://assets/audio/click_2.ogg" id="3_br1t4"]
+[ext_resource type="AudioStream" uid="uid://w51n8bgyxfvl" path="res://assets/audio/herb_sfx/bark.wav" id="4_t4pnh"]
+[ext_resource type="AudioStream" uid="uid://cgkx0csrm4vvw" path="res://assets/audio/herb_sfx/berry.wav" id="5_jp0yk"]
+[ext_resource type="AudioStream" uid="uid://c0lrl2s8f1thw" path="res://assets/audio/herb_sfx/lagundi.wav" id="6_86a3h"]
+[ext_resource type="AudioStream" uid="uid://7l1x3c54ncb6" path="res://assets/audio/herb_sfx/root.wav" id="7_xp7nr"]
+[ext_resource type="AudioStream" uid="uid://ifhuf85rjkkb" path="res://assets/audio/herb_sfx/sampaguita.wav" id="8_j8b25"]
+[ext_resource type="AudioStream" uid="uid://dy4e15785ktra" path="res://assets/audio/herb_sfx/seed.wav" id="9_s2sng"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_emtpg"]
 size = Vector2(32, 32)
@@ -20,3 +26,27 @@ stream = ExtResource("2_158qe")
 
 [node name="sfx_click_2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_br1t4")
+
+[node name="SfxBark" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_t4pnh")
+volume_db = -8.0
+
+[node name="SfxBerry" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_jp0yk")
+volume_db = -8.0
+
+[node name="SfxLagundi" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_86a3h")
+volume_db = -8.0
+
+[node name="SfxRoot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_xp7nr")
+volume_db = -8.0
+
+[node name="SfxSampaguita" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_j8b25")
+volume_db = -12.0
+
+[node name="SfxSeed" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_s2sng")
+volume_db = -8.0
