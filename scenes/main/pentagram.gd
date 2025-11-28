@@ -169,6 +169,10 @@ func change_potency():
 
 func _confirm_craft():
 	
+	if get_tree().get_nodes_in_group("potion").size() > 0:
+		MessageManager.show_message("You already made a potion!")
+		return
+	
 	destroy_herbs()
 	
 	if not occupied_zones["PentagramPoint6"]:
@@ -189,6 +193,5 @@ func _confirm_craft():
 	var tween = create_tween()
 	tween.set_parallel(false)
 	tween.tween_property(new_potion, "scale", Vector2(1, 1), 0.4).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	#tween.tween_property(new_potion, "modulate:a", 1.0, 0.2).from(0.0)
 
 	get_tree().current_scene.add_child(new_potion)

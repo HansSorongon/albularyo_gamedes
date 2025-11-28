@@ -42,18 +42,38 @@ var symptoms: Array[String] = []
 var patient_dialogue: Array[String] = ["Magandang araw, Albularyo."]
 
 var layers = {
-	"HairBack": "hair_back/",
-	"BaseFace": "base_face/",
-	"Eyes": "eyes/",
-	"Eyebrows": "eyebrows/",
-	"HairFront": "hair_front/",
-	"Clothes": "clothes/",
-	"Accessories": "accessories/"
+	"hair_back": "hair_back/",
+	"base_face": "base_face/",
+	"eyes": "eyes/",
+	"eyebrows": "eyebrows/",
+	"hair_front": "hair_front/",
+	"clothes": "clothes/",
+	"accessories": "accessories/"
+}
+
+var layers_num_f = {
+	"hair_back": 5,
+	"base_face": 9,
+	"eyes": 9,
+	"eyebrows": 5,
+	"hair_front": 11,
+	"clothes": 2,
+	"accessories": 3
+}
+
+var layers_num_m = {
+	"hair_back": 3,
+	"base_face": 18,
+	"eyes": 5,
+	"eyebrows": 10,
+	"hair_front": 6,
+	"clothes": 3,
+	"accessories": 3
 }
 
 var gender_folders = {
-	"M": "res://assets/npc/npc_m/",
-	"F": "res://assets/npc/npc_f/"
+	"m": "res://assets/npc/npc_m/",
+	"f": "res://assets/npc/npc_f/"
 }
 
 var npc_instance: Node2D = null
@@ -82,12 +102,20 @@ func generate_random_npc() -> Node2D:
 		
 		var path = base_folder + layers[layer_name]
 		
-		if symptoms.has("pale_skin") and layer_name == "BaseFace":
-			path += "sprite_" + random_gender + "_paleskin/"
+		if symptoms.has("pale_skin") and layer_name == "base_face":
+			if random_gender == "f":
+				path += "sprite_F_paleskin/" + "f_paleskin_" + str(randi() % 6 + 1) + ".png"
+			elif random_gender == "m":	
+				path += "sprite_M_paleskin/" + "m_paleskin_" + str(randi() % 6 + 1) + ".png"
+		else:	
+			if random_gender == "f":
+				path += random_gender + "_" + layer_name + "_" + str(randi() % layers_num_f[layer_name] + 1) + ".png"
+			elif random_gender == "m":
+				path += random_gender + "_" + layer_name + "_" + str(randi() % layers_num_m[layer_name] + 1) + ".png"
 		
 		var sprite = Sprite2D.new()
 		sprite.name = layer_name
-		sprite.texture = get_random_texture_from_folder(path)
+		sprite.texture = load(path)
 		sprite.modulate = Color.BLACK
 		
 		npc.add_child(sprite)
@@ -106,7 +134,7 @@ func generate_random_npc() -> Node2D:
 			sprite.modulate = Color.BLACK
 			
 			if symptom_name == "fever" or true:
-				var base_face = npc.get_node("BaseFace")
+				var base_face = npc.get_node("base_face")
 				base_face.add_sibling(sprite)
 			else:
 				npc.add_child(sprite)

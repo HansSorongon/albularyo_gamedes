@@ -2,12 +2,14 @@ extends Node2D
 
 @onready var patient_scene = preload("res://scenes/main/patient.tscn")
 @onready var sfx_gold: AudioStreamPlayer = $SfxGold
+@onready var background_music: AudioStreamPlayer = $BackgroundMusic
+@onready var background_cricket: AudioStreamPlayer = $BackgroundCricket
 
 var current_patient = null
 var day_earnings: int = 0
 var day_reputation = 0.0
 
-var day_seconds = 180
+var day_seconds = 300
 var night_progress = 0.0
 
 var is_spawning = true
@@ -20,6 +22,8 @@ func _ready():
 	spawn_patient()
 	
 	$FullDayTimer.wait_time = day_seconds
+	
+	background_music.play()
 	
 	$FullDayTimer.start()
 	$NightTimer.start()
@@ -88,5 +92,16 @@ func _on_night_timer_timeout() -> void:
 		$NpcBackground.material.set_shader_parameter("progress", night_progress)
 
 func _on_full_day_timer_timeout() -> void:
-	print("ready for next day")
+	
+	background_cricket.volume_db = -80
+	background_cricket.play()
+	
+	var tween_out = create_tween()
+	var tween_in = create_tween()
+	
+	tween_out.tween_property(background_music, "volume_db", -80, 8)
+	tween_out.tween_callback(background_music.stop)
+	
+	tween_in.tween_property(background_cricket, "volume_db", -10, 3)
+	
 	is_spawning = false

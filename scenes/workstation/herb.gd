@@ -28,6 +28,7 @@ func _process(delta):
 func _on_click_target_input(viewport, event, shape_idx):
 	if event.is_action_pressed("click"):
 		sfx_click.play()
+		TooltipManager.hide_tooltip(self)
 		is_dragging = true
 		$ClickTarget/CollisionShape2D.scale = Vector2(0.5, 0.5)
 	elif event.is_action_released("click"):
@@ -71,7 +72,9 @@ func _check_drop_target():
 
 
 func _on_mouse_entered():
+	TooltipManager.show_tooltip(herb_name, self)
 	modulate = hover_color
 	
 func _on_mouse_exited():
+	TooltipManager.hide_tooltip(self)
 	modulate = normal_color

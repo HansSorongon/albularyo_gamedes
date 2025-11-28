@@ -11,6 +11,8 @@ func random_color_vec4() -> Vector4:
 	return Vector4(randf(), randf(), randf(), 1.0)
 
 func _ready() -> void:
+	add_to_group("potion")
+	
 	area.mouse_entered.connect(_on_mouse_entered)
 	area.mouse_exited.connect(_on_mouse_exited)
 	area.input_event.connect(_on_input_event)

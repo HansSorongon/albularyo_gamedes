@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3qgqdu80814q"]
+
+[ext_resource type="Script" uid="uid://cp5vo2bic8sk7" path="res://scenes/ui/tooltip.gd" id="1_kv0sd"]
+[ext_resource type="Texture2D" uid="uid://b5iux25ut36a4" path="res://assets/ui/black_textbox.png" id="2_o3msy"]
+[ext_resource type="FontFile" uid="uid://b5bptjjfvw3i2" path="res://assets/ui/dialogue/tiny5.ttf" id="3_acp5l"]
+
+[node name="Tooltip" type="MarginContainer"]
+script = ExtResource("1_kv0sd")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_o3msy")
+region_rect = Rect2(0, 0, 8, 8)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 2
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_acp5l")
+theme_override_font_sizes/font_size = 8

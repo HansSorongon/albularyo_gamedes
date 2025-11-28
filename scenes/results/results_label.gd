@@ -29,7 +29,7 @@ func on_typewriter_finished():
 	
 	await get_tree().create_timer(0.6).timeout
 	
-	$'../Label3'.text = "Reputation: " + str(int(GameState.day_reputation))
+	$'../Label3'.text = "Reputation: " + get_reputation_word(int(GameState.total_reputation))
 	sfx_gold.play()
 	
 	await get_tree().create_timer(0.6).timeout
@@ -58,7 +58,21 @@ func _input(event):
 		if can_continue:
 			can_continue = false
 			start_new_day()
-			
+
+func get_reputation_word(reputation: int) -> String:
+	if reputation < -140:
+		return "Hated"
+	elif reputation < -70:
+		return "Disliked"
+	elif reputation < 70:
+		return "Neutral"
+	elif reputation < 140:
+		return "Liked"
+	elif reputation < 210:
+		return "Respected"
+	else:
+		return "Legendary"
+	
 func start_new_day():
 	print("Starting new day...")		
 	TransitionScript.fade_to_scene_path("res://scenes/main/main_loop.tscn")

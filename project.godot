@@ -21,11 +21,14 @@ DialogueManager="*res://scenes/dialogue/dialogue_manager.gd"
 MessageManager="*res://scenes/ui/message_manager.gd"
 GameState="*res://scenes/globals/GameState.gd"
 TransitionScript="*res://scenes/globals/TransitionScript.gd"
+TooltipManager="*res://scenes/ui/tooltip_manager.gd"
 
 [display]
 
 window/size/viewport_width=240
 window/size/viewport_height=135
+window/size/mode=3
+window/size/resizable=false
 window/size/window_width_override=1920
 window/size/window_height_override=1080
 window/stretch/mode="canvas_items"
@@ -47,4 +50,5 @@ right_click={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+textures/vram_compression/import_etc2_astc=true
 2d/snap/snap_2d_vertices_to_pixel=true

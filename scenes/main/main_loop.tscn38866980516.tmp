@@ -1,0 +1,363 @@
+[gd_scene load_steps=42 format=3 uid="uid://cvhtpwumormog"]
+
+[ext_resource type="Texture2D" uid="uid://cpv3v0018eft" path="res://assets/background/game_background.png" id="1_l1b4v"]
+[ext_resource type="PackedScene" uid="uid://ch06j3uikjcka" path="res://scenes/workstation/herb.tscn" id="1_naftw"]
+[ext_resource type="Script" uid="uid://dkt7ee5n3gh3e" path="res://scenes/main/main_loop.gd" id="1_olyg1"]
+[ext_resource type="Script" uid="uid://c4k3aoq7o81c5" path="res://scenes/main/pentagram.gd" id="1_pyi1g"]
+[ext_resource type="Texture2D" uid="uid://cmssfptn6xb3j" path="res://assets/background/npc_background.png" id="2_xfve2"]
+[ext_resource type="Texture2D" uid="uid://4u30paakubgn" path="res://assets/workstation/herbs/herb_root.png" id="3_6ufpv"]
+[ext_resource type="Texture2D" uid="uid://bmpfbm8mjrmpm" path="res://assets/workstation/pentagram/pentagram_circle.png" id="3_o22mv"]
+[ext_resource type="Script" uid="uid://cnyg40f75353a" path="res://scenes/main/pentagram_confirm.gd" id="4_5xoao"]
+[ext_resource type="Texture2D" uid="uid://b5v0j6hxoytvt" path="res://assets/workstation/herbs/herb_bark.png" id="4_eofcd"]
+[ext_resource type="Texture2D" uid="uid://6is5ut4gkpua" path="res://assets/workstation/herbs/herb_lagundi.png" id="4_o22mv"]
+[ext_resource type="Texture2D" uid="uid://be6b1ajemxs41" path="res://assets/workstation/herbs/herb_sampaguita.png" id="5_yfqjs"]
+[ext_resource type="Texture2D" uid="uid://c5ctaxl2q6nsp" path="res://assets/workstation/herbs/herb_dugo.png" id="6_o22mv"]
+[ext_resource type="Texture2D" uid="uid://b3koxwi55a278" path="res://assets/workstation/herbs/herb_ginhawa.png" id="7_jnr8r"]
+[ext_resource type="PackedScene" uid="uid://pe35hcx4pegf" path="res://scenes/workstation/PentagramPoint.tscn" id="9_yfqjs"]
+[ext_resource type="Texture2D" uid="uid://dxl7f4c1kpv30" path="res://assets/workstation/pentagram/pentagram.png" id="11_eofcd"]
+[ext_resource type="AudioStream" uid="uid://drwli7wcujfbf" path="res://assets/audio/light_flame.ogg" id="13_ynl2v"]
+[ext_resource type="Texture2D" uid="uid://pyguyoj7h22c" path="res://assets/workstation/pentagram/pentagram_confirm.png" id="14_jnr8r"]
+[ext_resource type="AudioStream" uid="uid://doa6mfbatmlrl" path="res://assets/audio/poof.wav" id="15_7fx7v"]
+[ext_resource type="AudioStream" uid="uid://dpjqk0axsu3l1" path="res://assets/audio/bgm.mp3" id="15_m757o"]
+[ext_resource type="Shader" uid="uid://87k5bptnb1d8" path="res://scenes/main/night_shader.gdshader" id="18_isaxb"]
+[ext_resource type="PackedScene" uid="uid://c3f5eobhumfge" path="res://scenes/main/checklist_toggle.tscn" id="19_h6rqw"]
+[ext_resource type="Texture2D" uid="uid://1nxi17npukpj" path="res://assets/workstation/candle.png" id="20_isaxb"]
+[ext_resource type="Texture2D" uid="uid://chw76k6sft5nm" path="res://assets/workstation/bowl.png" id="20_r5fat"]
+[ext_resource type="Texture2D" uid="uid://wjlyw6tyblxi" path="res://assets/workstation/tawas.png" id="21_wh6i2"]
+[ext_resource type="Texture2D" uid="uid://cp1pcuo3v2c4b" path="res://assets/workstation/flame.png" id="22_1v0k2"]
+[ext_resource type="PackedScene" uid="uid://cfxd1fnbvxnxb" path="res://scenes/main/red_candles.tscn" id="25_wh6i2"]
+[ext_resource type="Texture2D" uid="uid://c3uqkhmcsly4y" path="res://assets/workstation/paper.png" id="25_xtyir"]
+[ext_resource type="AudioStream" uid="uid://bjq1kh6ic3xsu" path="res://assets/audio/crickets.mp3" id="27_diimi"]
+[ext_resource type="Texture2D" uid="uid://bpbbahsnkwba6" path="res://assets/ui/dialogue/dialogue_icon.png" id="27_eergd"]
+[ext_resource type="Texture2D" uid="uid://cr2b8yye4bf5n" path="res://assets/ui/book_toggle.png" id="28_kgr6p"]
+[ext_resource type="Script" uid="uid://co0plr4sjtyp0" path="res://scenes/main/dialogue_repeat_button.gd" id="29_kgr6p"]
+[ext_resource type="PackedScene" uid="uid://y1y2clwa1r82" path="res://scenes/workstation/explosion_particles.tscn" id="30_ynl2v"]
+[ext_resource type="Script" uid="uid://dej0pu6muw8kg" path="res://scenes/workstation/explosion_particles.gd" id="31_umiu5"]
+[ext_resource type="Script" uid="uid://b44hole47ia3q" path="res://scenes/main/patient_area.gd" id="33_2wxho"]
+[ext_resource type="AudioStream" uid="uid://8n5d5fw42yrr" path="res://assets/audio/click_3.ogg" id="33_rmity"]
+[ext_resource type="AudioStream" uid="uid://c85qdupi0gda" path="res://assets/audio/gold.wav" id="34_v2yyn"]
+
+[sub_resource type="Shader" id="Shader_qryyp"]
+code = "shader_type canvas_item;
+// Debug mode to see the raw flame shape
+uniform bool debug = false;
+// Number of color bands in the flame (3-4 recommended for pixel art)
+uniform int pallet_size = 4;
+// Flame shape controls
+uniform float flame_height = 1.0; // How tall the flame is
+uniform float flame_width = 0.7; // How wide the flame is (increased for more body)
+uniform float flame_taper = 1.2; // How much it tapers at top (lower = more body)
+uniform float flame_flicker = 0.2; // How much the flame flickers
+uniform float step_frequency = 8.0; // How \"choppy\" the animation is (higher = more steps)
+uniform float scroll_speed = 0.1; // How fast it actually moves
+// Noise texture for flame animation (use low-res noise for pixel art)
+uniform sampler2D noise_tex: filter_nearest, repeat_enable;
+// Flame colors (from hottest/center to coolest/outer) - pixel art palette
+uniform vec4 flame_0: source_color = vec4(1.0, 1.0, 0.8, 1.0); // Bright yellow core
+uniform vec4 flame_1: source_color = vec4(1.0, 0.7, 0.2, 1.0); // Orange
+uniform vec4 flame_2: source_color = vec4(0.9, 0.3, 0.1, 1.0); // Red-orange
+uniform vec4 flame_3: source_color = vec4(0.6, 0.2, 0.1, 0.8); // Dark red edge
+uniform vec4 flame_4: source_color = vec4(0.4, 0.1, 0.0, 0.3); // Very dark edge
+// Brightness thresholds for each color band (tuned for 16x16)
+uniform float thresh_f0 = 0.05;
+uniform float thresh_f1 = 0.15;
+uniform float thresh_f2 = 0.3;
+uniform float thresh_f3 = 0.5;
+uniform float thresh_f4 = 0.7;
+void fragment() {
+	// Snap to pixel grid for crisp pixel art
+	vec2 pixel_uv = floor(UV / TEXTURE_PIXEL_SIZE) * TEXTURE_PIXEL_SIZE;
+	// Center the UV coordinates
+	vec2 uv = pixel_uv;
+	uv.x = (uv.x - 0.5) * 2.0; // Range from -1 to 1
+	uv.y = 1.0 - uv.y; // Flip Y so flame goes upward
+	// Create small candle flame shape (optimized for 16x16)
+	// Classic candle flame: rounded bottom, pointed top
+	// Vertical gradient: strong at bottom (y=0), weak at top (y=1)
+	float vertical_strength = 1.0 - uv.y; // Bottom (0) = 1.0, Top (1) = 0.0
+	vertical_strength = pow(vertical_strength, 1.0 / flame_height); // Control height
+	// Taper the width as we go up (uv.y increases going up)
+	float width_at_height = mix(flame_width, flame_width * 0.15, pow(uv.y, flame_taper));
+	float horizontal_falloff = 1.0 - (abs(uv.x) / width_at_height);
+	horizontal_falloff = max(0.0, horizontal_falloff);
+	// Combine for final shape
+	float base_flame = vertical_strength * horizontal_falloff * 1.5;
+	// Add pixel-stepped animation for flickering
+	float time_step = floor(TIME * step_frequency) / step_frequency;
+	vec2 noise_uv = vec2(pixel_uv.x * 0.5, pixel_uv.y * 0.8 + time_step * scroll_speed);
+	vec4 noise_color = texture(noise_tex, noise_uv);
+	float noise_val = (noise_color.r + noise_color.g + noise_color.b) / 3.0;
+	// Apply noise to create flickering effect
+	float flicker = (noise_val - 0.5) * flame_flicker;
+	base_flame += flicker;
+	// Add secondary noise for detail
+	vec2 detail_uv = vec2(pixel_uv.x * 2.0, pixel_uv.y * 1.5 + time_step * scroll_speed * 1.5);
+	vec4 detail_noise = texture(noise_tex, detail_uv);
+	float detail_val = (detail_noise.r + detail_noise.g + detail_noise.b) / 3.0;
+	base_flame += (detail_val - 0.5) * 0.08;
+	// Clamp the result
+	float map_lum = clamp(base_flame, 0.0, 1.0);
+	// Apply color bands based on luminance thresholds (inverted logic - higher values = hotter)
+	if (map_lum > thresh_f4 && pallet_size >= 1) {
+		COLOR = flame_0;
+	} else if (map_lum > thresh_f3 && pallet_size >= 2) {
+		COLOR = flame_1;
+	} else if (map_lum > thresh_f2 && pallet_size >= 3) {
+		COLOR = flame_2;
+	} else if (map_lum > thresh_f1 && pallet_size >= 4) {
+		COLOR = flame_3;
+	} else if (map_lum > thresh_f0 && pallet_size >= 5) {
+		COLOR = flame_4;
+	} else {
+		COLOR = vec4(0.0, 0.0, 0.0, 0.0); // Transparent background
+	}
+	// Debug mode shows the raw luminance map
+	if (debug) {
+		COLOR = vec4(vec3(map_lum), 1.0);
+	}
+}"
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_22fp7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eergd"]
+shader = SubResource("Shader_qryyp")
+shader_parameter/debug = false
+shader_parameter/pallet_size = 3
+shader_parameter/flame_height = 2.78
+shader_parameter/flame_width = 2.26
+shader_parameter/flame_taper = 0.535
+shader_parameter/flame_flicker = 0.5
+shader_parameter/step_frequency = 8.0
+shader_parameter/scroll_speed = 0.3
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_22fp7")
+shader_parameter/flame_0 = Color(0.96862745, 0.8901961, 0.5764706, 1)
+shader_parameter/flame_1 = Color(1, 0.9019608, 0.3764706, 1)
+shader_parameter/flame_2 = Color(1, 0.9019608, 0.3764706, 1)
+shader_parameter/flame_3 = Color(0, 0, 0, 0.8)
+shader_parameter/flame_4 = Color(0, 0, 0, 0.3019608)
+shader_parameter/thresh_f0 = 0.05
+shader_parameter/thresh_f1 = 0.15
+shader_parameter/thresh_f2 = 0.3
+shader_parameter/thresh_f3 = 0.5
+shader_parameter/thresh_f4 = 0.7
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eexwu"]
+shader = ExtResource("18_isaxb")
+shader_parameter/progress = 0.0
+shader_parameter/day_tint = Color(1, 1, 1, 1)
+shader_parameter/night_tint = Color(0, 0.10266678, 0.44, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v2yyn"]
+size = Vector2(63, 63)
+
+[node name="MainLoop" type="Node2D"]
+script = ExtResource("1_olyg1")
+
+[node name="Bowl" type="Sprite2D" parent="."]
+position = Vector2(107, 61)
+texture = ExtResource("20_r5fat")
+
+[node name="Tawas" type="Sprite2D" parent="Bowl"]
+position = Vector2(-1, -12)
+texture = ExtResource("21_wh6i2")
+
+[node name="Candle" type="Sprite2D" parent="."]
+position = Vector2(105, 63)
+texture = ExtResource("20_isaxb")
+centered = false
+
+[node name="Flame" type="Sprite2D" parent="Candle"]
+material = SubResource("ShaderMaterial_eergd")
+position = Vector2(7, -2)
+texture = ExtResource("22_1v0k2")
+centered = false
+
+[node name="Workstation" type="Node2D" parent="."]
+
+[node name="Pentagram" type="Node2D" parent="Workstation"]
+script = ExtResource("1_pyi1g")
+
+[node name="PentagramConfirm" type="TextureButton" parent="Workstation/Pentagram"]
+offset_left = 211.0
+offset_top = 79.0
+offset_right = 237.0
+offset_bottom = 91.0
+texture_normal = ExtResource("14_jnr8r")
+script = ExtResource("4_5xoao")
+
+[node name="PentagramSprite" type="Sprite2D" parent="Workstation/Pentagram"]
+position = Vector2(119, 77)
+texture = ExtResource("11_eofcd")
+centered = false
+
+[node name="PentagramPoint1" parent="Workstation/Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("9_yfqjs")]
+position = Vector2(145, 78)
+
+[node name="PentagramPoint2" parent="Workstation/Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("9_yfqjs")]
+position = Vector2(199, 78)
+
+[node name="PentagramPoint3" parent="Workstation/Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("9_yfqjs")]
+position = Vector2(214, 102)
+
+[node name="PentagramPoint4" parent="Workstation/Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("9_yfqjs")]
+position = Vector2(173, 121)
+
+[node name="PentagramPoint5" parent="Workstation/Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("9_yfqjs")]
+position = Vector2(130, 102)
+
+[node name="PentagramPoint6" parent="Workstation/Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("9_yfqjs")]
+position = Vector2(173, 96)
+
+[node name="PentagramCircle" type="Sprite2D" parent="Workstation/Pentagram"]
+position = Vector2(128, 74)
+texture = ExtResource("3_o22mv")
+centered = false
+
+[node name="HerbSprites" type="Node2D" parent="Workstation/Pentagram"]
+
+[node name="SfxBurn" type="AudioStreamPlayer" parent="Workstation/Pentagram"]
+stream = ExtResource("13_ynl2v")
+
+[node name="SfxPoof" type="AudioStreamPlayer" parent="Workstation/Pentagram"]
+stream = ExtResource("15_7fx7v")
+
+[node name="ExplosionParticles" parent="Workstation/Pentagram" instance=ExtResource("30_ynl2v")]
+z_index = 10
+z_as_relative = false
+position = Vector2(172, 103)
+script = ExtResource("31_umiu5")
+
+[node name="Herbs" type="Node2D" parent="Workstation"]
+
+[node name="BackgroundHerbs" type="Node2D" parent="Workstation/Herbs"]
+
+[node name="HerbDugo" type="Sprite2D" parent="Workstation/Herbs/BackgroundHerbs"]
+position = Vector2(189, 54)
+texture = ExtResource("6_o22mv")
+
+[node name="HerbGinhawa" type="Sprite2D" parent="Workstation/Herbs/BackgroundHerbs"]
+position = Vector2(221, 54)
+texture = ExtResource("7_jnr8r")
+
+[node name="HerbLagundi" type="Sprite2D" parent="Workstation/Herbs/BackgroundHerbs"]
+position = Vector2(157, 19)
+texture = ExtResource("4_o22mv")
+
+[node name="HerbSampaguita" type="Sprite2D" parent="Workstation/Herbs/BackgroundHerbs"]
+position = Vector2(157, 54)
+texture = ExtResource("5_yfqjs")
+
+[node name="HerbRoot" type="Sprite2D" parent="Workstation/Herbs/BackgroundHerbs"]
+position = Vector2(189, 19)
+texture = ExtResource("3_6ufpv")
+
+[node name="HerbBark" type="Sprite2D" parent="Workstation/Herbs/BackgroundHerbs"]
+position = Vector2(221, 19)
+texture = ExtResource("4_eofcd")
+
+[node name="Lagundi" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
+z_index = 10
+position = Vector2(157, 19)
+texture = ExtResource("4_o22mv")
+herb_name = null
+
+[node name="Root" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
+z_index = 10
+position = Vector2(189, 19)
+texture = ExtResource("3_6ufpv")
+herb_name = "Root"
+
+[node name="Bark" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
+z_index = 10
+position = Vector2(221, 19)
+texture = ExtResource("4_eofcd")
+herb_name = "Bark"
+
+[node name="Sampaguita" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
+z_index = 10
+position = Vector2(157, 54)
+texture = ExtResource("5_yfqjs")
+herb_name = "Sampaguita"
+
+[node name="Dugo" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
+z_index = 10
+position = Vector2(189, 54)
+texture = ExtResource("6_o22mv")
+herb_name = "Dugo"
+
+[node name="Ginhawa" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
+z_index = 10
+position = Vector2(221, 54)
+texture = ExtResource("7_jnr8r")
+herb_name = "Ginhawa"
+
+[node name="GameBackground" type="Sprite2D" parent="."]
+z_index = -10
+scale = Vector2(1, 0.99999994)
+texture = ExtResource("1_l1b4v")
+centered = false
+
+[node name="NpcBackground" type="Sprite2D" parent="."]
+z_index = -30
+material = SubResource("ShaderMaterial_eexwu")
+position = Vector2(1, 1)
+texture = ExtResource("2_xfve2")
+centered = false
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_m757o")
+volume_db = -15.0
+
+[node name="BackgroundCricket" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("27_diimi")
+
+[node name="Dialogue" type="Node2D" parent="."]
+
+[node name="ChecklistControl" parent="." instance=ExtResource("19_h6rqw")]
+z_index = 20
+z_as_relative = false
+position = Vector2(284, 190)
+
+[node name="Paper" type="Sprite2D" parent="."]
+position = Vector2(52, 106)
+texture = ExtResource("25_xtyir")
+
+[node name="RedCandles" parent="." instance=ExtResource("25_wh6i2")]
+position = Vector2(68, 109)
+
+[node name="BookToggle" type="Sprite2D" parent="."]
+position = Vector2(109, 118)
+texture = ExtResource("28_kgr6p")
+centered = false
+
+[node name="DialogueRepeatButton" type="TextureButton" parent="BookToggle"]
+offset_left = 20.0
+offset_top = 6.0
+offset_right = 28.0
+offset_bottom = 14.0
+texture_normal = ExtResource("27_eergd")
+script = ExtResource("29_kgr6p")
+
+[node name="SfxClick" type="AudioStreamPlayer" parent="BookToggle"]
+stream = ExtResource("33_rmity")
+
+[node name="PatientArea" type="Area2D" parent="."]
+position = Vector2(11, 11)
+script = ExtResource("33_2wxho")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PatientArea"]
+position = Vector2(21.5, 21.5)
+shape = SubResource("RectangleShape2D_v2yyn")
+
+[node name="SfxGold" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("34_v2yyn")
+
+[node name="NightTimer" type="Timer" parent="."]
+process_callback = 0
+
+[node name="FullDayTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[connection signal="timeout" from="NightTimer" to="." method="_on_night_timer_timeout"]
+[connection signal="timeout" from="FullDayTimer" to="." method="_on_full_day_timer_timeout"]

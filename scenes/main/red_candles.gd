@@ -45,15 +45,15 @@ func _on_change_potency():
 			var new_flame_width = min_flame_vals[1] + (max_flame_vals[1] - min_flame_vals[1]) * sine_ratio
 			var new_flame_speed = min_flame_vals[2] + (max_flame_vals[2] - min_flame_vals[2]) * sine_ratio
 			
-			if ratio >= 1:
+			# THRESHOLD
+			if ratio >= 0.5:
 				sfx_feedback.play()
 				var glow := GlowScene.instantiate()
 				
-				var candle := get_child(index)  # example if you're inside a loop
+				var candle := get_child(index) 
 				glow.add_to_group("glows")
 				candle.add_child(glow)
 
-				# Optional: Position glow at center of flame/candle
 				glow.position = Vector2.ZERO
 				glow.position += Vector2(0, -10)
 			

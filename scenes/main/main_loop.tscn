@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://cvhtpwumormog"]
+[gd_scene load_steps=42 format=3 uid="uid://cvhtpwumormog"]
 
 [ext_resource type="Texture2D" uid="uid://cpv3v0018eft" path="res://assets/background/game_background.png" id="1_l1b4v"]
 [ext_resource type="PackedScene" uid="uid://ch06j3uikjcka" path="res://scenes/workstation/herb.tscn" id="1_naftw"]
@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://cp1pcuo3v2c4b" path="res://assets/workstation/flame.png" id="22_1v0k2"]
 [ext_resource type="PackedScene" uid="uid://cfxd1fnbvxnxb" path="res://scenes/main/red_candles.tscn" id="25_wh6i2"]
 [ext_resource type="Texture2D" uid="uid://c3uqkhmcsly4y" path="res://assets/workstation/paper.png" id="25_xtyir"]
+[ext_resource type="AudioStream" uid="uid://bjq1kh6ic3xsu" path="res://assets/audio/crickets.mp3" id="27_diimi"]
 [ext_resource type="Texture2D" uid="uid://bpbbahsnkwba6" path="res://assets/ui/dialogue/dialogue_icon.png" id="27_eergd"]
 [ext_resource type="Texture2D" uid="uid://cr2b8yye4bf5n" path="res://assets/ui/book_toggle.png" id="28_kgr6p"]
 [ext_resource type="Script" uid="uid://co0plr4sjtyp0" path="res://scenes/main/dialogue_repeat_button.gd" id="29_kgr6p"]
@@ -302,9 +303,12 @@ position = Vector2(1, 1)
 texture = ExtResource("2_xfve2")
 centered = false
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("15_m757o")
-autoplay = true
+volume_db = -15.0
+
+[node name="BackgroundCricket" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("27_diimi")
 
 [node name="Dialogue" type="Node2D" parent="."]
 
@@ -318,7 +322,7 @@ position = Vector2(52, 106)
 texture = ExtResource("25_xtyir")
 
 [node name="RedCandles" parent="." instance=ExtResource("25_wh6i2")]
-position = Vector2(68, 109)
+position = Vector2(75, 115)
 
 [node name="BookToggle" type="Sprite2D" parent="."]
 position = Vector2(109, 118)
