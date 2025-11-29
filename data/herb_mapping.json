@@ -1,391 +1,314 @@
 {
-	"herbs": {
-		"Root": {
-			"symptoms": {
-				"rashes": {
-					"type": "Primary",
-					"soloValue": 100.0,
-					"interactions": {
-						"Lagundi": 25.0,
-						"Bark": 25.0,
-						"Dugo": 20.0,
-						"Sampaguita": 25.0,
-						"Ginhawa": 25.0
-					}
-				},
-				"chest_pain": {
-					"type": "Primary",
-					"soloValue": 100.0,
-					"interactions": {
-						"Lagundi": 25.0,
-						"Bark": 30.0,
-						"Dugo": 20.0,
-						"Sampaguita": 25.0,
-						"Ginhawa": 30.0
-					}
-				},
-				"sweat": {
-					"type": "Secondary",
-					"soloValue": 55.0,
-					"interactions": {
-						"Lagundi": 25.0,
-						"Bark": 25.0,
-						"Dugo": 20.0,
-						"Sampaguita": 30.0,
-						"Ginhawa": 30.0
-					}
-				},
-				"pale_skin": {
-					"type": "Secondary",
-					"soloValue": 55.0,
-					"interactions": {
-						"Lagundi": 25.0,
-						"Bark": 25.0,
-						"Dugo": 30.0,
-						"Sampaguita": 30.0,
-						"Ginhawa": 25.0
-					}
-				},
-				"wound": {
-					"type": "Secondary",
-					"soloValue": 50.0,
-					"interactions": {
-						"Lagundi": 25.0,
-						"Bark": 35.0,
-						"Dugo": 30.0,
-						"Sampaguita": 25.0,
-						"Ginhawa": 25.0
-					}
-				}
-			}
-		},
-		"Dugo": {
-			"symptoms": {
-				"pale_skin": {
-					"type": "Primary",
-					"soloValue": 100.0,
-					"interactions": {
-						"Lagundi": 25.0,
-						"Bark": 25.0,
-						"Root": 30.0,
-						"Sampaguita": 30.0,
-						"Ginhawa": 25.0
-					}
-				},
-				"hollow_cheeks": {
-					"type": "Primary",
-					"soloValue": 100.0,
-					"interactions": {
-						"Lagundi": 25.0,
-						"Bark": 25.0,
-						"Root": 25.0,
-						"Sampaguita": 30.0,
-						"Ginhawa": 30.0
-					}
-				},
-				"fever": {
-					"type": "Secondary",
-					"soloValue": 55.0,
-					"interactions": {
-						"Lagundi": 25.0,
-						"Bark": 35.0,
-						"Root": 30.0,
-						"Sampaguita": 25.0,
-						"Ginhawa": 35.0
-					}
-				},
-				"pale_lips": {
-					"type": "Secondary",
-					"soloValue": 50.0,
-					"interactions": {
-						"Lagundi": 25.0,
-						"Bark": 25.0,
-						"Root": 25.0,
-						"Sampaguita": 35.0,
-						"Ginhawa": 40.0
-					}
-				},
-				"rashes": {
-					"type": "Secondary",
-					"soloValue": 50.0,
-					"interactions": {
-						"Lagundi": 25.0,
-						"Bark": 25.0,
-						"Root": 35.0,
-						"Sampaguita": 30.0,
-						"Ginhawa": 25.0
-					}
-				}
-			}
-		},
-		"Ginhawa": {
-			"symptoms": {
-				"pale_lips": {
-					"type": "Primary",
-					"soloValue": 100.0,
-					"interactions": {
-						"Lagundi": 25.0,
-						"Bark": 25.0,
-						"Root": 25.0,
-						"Dugo": 35.0,
-						"Sampaguita": 35.0
-					}
-				},
-				"sore_throat": {
-					"type": "Primary",
-					"soloValue": 100.0,
-					"interactions": {
-						"Lagundi": 35.0,
-						"Bark": 30.0,
-						"Root": 25.0,
-						"Dugo": 25.0,
-						"Sampaguita": 25.0
-					}
-				},
-				"fever": {
-					"type": "Secondary",
-					"soloValue": 50.0,
-					"interactions": {
-						"Lagundi": 25.0,
-						"Bark": 35.0,
-						"Root": 30.0,
-						"Dugo": 40.0,
-						"Sampaguita": 25.0
-					}
-				},
-				"cough": {
-					"type": "Secondary",
-					"soloValue": 55.0,
-					"interactions": {
-						"Lagundi": 40.0,
-						"Bark": 30.0,
-						"Root": 25.0,
-						"Dugo": 25.0,
-						"Sampaguita": 25.0
-					}
-				},
-				"hollow_cheeks": {
-					"type": "Secondary",
-					"soloValue": 50.0,
-					"interactions": {
-						"Lagundi": 25.0,
-						"Bark": 25.0,
-						"Root": 25.0,
-						"Dugo": 35.0,
-						"Sampaguita": 35.0
-					}
-				}
-			}
-		},
-		"Sampaguita": {
-			"symptoms": {
-				"sweat": {
-					"type": "Primary",
-					"soloValue": 100.0,
-					"interactions": {
-						"Lagundi": 25.0,
-						"Bark": 25.0,
-						"Root": 35.0,
-						"Dugo": 25.0,
-						"Ginhawa": 30.0
-					}
-				},
-				"sunken_eyes": {
-					"type": "Primary",
-					"soloValue": 100.0,
-					"interactions": {
-						"Lagundi": 30.0,
-						"Bark": 30.0,
-						"Root": 25.0,
-						"Dugo": 25.0,
-						"Ginhawa": 25.0
-					}
-				},
-				"pale_lips": {
-					"type": "Secondary",
-					"soloValue": 55.0,
-					"interactions": {
-						"Lagundi": 25.0,
-						"Bark": 25.0,
-						"Root": 25.0,
-						"Dugo": 30.0,
-						"Ginhawa": 40.0
-					}
-				},
-				"red_nose": {
-					"type": "Secondary",
-					"soloValue": 50.0,
-					"interactions": {
-						"Lagundi": 30.0,
-						"Bark": 35.0,
-						"Root": 25.0,
-						"Dugo": 25.0,
-						"Ginhawa": 30.0
-					}
-				},
-				"red_eyes": {
-					"type": "Secondary",
-					"soloValue": 50.0,
-					"interactions": {
-						"Lagundi": 35.0,
-						"Bark": 25.0,
-						"Root": 25.0,
-						"Dugo": 30.0,
-						"Ginhawa": 25.0
-					}
-				}
-			}
-		},
-		"Lagundi": {
-			"symptoms": {
-				"headache": {
-					"type": "Primary",
-					"soloValue": 100.0,
-					"interactions": {
-						"Bark": 25.0,
-						"Root": 25.0,
-						"Dugo": 30.0,
-						"Sampaguita": 35.0,
-						"Ginhawa": 25.0
-					}
-				},
-				"cough": {
-					"type": "Primary",
-					"soloValue": 100.0,
-					"interactions": {
-						"Bark": 30.0,
-						"Root": 25.0,
-						"Dugo": 25.0,
-						"Sampaguita": 25.0,
-						"Ginhawa": 35.0
-					}
-				},
-				"sore_throat": {
-					"type": "Secondary",
-					"soloValue": 55.0,
-					"interactions": {
-						"Bark": 30.0,
-						"Root": 25.0,
-						"Dugo": 25.0,
-						"Sampaguita": 25.0,
-						"Ginhawa": 40.0
-					}
-				},
-				"runny_nose": {
-					"type": "Secondary",
-					"soloValue": 50.0,
-					"interactions": {
-						"Bark": 30.0,
-						"Root": 35.0,
-						"Dugo": 25.0,
-						"Sampaguita": 25.0,
-						"Ginhawa": 25.0
-					}
-				},
-				"red_eyes": {
-					"type": "Secondary",
-					"soloValue": 50.0,
-					"interactions": {
-						"Bark": 25.0,
-						"Root": 25.0,
-						"Dugo": 30.0,
-						"Sampaguita": 35.0,
-						"Ginhawa": 25.0
-					}
-				}
-			}
-		},
-		"Bark": {
-			"symptoms": {
-				"wound": {
-					"type": "Primary",
-					"soloValue": 100.0,
-					"interactions": {
-						"Lagundi": 30.0,
-						"Root": 35.0,
-						"Dugo": 30.0,
-						"Sampaguita": 25.0,
-						"Ginhawa": 25.0
-					}
-				},
-				"fever": {
-					"type": "Primary",
-					"soloValue": 100.0,
-					"interactions": {
-						"Lagundi": 25.0,
-						"Root": 30.0,
-						"Dugo": 35.0,
-						"Sampaguita": 25.0,
-						"Ginhawa": 35.0
-					}
-				},
-				"red_nose": {
-					"type": "Primary",
-					"soloValue": 100.0,
-					"interactions": {
-						"Lagundi": 30.0,
-						"Root": 25.0,
-						"Dugo": 25.0,
-						"Sampaguita": 35.0,
-						"Ginhawa": 30.0
-					}
-				},
-				"cough": {
-					"type": "Secondary",
-					"soloValue": 50.0,
-					"interactions": {
-						"Lagundi": 45.0,
-						"Root": 25.0,
-						"Dugo": 25.0,
-						"Sampaguita": 25.0,
-						"Ginhawa": 35.0
-					}
-				},
-				"headache": {
-					"type": "Secondary",
-					"soloValue": 55.0,
-					"interactions": {
-						"Lagundi": 40.0,
-						"Root": 25.0,
-						"Dugo": 30.0,
-						"Sampaguita": 30.0,
-						"Ginhawa": 25.0
-					}
-				},
-				"chest_pain": {
-					"type": "Secondary",
-					"soloValue": 50.0,
-					"interactions": {
-						"Lagundi": 25.0,
-						"Root": 40.0,
-						"Dugo": 25.0,
-						"Sampaguita": 25.0,
-						"Ginhawa": 30.0
-					}
-				},
-				"sunken_eyes": {
-					"type": "Secondary",
-					"soloValue": 50.0,
-					"interactions": {
-						"Lagundi": 30.0,
-						"Root": 25.0,
-						"Dugo": 25.0,
-						"Sampaguita": 40.0,
-						"Ginhawa": 25.0
-					}
-				},
-				"runny_nose": {
-					"type": "Secondary",
-					"soloValue": 50.0,
-					"interactions": {
-						"Lagundi": 45.0,
-						"Root": 30.0,
-						"Dugo": 25.0,
-						"Sampaguita": 25.0,
-						"Ginhawa": 25.0
-					}
-				}
-			}
-		}
-	}
+    "herbs": {
+        "Root": {
+            "symptoms": {
+                "wound": {
+                    "type": "Primary",
+                    "soloValue": 100.0,
+                    "interactions": {
+                        "Lagundi": 25.0,
+                        "Bark": 25.0,
+                        "Dugo": 20.0,
+                        "Sampaguita": 25.0,
+                        "Ginhawa": 25.0
+                    }
+                },
+                "fever": {
+                    "type": "Primary",
+                    "soloValue": 100.0,
+                    "interactions": {
+                        "Lagundi": 25.0,
+                        "Bark": 30.0,
+                        "Dugo": 20.0,
+                        "Sampaguita": 25.0,
+                        "Ginhawa": 30.0
+                    }
+                },
+                "red_nose": {
+                    "type": "Primary",
+                    "soloValue": 100.0,
+                    "interactions": {
+                        "Lagundi": 25.0,
+                        "Bark": 25.0,
+                        "Dugo": 20.0,
+                        "Sampaguita": 30.0,
+                        "Ginhawa": 30.0
+                    }
+                },
+                "runny_nose": {
+                    "type": "Secondary",
+                    "soloValue": 0.0,
+                    "interactions": {
+                        "Lagundi": 0.0,
+                        "Bark":76.0,
+                        "Dugo": 33.45,
+                        "Sampaguita": 76.0,
+                        "Ginhawa": 76.0
+                    }
+                }
+            }
+        },
+        "Dugo": {
+            "symptoms": {
+                "pale_skin": {
+                    "type": "Primary",
+                    "soloValue": 100.0,
+                    "interactions": {
+                        "Lagundi": 25.0,
+                        "Bark": 25.0,
+                        "Root": 30.0,
+                        "Sampaguita": 30.0,
+                        "Ginhawa": 25.0
+                    }
+                },
+                "hollow_cheeks": {
+                    "type": "Primary",
+                    "soloValue": 100.0,
+                    "interactions": {
+                        "Lagundi": 25.0,
+                        "Bark": 25.0,
+                        "Root": 25.0,
+                        "Sampaguita": 30.0,
+                        "Ginhawa": 30.0
+                    }
+                },
+                "sunken_eyes": {
+                    "type": "Secondary",
+                    "soloValue": 0.0,
+                    "interactions": {
+                        "Lagundi": 33.45,
+                        "Bark": 76.0,
+                        "Root": 33.45,
+                        "Sampaguita": 0.0,
+                        "Ginhawa": 100.0
+                    }
+                },
+                "wound": {
+                    "type": "Secondary",
+                    "soloValue": 0.0,
+                    "interactions": {
+                        "Lagundi": 33.45,
+                        "Bark": 100.0,
+                        "Root": 0.0,
+                        "Sampaguita": 76.0,
+                        "Ginhawa": 76.0
+                    }
+                },
+                "fever": {
+                    "type": "Secondary",
+                    "soloValue": 0.0,
+                    "interactions": {
+                        "Lagundi": 76.0,
+                        "Bark": 33.45,
+                        "Root": 0.0,
+                        "Sampaguita": 76.0,
+                        "Ginhawa": 100.0
+                    }
+                }
+            }
+        },
+        "Ginhawa": {
+            "symptoms": {
+                "pale_lips": {
+                    "type": "Primary",
+                    "soloValue": 100.0,
+                    "interactions": {
+                        "Lagundi": 25.0,
+                        "Bark": 25.0,
+                        "Root": 25.0,
+                        "Dugo": 35.0,
+                        "Sampaguita": 35.0
+                    }
+                },
+                "sore_throat": {
+                    "type": "Primary",
+                    "soloValue": 100.0,
+                    "interactions": {
+                        "Lagundi": 35.0,
+                        "Bark": 30.0,
+                        "Root": 25.0,
+                        "Dugo": 25.0,
+                        "Sampaguita": 25.0
+                    }
+                },
+                "rashes": {
+                    "type": "Secondary",
+                    "soloValue": 0.0,
+                    "interactions": {
+                        "Lagundi": 33.45,
+                        "Bark": 0.0,
+                        "Root": 100.0,
+                        "Dugo": 76.0,
+                        "Sampaguita": 0.0
+                    }
+                },
+                "headache": {
+                    "type": "Secondary",
+                    "soloValue": 0.0,
+                    "interactions": {
+                        "Lagundi": 0.0,
+                        "Bark": 33.45,
+                        "Root": 33.45,
+                        "Dugo": 76.0,
+                        "Sampaguita": 33.45
+                    }
+                }
+            }
+        },
+        "Sampaguita": {
+            "symptoms": {
+                "sweat": {
+                    "type": "Primary",
+                    "soloValue": 100.0,
+                    "interactions": {
+                        "Lagundi": 25.0,
+                        "Bark": 25.0,
+                        "Root": 35.0,
+                        "Dugo": 25.0,
+                        "Ginhawa": 30.0
+                    }
+                },
+                "sunken_eyes": {
+                    "type": "Primary",
+                    "soloValue": 100.0,
+                    "interactions": {
+                        "Lagundi": 30.0,
+                        "Bark": 30.0,
+                        "Root": 25.0,
+                        "Dugo": 25.0,
+                        "Ginhawa": 25.0
+                    }
+                },
+                "pale_lips": {
+                    "type": "Secondary",
+                    "soloValue": 0.0,
+                    "interactions": {
+                        "Lagundi": 33.45,
+                        "Bark": 76.0,
+                        "Root": 33.45,
+                        "Dugo": 100.0,
+                        "Ginhawa": 40.0
+                    }
+                },
+                "red_nose": {
+                    "type": "Secondary",
+                    "soloValue": 0.0,
+                    "interactions": {
+                        "Lagundi": 33.45,
+                        "Bark": 76.0,
+                        "Root": 0.0,
+                        "Dugo": 100.0,
+                        "Ginhawa": 30.0
+                    }
+                }
+            }
+        },
+        "Lagundi": {
+            "symptoms": {
+                "cough": {
+                    "type": "Primary",
+                    "soloValue": 100.0,
+                    "interactions": {
+                        "Bark": 25.0,
+                        "Root": 25.0,
+                        "Dugo": 30.0,
+                        "Sampaguita": 35.0,
+                        "Ginhawa": 25.0
+                    }
+                },
+                "headache": {
+                    "type": "Primary",
+                    "soloValue": 100.0,
+                    "interactions": {
+                        "Bark": 30.0,
+                        "Root": 25.0,
+                        "Dugo": 25.0,
+                        "Sampaguita": 25.0,
+                        "Ginhawa": 35.0
+                    }
+                },
+                "red_eyes": {
+                    "type": "Primary",
+                    "soloValue": 100.0,
+                    "interactions": {
+                        "Bark": 30.0,
+                        "Root": 25.0,
+                        "Dugo": 25.0,
+                        "Sampaguita": 25.0,
+                        "Ginhawa": 40.0
+                    }
+                },
+                "runny_nose": {
+                    "type": "Primary",
+                    "soloValue": 100.0,
+                    "interactions": {
+                        "Bark": 30.0,
+                        "Root": 35.0,
+                        "Dugo": 25.0,
+                        "Sampaguita": 25.0,
+                        "Ginhawa": 25.0
+                    }
+                },
+                "sore_throat": {
+                    "type": "Secondary",
+                    "soloValue": 0.0,
+                    "interactions": {
+                        "Bark": 76.0,
+                        "Root": 100.0,
+                        "Dugo": 33.45,
+                        "Sampaguita": 33.45,
+                        "Ginhawa": 0.0
+                    }
+                }
+            }
+        },
+        "Bark": {
+            "symptoms": {
+                "rashes": {
+                    "type": "Primary",
+                    "soloValue": 100.0,
+                    "interactions": {
+                        "Lagundi": 30.0,
+                        "Root": 35.0,
+                        "Dugo": 30.0,
+                        "Sampaguita": 25.0,
+                        "Ginhawa": 25.0
+                    }
+                },
+                "chest_pain": {
+                    "type": "Primary",
+                    "soloValue": 100.0,
+                    "interactions": {
+                        "Lagundi": 25.0,
+                        "Root": 30.0,
+                        "Dugo": 35.0,
+                        "Sampaguita": 25.0,
+                        "Ginhawa": 35.0
+                    }
+                },
+                "sweat": {
+                    "type": "Secondary",
+                    "soloValue": 0.0,
+                    "interactions": {
+                        "Lagundi": 33.45,
+                        "Root": 76.0,
+                        "Dugo": 76.0,
+                        "Sampaguita": 0.0,
+                        "Ginhawa": 76.0
+                    }
+                },
+                "cough": {
+                    "type": "Secondary",
+                    "soloValue": 0.0,
+                    "interactions": {
+                        "Lagundi": 0.0,
+                        "Root": 76.0,
+                        "Dugo": 76.0,
+                        "Sampaguita":33.45,
+                        "Ginhawa": 76.0
+                    }
+                }
+            }
+        }
+    }
 }
