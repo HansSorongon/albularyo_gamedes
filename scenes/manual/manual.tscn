@@ -1,0 +1,135 @@
+[gd_scene load_steps=19 format=3 uid="uid://q7r0gd4vn1yf"]
+
+[ext_resource type="Script" uid="uid://b2bo5lre7fy3i" path="res://scenes/manual/manual.gd" id="1_d278f"]
+[ext_resource type="Texture2D" uid="uid://rx0sl06mkkm5" path="res://assets/manual/book_background.png" id="1_g3rnn"]
+[ext_resource type="Shader" uid="uid://ddjebc8q6j0fa" path="res://scenes/manual/book_text.gdshader" id="2_5edbu"]
+[ext_resource type="FontFile" uid="uid://b5bptjjfvw3i2" path="res://assets/ui/dialogue/tiny5.ttf" id="3_116d0"]
+[ext_resource type="Shader" uid="uid://6ejdkcj8bc04" path="res://scenes/manual/book_shader.gdshader" id="4_bwpdq"]
+[ext_resource type="Texture2D" uid="uid://6is5ut4gkpua" path="res://assets/workstation/herbs/herb_lagundi.png" id="5_d278f"]
+[ext_resource type="Texture2D" uid="uid://bm0uncqkcf6mo" path="res://assets/manual/manual_x.png" id="7_y7uol"]
+[ext_resource type="Script" uid="uid://drln02rnyg602" path="res://scenes/manual/manual_x.gd" id="8_8hbc8"]
+[ext_resource type="Texture2D" uid="uid://cblr5756f1il8" path="res://assets/manual/manual_next.png" id="9_gm275"]
+[ext_resource type="Texture2D" uid="uid://27fvhjkxx546" path="res://assets/manual/manual_previous.png" id="10_emltn"]
+[ext_resource type="Script" uid="uid://dt8j1koasuu57" path="res://scenes/manual/manual_next.gd" id="11_1ry3k"]
+[ext_resource type="Script" uid="uid://d0gmb0ejmrvr1" path="res://scenes/manual/manual_previous.gd" id="13_n7ifm"]
+[ext_resource type="AudioStream" uid="uid://x167aiu0dyyd" path="res://assets/audio/page_flip.ogg" id="13_phsb1"]
+[ext_resource type="AudioStream" uid="uid://qn8bp0o5rht8" path="res://assets/audio/page_flip_back.ogg" id="14_rayxo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g3rnn"]
+size = Vector2(201, 122)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5edbu"]
+shader = ExtResource("2_5edbu")
+shader_parameter/curve_amount = 0.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_116d0"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5n4l1"]
+shader = ExtResource("4_bwpdq")
+shader_parameter/brown_tint = Color(0.5795927, 0.48170286, 0.3221525, 1)
+
+[node name="Manual" type="Node2D"]
+script = ExtResource("1_d278f")
+
+[node name="BookBackground" type="Sprite2D" parent="."]
+texture = ExtResource("1_g3rnn")
+centered = false
+
+[node name="Area2D" type="Area2D" parent="BookBackground"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BookBackground/Area2D"]
+position = Vector2(120.5, 69)
+shape = SubResource("RectangleShape2D_g3rnn")
+
+[node name="HerbDescription" type="RichTextLabel" parent="."]
+offset_left = 32.0
+offset_top = 60.0
+offset_right = 116.0
+offset_bottom = 113.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.28, 0.22311333, 0.1316, 1)
+theme_override_fonts/normal_font = ExtResource("3_116d0")
+theme_override_font_sizes/normal_font_size = 8
+bbcode_enabled = true
+text = "Placeholder"
+scroll_active = false
+
+[node name="HerbInteractions" type="RichTextLabel" parent="."]
+offset_left = 125.0
+offset_top = 19.0
+offset_right = 201.0
+offset_bottom = 116.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.28, 0.22311333, 0.1316, 1)
+theme_override_fonts/normal_font = ExtResource("3_116d0")
+theme_override_font_sizes/normal_font_size = 8
+bbcode_enabled = true
+text = "Known to cure...
+  - Fever
+  - Headaches
+  - Cough
+
+Also soothes...
+  - Sore Throat
+  - Chest Pain"
+scroll_active = false
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_5edbu")
+offset_left = 28.0
+offset_top = 18.0
+offset_right = 118.0
+offset_bottom = 118.0
+texture = SubResource("ViewportTexture_116d0")
+
+[node name="HerbTexture" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_5n4l1")
+position = Vector2(72, 40)
+texture = ExtResource("5_d278f")
+
+[node name="HerbName" type="Label" parent="."]
+offset_left = 52.0
+offset_top = 17.0
+offset_right = 92.0
+offset_bottom = 26.0
+theme_override_colors/font_color = Color(0.2784314, 0.22352941, 0.13333334, 1)
+theme_override_fonts/font = ExtResource("3_116d0")
+theme_override_font_sizes/font_size = 8
+text = "Lagundi"
+horizontal_alignment = 1
+
+[node name="ManualX" type="TextureButton" parent="."]
+offset_left = 203.0
+offset_top = 17.0
+offset_right = 210.0
+offset_bottom = 24.0
+texture_normal = ExtResource("7_y7uol")
+script = ExtResource("8_8hbc8")
+
+[node name="ManualPageFlipButtons" type="Node2D" parent="."]
+
+[node name="ManualNext" type="TextureButton" parent="ManualPageFlipButtons"]
+offset_left = 205.0
+offset_top = 115.0
+offset_right = 213.0
+offset_bottom = 122.0
+texture_normal = ExtResource("9_gm275")
+script = ExtResource("11_1ry3k")
+
+[node name="ManualBack" type="TextureButton" parent="ManualPageFlipButtons"]
+offset_left = 30.0
+offset_top = 115.0
+offset_right = 38.0
+offset_bottom = 122.0
+texture_normal = ExtResource("10_emltn")
+script = ExtResource("13_n7ifm")
+
+[node name="SfxPageFlip" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_phsb1")
+
+[node name="SfxPageFlipBack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_rayxo")

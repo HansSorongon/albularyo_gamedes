@@ -7,23 +7,20 @@ var dialogue_symptoms: Dictionary = {
 	"headache": ["My head hurts when I wake up.", "My head is throbbing.", "It feels like the world is spinning."]
 }
 
-var possible_symptoms: Array[String] = [
-	"pale_skin",
-	"pale_lips",
-	"sweat",
-	"fever",
-	"sunken_eyes",
-	"red_eyes",
-	"runny_nose",
-	"red_nose",
-	"hollow_cheeks",
-	"rashes",
-	"wound",
-	"chest_pain",
-	"cough",
-	"sore_throat",
-	"headache"
-]
+# Cached data from the JSON file
+var symptom_sets_by_size: Dictionary = {}
+var json_loaded: bool = false
+
+# Weights for each symptom count
+var symptom_size_weights := {
+	1: 0.05,
+	2: 0.35,
+	3: 0.45,
+	4: 0.10,
+	5: 0.05,
+}
+#sizes of each symptom
+const SYMPTOM_SIZES := [1, 2, 3, 4, 5]
 
 var visual_symptoms: Array[String] = [
 	"pale_lips",
@@ -78,17 +75,60 @@ var gender_folders = {
 
 var npc_instance: Node2D = null
 
+func get_random_weighted_symptom_set() -> Array[String]:
+	# --- Load JSON once (first call only) ---
+	if not json_loaded:
+		var file := FileAccess.open("res://data/solvable_symptom_sets.json", FileAccess.READ)
+		if file == null:
+			push_error("Failed to open solvable_symptom_sets.json")
+			return []
+
+		var json_text := file.get_as_text()
+		var parsed: Dictionary = JSON.parse_string(json_text)
+
+		if typeof(parsed) != TYPE_DICTIONARY or not parsed.has("by_size"):
+			push_error("Invalid JSON format: expected { \"by_size\": ... }")
+			return []
+
+		symptom_sets_by_size = parsed["by_size"]
+		json_loaded = true
+
+	# --- Weighted random choice over sizes 1–5 in a fixed order ---
+	var total_weight := 0.0
+	for size in SYMPTOM_SIZES:
+		total_weight += symptom_size_weights[size]
+
+	var r := randf() * total_weight
+	var cumulative := 0.0
+	var chosen_size: int = SYMPTOM_SIZES[-1]	# fallback to last one
+
+	for size in SYMPTOM_SIZES:
+		cumulative += symptom_size_weights[size]
+		if r <= cumulative:
+			chosen_size = size
+			break
+
+	# --- Pick a random set from the chosen bucket ---
+	var key := str(chosen_size)
+	var bucket: Array = symptom_sets_by_size[key]
+
+	if bucket.is_empty():
+		push_error("No symptom sets for size %d" % chosen_size)
+		return []
+
+	var idx := randi() % bucket.size()
+	var chosen: Array = bucket[idx]
+
+	# Convert to Array[String]
+	var result: Array[String] = []
+	for s in chosen:
+		result.append(String(s))
+
+	return result
+ 
 func generate_symptoms():
 	symptoms.clear()
-	
-	# 2-3 symptoms
-	var num_symptoms = randi() % 2 + 2
-		
-	var pool = possible_symptoms.duplicate()
-	pool.shuffle()
-	
-	for i in range(num_symptoms):
-		symptoms.append(pool[i])
+	symptoms = get_random_weighted_symptom_set()
 
 func generate_random_npc() -> Node2D:
 	var npc = Node2D.new()
@@ -234,8 +274,7 @@ func _repeat_dialogue():
 func _ready():
 	
 	var root_node = get_tree().current_scene
-	#print(root_node.get_node("BookToggle").get_node("DialogueRepeatButton"))
-	root_node.get_node("BookToggle/DialogueRepeatButton").pressed.connect(_repeat_dialogue)
+	root_node.get_node("WorkstationUI/DialogueRepeatButton").pressed.connect(_repeat_dialogue)
 	
 	randomize()
 	spawn_npc()

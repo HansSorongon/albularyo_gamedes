@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://ch4kr1fhq7cat"]
+[gd_scene load_steps=10 format=3 uid="uid://ch4kr1fhq7cat"]
 
 [ext_resource type="Shader" uid="uid://87k5bptnb1d8" path="res://scenes/main/night_shader.gdshader" id="1_r5pqo"]
 [ext_resource type="Script" uid="uid://d2lfmul8f28ij" path="res://scenes/workstation/bottle.gd" id="1_txvlm"]
 [ext_resource type="Texture2D" uid="uid://do4fb2icei6ki" path="res://assets/workstation/bottle_inside.png" id="2_txvlm"]
 [ext_resource type="Texture2D" uid="uid://gaq6lu5lgim6" path="res://assets/workstation/bottle.png" id="3_ucdf8"]
+[ext_resource type="Texture2D" uid="uid://cq2ka12rbjccv" path="res://assets/workstation/bottle_highlights.png" id="5_knf22"]
 [ext_resource type="AudioStream" uid="uid://d1vmk70etsw4q" path="res://assets/audio/bottle.wav" id="5_ucdf8"]
 [ext_resource type="AudioStream" uid="uid://1r7d4x1wiwyw" path="res://assets/audio/bottle_drop.wav" id="6_4fq53"]
 
@@ -19,13 +20,17 @@ size = Vector2(29, 45)
 [node name="Bottle" type="Node2D"]
 script = ExtResource("1_txvlm")
 
+[node name="BottleOutside" type="Sprite2D" parent="."]
+texture = ExtResource("3_ucdf8")
+centered = false
+
 [node name="BottleInside" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_4fq53")
 texture = ExtResource("2_txvlm")
 centered = false
 
-[node name="BottleOutside" type="Sprite2D" parent="."]
-texture = ExtResource("3_ucdf8")
+[node name="BottleHighlights" type="Sprite2D" parent="."]
+texture = ExtResource("5_knf22")
 centered = false
 
 [node name="Area2D" type="Area2D" parent="."]

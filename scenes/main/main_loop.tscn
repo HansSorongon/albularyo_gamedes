@@ -1,29 +1,19 @@
-[gd_scene load_steps=42 format=3 uid="uid://cvhtpwumormog"]
+[gd_scene load_steps=30 format=3 uid="uid://cvhtpwumormog"]
 
 [ext_resource type="Texture2D" uid="uid://cpv3v0018eft" path="res://assets/background/game_background.png" id="1_l1b4v"]
-[ext_resource type="PackedScene" uid="uid://ch06j3uikjcka" path="res://scenes/workstation/herb.tscn" id="1_naftw"]
 [ext_resource type="Script" uid="uid://dkt7ee5n3gh3e" path="res://scenes/main/main_loop.gd" id="1_olyg1"]
-[ext_resource type="Script" uid="uid://c4k3aoq7o81c5" path="res://scenes/main/pentagram.gd" id="1_pyi1g"]
 [ext_resource type="Texture2D" uid="uid://cmssfptn6xb3j" path="res://assets/background/npc_background.png" id="2_xfve2"]
-[ext_resource type="Texture2D" uid="uid://4u30paakubgn" path="res://assets/workstation/herbs/herb_root.png" id="3_6ufpv"]
-[ext_resource type="Texture2D" uid="uid://bmpfbm8mjrmpm" path="res://assets/workstation/pentagram/pentagram_circle.png" id="3_o22mv"]
-[ext_resource type="Script" uid="uid://cnyg40f75353a" path="res://scenes/main/pentagram_confirm.gd" id="4_5xoao"]
-[ext_resource type="Texture2D" uid="uid://b5v0j6hxoytvt" path="res://assets/workstation/herbs/herb_bark.png" id="4_eofcd"]
-[ext_resource type="Texture2D" uid="uid://6is5ut4gkpua" path="res://assets/workstation/herbs/herb_lagundi.png" id="4_o22mv"]
-[ext_resource type="Texture2D" uid="uid://be6b1ajemxs41" path="res://assets/workstation/herbs/herb_sampaguita.png" id="5_yfqjs"]
-[ext_resource type="Texture2D" uid="uid://c5ctaxl2q6nsp" path="res://assets/workstation/herbs/herb_dugo.png" id="6_o22mv"]
-[ext_resource type="Texture2D" uid="uid://b3koxwi55a278" path="res://assets/workstation/herbs/herb_ginhawa.png" id="7_jnr8r"]
-[ext_resource type="PackedScene" uid="uid://pe35hcx4pegf" path="res://scenes/workstation/PentagramPoint.tscn" id="9_yfqjs"]
-[ext_resource type="Texture2D" uid="uid://dxl7f4c1kpv30" path="res://assets/workstation/pentagram/pentagram.png" id="11_eofcd"]
-[ext_resource type="AudioStream" uid="uid://drwli7wcujfbf" path="res://assets/audio/light_flame.ogg" id="13_ynl2v"]
-[ext_resource type="Texture2D" uid="uid://pyguyoj7h22c" path="res://assets/workstation/pentagram/pentagram_confirm.png" id="14_jnr8r"]
-[ext_resource type="AudioStream" uid="uid://doa6mfbatmlrl" path="res://assets/audio/poof.wav" id="15_7fx7v"]
+[ext_resource type="PackedScene" uid="uid://6jc4y545usrx" path="res://scenes/main/workstation.tscn" id="6_isaxb"]
 [ext_resource type="AudioStream" uid="uid://dpjqk0axsu3l1" path="res://assets/audio/bgm.mp3" id="15_m757o"]
+[ext_resource type="Script" uid="uid://bs6bt6fc72lm2" path="res://scenes/main/book_toggle.gd" id="16_eexwu"]
 [ext_resource type="Shader" uid="uid://87k5bptnb1d8" path="res://scenes/main/night_shader.gdshader" id="18_isaxb"]
 [ext_resource type="PackedScene" uid="uid://c3f5eobhumfge" path="res://scenes/main/checklist_toggle.tscn" id="19_h6rqw"]
+[ext_resource type="PackedScene" uid="uid://q7r0gd4vn1yf" path="res://scenes/manual/manual.tscn" id="20_22fp7"]
 [ext_resource type="Texture2D" uid="uid://1nxi17npukpj" path="res://assets/workstation/candle.png" id="20_isaxb"]
 [ext_resource type="Texture2D" uid="uid://chw76k6sft5nm" path="res://assets/workstation/bowl.png" id="20_r5fat"]
+[ext_resource type="AudioStream" uid="uid://datwsr2d6bm76" path="res://assets/audio/book_open.ogg" id="20_wh6i2"]
 [ext_resource type="Texture2D" uid="uid://wjlyw6tyblxi" path="res://assets/workstation/tawas.png" id="21_wh6i2"]
+[ext_resource type="AudioStream" uid="uid://dc4wfubthodha" path="res://assets/audio/book_close.ogg" id="21_xtyir"]
 [ext_resource type="Texture2D" uid="uid://cp1pcuo3v2c4b" path="res://assets/workstation/flame.png" id="22_1v0k2"]
 [ext_resource type="PackedScene" uid="uid://cfxd1fnbvxnxb" path="res://scenes/main/red_candles.tscn" id="25_wh6i2"]
 [ext_resource type="Texture2D" uid="uid://c3uqkhmcsly4y" path="res://assets/workstation/paper.png" id="25_xtyir"]
@@ -31,8 +21,6 @@
 [ext_resource type="Texture2D" uid="uid://bpbbahsnkwba6" path="res://assets/ui/dialogue/dialogue_icon.png" id="27_eergd"]
 [ext_resource type="Texture2D" uid="uid://cr2b8yye4bf5n" path="res://assets/ui/book_toggle.png" id="28_kgr6p"]
 [ext_resource type="Script" uid="uid://co0plr4sjtyp0" path="res://scenes/main/dialogue_repeat_button.gd" id="29_kgr6p"]
-[ext_resource type="PackedScene" uid="uid://y1y2clwa1r82" path="res://scenes/workstation/explosion_particles.tscn" id="30_ynl2v"]
-[ext_resource type="Script" uid="uid://dej0pu6muw8kg" path="res://scenes/workstation/explosion_particles.gd" id="31_umiu5"]
 [ext_resource type="Script" uid="uid://b44hole47ia3q" path="res://scenes/main/patient_area.gd" id="33_2wxho"]
 [ext_resource type="AudioStream" uid="uid://8n5d5fw42yrr" path="res://assets/audio/click_3.ogg" id="33_rmity"]
 [ext_resource type="AudioStream" uid="uid://c85qdupi0gda" path="res://assets/audio/gold.wav" id="34_v2yyn"]
@@ -172,123 +160,7 @@ position = Vector2(7, -2)
 texture = ExtResource("22_1v0k2")
 centered = false
 
-[node name="Workstation" type="Node2D" parent="."]
-
-[node name="Pentagram" type="Node2D" parent="Workstation"]
-script = ExtResource("1_pyi1g")
-
-[node name="PentagramConfirm" type="TextureButton" parent="Workstation/Pentagram"]
-offset_left = 211.0
-offset_top = 79.0
-offset_right = 237.0
-offset_bottom = 91.0
-texture_normal = ExtResource("14_jnr8r")
-script = ExtResource("4_5xoao")
-
-[node name="PentagramSprite" type="Sprite2D" parent="Workstation/Pentagram"]
-position = Vector2(119, 77)
-texture = ExtResource("11_eofcd")
-centered = false
-
-[node name="PentagramPoint1" parent="Workstation/Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("9_yfqjs")]
-position = Vector2(145, 78)
-
-[node name="PentagramPoint2" parent="Workstation/Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("9_yfqjs")]
-position = Vector2(199, 78)
-
-[node name="PentagramPoint3" parent="Workstation/Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("9_yfqjs")]
-position = Vector2(214, 102)
-
-[node name="PentagramPoint4" parent="Workstation/Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("9_yfqjs")]
-position = Vector2(173, 121)
-
-[node name="PentagramPoint5" parent="Workstation/Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("9_yfqjs")]
-position = Vector2(130, 102)
-
-[node name="PentagramPoint6" parent="Workstation/Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("9_yfqjs")]
-position = Vector2(173, 96)
-
-[node name="PentagramCircle" type="Sprite2D" parent="Workstation/Pentagram"]
-position = Vector2(128, 74)
-texture = ExtResource("3_o22mv")
-centered = false
-
-[node name="HerbSprites" type="Node2D" parent="Workstation/Pentagram"]
-
-[node name="SfxBurn" type="AudioStreamPlayer" parent="Workstation/Pentagram"]
-stream = ExtResource("13_ynl2v")
-
-[node name="SfxPoof" type="AudioStreamPlayer" parent="Workstation/Pentagram"]
-stream = ExtResource("15_7fx7v")
-
-[node name="ExplosionParticles" parent="Workstation/Pentagram" instance=ExtResource("30_ynl2v")]
-z_index = 10
-z_as_relative = false
-position = Vector2(172, 103)
-script = ExtResource("31_umiu5")
-
-[node name="Herbs" type="Node2D" parent="Workstation"]
-
-[node name="BackgroundHerbs" type="Node2D" parent="Workstation/Herbs"]
-
-[node name="HerbDugo" type="Sprite2D" parent="Workstation/Herbs/BackgroundHerbs"]
-position = Vector2(189, 54)
-texture = ExtResource("6_o22mv")
-
-[node name="HerbGinhawa" type="Sprite2D" parent="Workstation/Herbs/BackgroundHerbs"]
-position = Vector2(221, 54)
-texture = ExtResource("7_jnr8r")
-
-[node name="HerbLagundi" type="Sprite2D" parent="Workstation/Herbs/BackgroundHerbs"]
-position = Vector2(157, 19)
-texture = ExtResource("4_o22mv")
-
-[node name="HerbSampaguita" type="Sprite2D" parent="Workstation/Herbs/BackgroundHerbs"]
-position = Vector2(157, 54)
-texture = ExtResource("5_yfqjs")
-
-[node name="HerbRoot" type="Sprite2D" parent="Workstation/Herbs/BackgroundHerbs"]
-position = Vector2(189, 19)
-texture = ExtResource("3_6ufpv")
-
-[node name="HerbBark" type="Sprite2D" parent="Workstation/Herbs/BackgroundHerbs"]
-position = Vector2(221, 19)
-texture = ExtResource("4_eofcd")
-
-[node name="Lagundi" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
-z_index = 10
-position = Vector2(157, 19)
-texture = ExtResource("4_o22mv")
-
-[node name="Root" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
-z_index = 10
-position = Vector2(189, 19)
-texture = ExtResource("3_6ufpv")
-herb_name = "Root"
-
-[node name="Bark" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
-z_index = 10
-position = Vector2(221, 19)
-texture = ExtResource("4_eofcd")
-herb_name = "Bark"
-
-[node name="Sampaguita" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
-z_index = 10
-position = Vector2(157, 54)
-texture = ExtResource("5_yfqjs")
-herb_name = "Sampaguita"
-
-[node name="Dugo" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
-z_index = 10
-position = Vector2(189, 54)
-texture = ExtResource("6_o22mv")
-herb_name = "Dugo"
-
-[node name="Ginhawa" parent="Workstation/Herbs" instance=ExtResource("1_naftw")]
-z_index = 10
-position = Vector2(221, 54)
-texture = ExtResource("7_jnr8r")
-herb_name = "Ginhawa"
+[node name="Workstation" parent="." instance=ExtResource("6_isaxb")]
 
 [node name="GameBackground" type="Sprite2D" parent="."]
 z_index = -10
@@ -324,12 +196,13 @@ texture = ExtResource("25_xtyir")
 [node name="RedCandles" parent="." instance=ExtResource("25_wh6i2")]
 position = Vector2(75, 115)
 
-[node name="BookToggle" type="Sprite2D" parent="."]
+[node name="WorkstationUI" type="Node2D" parent="."]
 position = Vector2(109, 118)
-texture = ExtResource("28_kgr6p")
-centered = false
 
-[node name="DialogueRepeatButton" type="TextureButton" parent="BookToggle"]
+[node name="SfxClick" type="AudioStreamPlayer" parent="WorkstationUI"]
+stream = ExtResource("33_rmity")
+
+[node name="DialogueRepeatButton" type="TextureButton" parent="WorkstationUI"]
 offset_left = 20.0
 offset_top = 6.0
 offset_right = 28.0
@@ -337,8 +210,20 @@ offset_bottom = 14.0
 texture_normal = ExtResource("27_eergd")
 script = ExtResource("29_kgr6p")
 
-[node name="SfxClick" type="AudioStreamPlayer" parent="BookToggle"]
-stream = ExtResource("33_rmity")
+[node name="BookToggle" type="TextureButton" parent="WorkstationUI"]
+offset_right = 19.0
+offset_bottom = 13.0
+texture_normal = ExtResource("28_kgr6p")
+script = ExtResource("16_eexwu")
+
+[node name="SfxOpen" type="AudioStreamPlayer" parent="WorkstationUI/BookToggle"]
+stream = ExtResource("20_wh6i2")
+
+[node name="SfxClose" type="AudioStreamPlayer" parent="WorkstationUI/BookToggle"]
+stream = ExtResource("21_xtyir")
+
+[node name="Manual" parent="WorkstationUI" instance=ExtResource("20_22fp7")]
+position = Vector2(-109, 17)
 
 [node name="PatientArea" type="Area2D" parent="."]
 position = Vector2(11, 11)

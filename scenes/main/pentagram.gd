@@ -3,7 +3,11 @@ extends Node2D
 @onready var sfx_burn: AudioStreamPlayer = $SfxBurn
 @onready var sfx_remove: AudioStreamPlayer = $SfxRemove
 @onready var sfx_poof: AudioStreamPlayer = $SfxPoof
-var burn_material: ShaderMaterial = preload("res://shaders/burn_mat.tres")
+@onready var sfx_ignition: AudioStreamPlayer = $SfxIgnition
+
+var is_crafting = false
+
+var burn_material: ShaderMaterial = preload("res://shaders/burn_mat_2.tres")
 
 var herb_mappings_json_path = "res://data/herb_mapping.json"
 var herb_mappings: Dictionary
@@ -64,7 +68,7 @@ func destroy_herbs() -> void:
 			child.material = burn_material.duplicate()
 		
 		# Reset progress to -1.5 or 0 so the burn starts fresh
-		child.material.set_shader_parameter("progress", -1.5)
+		child.material.set_shader_parameter("radius", -0.5)
 		
 		# Create a tween for this herb
 		var tween = create_tween()
@@ -73,8 +77,8 @@ func destroy_herbs() -> void:
 		# Burn animation
 		tween.tween_property(
 			child.material,
-			"shader_parameter/progress",
-			1.5,
+			"shader_parameter/radius",
+			0.9,
 			1.8  # Slightly longer than before for nice overlap
 		).set_ease(Tween.EASE_IN)
 		
@@ -169,24 +173,35 @@ func change_potency():
 
 func _confirm_craft():
 	
+	if is_crafting:
+		return
+	
 	if get_tree().get_nodes_in_group("potion").size() > 0:
 		MessageManager.show_message("You already made a potion!")
 		return
 	
-	destroy_herbs()
-	
 	if not occupied_zones["PentagramPoint6"]:
 		MessageManager.show_message("No catalyst selected!")
 		return
+	
+	is_crafting = true
+	
+	sfx_ignition.play()
+	destroy_herbs()
+	
+	await get_tree().create_timer(1.0).timeout
 		
 	sfx_poof.play()
+	
 	$ExplosionParticles.restart()
 		
 	var bottle_scene = preload("res://scenes/workstation/bottle.tscn")
 	var new_potion = bottle_scene.instantiate()
 	
-	# BUG ! hacked to fix for now
-	new_potion.global_position = $PentagramPoint6.position - Vector2(15, 30)
+	var target_pos = $PentagramPoint6.global_position
+	var offset = new_potion.get_node("BottleOutside").texture.get_size() / 2 + Vector2(0, 10)
+	new_potion.global_position = target_pos - offset
+	
 	new_potion.potencies = potencies.duplicate()
 	
 	new_potion.scale = Vector2(0.1, 0.1)
@@ -195,3 +210,5 @@ func _confirm_craft():
 	tween.tween_property(new_potion, "scale", Vector2(1, 1), 0.4).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 	get_tree().current_scene.add_child(new_potion)
+
+	is_crafting = false

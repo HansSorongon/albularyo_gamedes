@@ -1,0 +1,24 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://khw76weox885"]
+
+[ext_resource type="Shader" uid="uid://bvr2v61qjblm7" path="res://shaders/pixel_burn.gdshader" id="1_bh0n1"]
+
+[sub_resource type="Gradient" id="Gradient_s33wg"]
+offsets = PackedFloat32Array(0, 0.3693182, 0.4715909, 0.60227275)
+colors = PackedColorArray(0.58431375, 0, 0, 1, 0.69017816, 0.20619267, 0.14155948, 1, 0.7657956, 0.35347316, 0.2426734, 1, 0.97978157, 0.7702549, 0.5288107, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xoytc"]
+gradient = SubResource("Gradient_s33wg")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_f6j8v"]
+
+[resource]
+shader = ExtResource("1_bh0n1")
+shader_parameter/position = Vector2(0.515, 0.505)
+shader_parameter/radius = -0.075
+shader_parameter/borderWidth = 0.135
+shader_parameter/burnMult = -0.41
+shader_parameter/noiseTexture = SubResource("NoiseTexture2D_f6j8v")
+shader_parameter/burnColor = Color(0.9882353, 0.2784314, 0.13333334, 1)
+shader_parameter/pixel_size = 0.024
+shader_parameter/blend_steps = 4.735
+shader_parameter/colorCurve = SubResource("GradientTexture2D_xoytc")

@@ -1,0 +1,142 @@
+[gd_scene load_steps=19 format=3 uid="uid://6jc4y545usrx"]
+
+[ext_resource type="Script" uid="uid://c4k3aoq7o81c5" path="res://scenes/main/pentagram.gd" id="1_nccq7"]
+[ext_resource type="Texture2D" uid="uid://pyguyoj7h22c" path="res://assets/workstation/pentagram/pentagram_confirm.png" id="2_fmd20"]
+[ext_resource type="Script" uid="uid://cnyg40f75353a" path="res://scenes/main/pentagram_confirm.gd" id="3_gsd44"]
+[ext_resource type="Texture2D" uid="uid://dxl7f4c1kpv30" path="res://assets/workstation/pentagram/pentagram.png" id="4_m1ni0"]
+[ext_resource type="PackedScene" uid="uid://pe35hcx4pegf" path="res://scenes/workstation/PentagramPoint.tscn" id="5_eothm"]
+[ext_resource type="Texture2D" uid="uid://bmpfbm8mjrmpm" path="res://assets/workstation/pentagram/pentagram_circle.png" id="6_8odvh"]
+[ext_resource type="AudioStream" uid="uid://drwli7wcujfbf" path="res://assets/audio/light_flame.ogg" id="7_nd4ce"]
+[ext_resource type="AudioStream" uid="uid://doa6mfbatmlrl" path="res://assets/audio/poof.wav" id="8_hpcsr"]
+[ext_resource type="PackedScene" uid="uid://y1y2clwa1r82" path="res://scenes/workstation/explosion_particles.tscn" id="9_r4mv6"]
+[ext_resource type="Script" uid="uid://dej0pu6muw8kg" path="res://scenes/workstation/explosion_particles.gd" id="10_fddi6"]
+[ext_resource type="Texture2D" uid="uid://c5ctaxl2q6nsp" path="res://assets/workstation/herbs/herb_dugo.png" id="11_76bwi"]
+[ext_resource type="AudioStream" uid="uid://6rcdv2wtghgg" path="res://assets/audio/ignition.ogg" id="11_fmd20"]
+[ext_resource type="Texture2D" uid="uid://b3koxwi55a278" path="res://assets/workstation/herbs/herb_ginhawa.png" id="12_6h85x"]
+[ext_resource type="Texture2D" uid="uid://6is5ut4gkpua" path="res://assets/workstation/herbs/herb_lagundi.png" id="13_ae15d"]
+[ext_resource type="Texture2D" uid="uid://be6b1ajemxs41" path="res://assets/workstation/herbs/herb_sampaguita.png" id="14_qdcy0"]
+[ext_resource type="Texture2D" uid="uid://4u30paakubgn" path="res://assets/workstation/herbs/herb_root.png" id="15_5l6hs"]
+[ext_resource type="Texture2D" uid="uid://b5v0j6hxoytvt" path="res://assets/workstation/herbs/herb_bark.png" id="16_oux5g"]
+[ext_resource type="PackedScene" uid="uid://ch06j3uikjcka" path="res://scenes/workstation/herb.tscn" id="17_xtsio"]
+
+[node name="Workstation" type="Node2D"]
+
+[node name="Pentagram" type="Node2D" parent="."]
+script = ExtResource("1_nccq7")
+
+[node name="PentagramConfirm" type="TextureButton" parent="Pentagram"]
+offset_left = 211.0
+offset_top = 79.0
+offset_right = 237.0
+offset_bottom = 91.0
+texture_normal = ExtResource("2_fmd20")
+script = ExtResource("3_gsd44")
+
+[node name="PentagramSprite" type="Sprite2D" parent="Pentagram"]
+position = Vector2(119, 77)
+texture = ExtResource("4_m1ni0")
+centered = false
+
+[node name="PentagramPoint1" parent="Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("5_eothm")]
+position = Vector2(145, 78)
+
+[node name="PentagramPoint2" parent="Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("5_eothm")]
+position = Vector2(199, 78)
+
+[node name="PentagramPoint3" parent="Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("5_eothm")]
+position = Vector2(214, 102)
+
+[node name="PentagramPoint4" parent="Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("5_eothm")]
+position = Vector2(173, 121)
+
+[node name="PentagramPoint5" parent="Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("5_eothm")]
+position = Vector2(130, 102)
+
+[node name="PentagramPoint6" parent="Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("5_eothm")]
+position = Vector2(173, 96)
+
+[node name="PentagramCircle" type="Sprite2D" parent="Pentagram"]
+position = Vector2(128, 74)
+texture = ExtResource("6_8odvh")
+centered = false
+
+[node name="HerbSprites" type="Node2D" parent="Pentagram"]
+
+[node name="SfxBurn" type="AudioStreamPlayer" parent="Pentagram"]
+stream = ExtResource("7_nd4ce")
+
+[node name="SfxPoof" type="AudioStreamPlayer" parent="Pentagram"]
+stream = ExtResource("8_hpcsr")
+
+[node name="ExplosionParticles" parent="Pentagram" instance=ExtResource("9_r4mv6")]
+z_index = 10
+z_as_relative = false
+position = Vector2(172, 103)
+script = ExtResource("10_fddi6")
+
+[node name="SfxIgnition" type="AudioStreamPlayer" parent="Pentagram"]
+stream = ExtResource("11_fmd20")
+volume_db = -10.0
+
+[node name="Herbs" type="Node2D" parent="."]
+
+[node name="BackgroundHerbs" type="Node2D" parent="Herbs"]
+
+[node name="HerbDugo" type="Sprite2D" parent="Herbs/BackgroundHerbs"]
+position = Vector2(189, 54)
+texture = ExtResource("11_76bwi")
+
+[node name="HerbGinhawa" type="Sprite2D" parent="Herbs/BackgroundHerbs"]
+position = Vector2(221, 54)
+texture = ExtResource("12_6h85x")
+
+[node name="HerbLagundi" type="Sprite2D" parent="Herbs/BackgroundHerbs"]
+position = Vector2(157, 19)
+texture = ExtResource("13_ae15d")
+
+[node name="HerbSampaguita" type="Sprite2D" parent="Herbs/BackgroundHerbs"]
+position = Vector2(157, 54)
+texture = ExtResource("14_qdcy0")
+
+[node name="HerbRoot" type="Sprite2D" parent="Herbs/BackgroundHerbs"]
+position = Vector2(189, 19)
+texture = ExtResource("15_5l6hs")
+
+[node name="HerbBark" type="Sprite2D" parent="Herbs/BackgroundHerbs"]
+position = Vector2(221, 19)
+texture = ExtResource("16_oux5g")
+
+[node name="Lagundi" parent="Herbs" instance=ExtResource("17_xtsio")]
+z_index = 10
+position = Vector2(157, 19)
+texture = ExtResource("13_ae15d")
+
+[node name="Root" parent="Herbs" instance=ExtResource("17_xtsio")]
+z_index = 10
+position = Vector2(189, 19)
+texture = ExtResource("15_5l6hs")
+herb_name = "Root"
+
+[node name="Bark" parent="Herbs" instance=ExtResource("17_xtsio")]
+z_index = 10
+position = Vector2(221, 19)
+texture = ExtResource("16_oux5g")
+herb_name = "Bark"
+
+[node name="Sampaguita" parent="Herbs" instance=ExtResource("17_xtsio")]
+z_index = 10
+position = Vector2(157, 54)
+texture = ExtResource("14_qdcy0")
+herb_name = "Sampaguita"
+
+[node name="Dugo" parent="Herbs" instance=ExtResource("17_xtsio")]
+z_index = 10
+position = Vector2(189, 54)
+texture = ExtResource("11_76bwi")
+herb_name = "Dugo"
+
+[node name="Ginhawa" parent="Herbs" instance=ExtResource("17_xtsio")]
+z_index = 10
+position = Vector2(221, 54)
+texture = ExtResource("12_6h85x")
+herb_name = "Ginhawa"
