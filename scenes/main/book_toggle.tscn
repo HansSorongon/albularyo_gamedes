@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://bkixi8ye30e3"]
+
+[ext_resource type="Texture2D" uid="uid://cr2b8yye4bf5n" path="res://assets/ui/book_toggle.png" id="1_yjbqn"]
+[ext_resource type="Script" uid="uid://bs6bt6fc72lm2" path="res://scenes/main/book_toggle.gd" id="2_tahxj"]
+[ext_resource type="AudioStream" uid="uid://datwsr2d6bm76" path="res://assets/audio/book_open.ogg" id="3_et4r4"]
+[ext_resource type="AudioStream" uid="uid://dc4wfubthodha" path="res://assets/audio/book_close.ogg" id="4_tlahm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yjbqn"]
+size = Vector2(19, 13)
+
+[node name="BookToggle" type="Sprite2D"]
+texture = ExtResource("1_yjbqn")
+centered = false
+script = ExtResource("2_tahxj")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(9.5, 6.5)
+shape = SubResource("RectangleShape2D_yjbqn")
+
+[node name="SfxOpen" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_et4r4")
+bus = &"Sfx"
+
+[node name="SfxClose" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_tlahm")
+bus = &"Sfx"

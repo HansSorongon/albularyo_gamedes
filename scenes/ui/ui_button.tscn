@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://rrkendp20mls"]
+
+[ext_resource type="Texture2D" uid="uid://bkmske0qolwps" path="res://assets/ui/ui_button.png" id="1_ct315"]
+[ext_resource type="Script" uid="uid://nn5d12hrw385" path="res://scenes/ui/ui_button.gd" id="1_yq7ok"]
+[ext_resource type="FontFile" uid="uid://b5bptjjfvw3i2" path="res://assets/ui/dialogue/tiny5.ttf" id="2_yq7ok"]
+
+[node name="UiButton" type="MarginContainer"]
+offset_right = 30.0
+offset_bottom = 10.0
+script = ExtResource("1_yq7ok")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_ct315")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 15
+patch_margin_top = 1
+patch_margin_right = 15
+patch_margin_bottom = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 1
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92145026, 0.77104527, 0.6729, 1)
+theme_override_fonts/font = ExtResource("2_yq7ok")
+theme_override_font_sizes/font_size = 8
+text = "Back"

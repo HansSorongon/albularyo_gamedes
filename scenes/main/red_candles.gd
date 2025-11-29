@@ -46,16 +46,17 @@ func _on_change_potency():
 			var new_flame_speed = min_flame_vals[2] + (max_flame_vals[2] - min_flame_vals[2]) * sine_ratio
 			
 			# THRESHOLD
-			if ratio >= 0.5:
+			if ratio >= 1.0:
 				sfx_feedback.play()
 				var glow := GlowScene.instantiate()
 				
 				var candle := get_child(index) 
 				glow.add_to_group("glows")
-				candle.add_child(glow)
+				candle.get_node("Flame").add_child(glow)
 
 				glow.position = Vector2.ZERO
-				glow.position += Vector2(0, -10)
+				glow.position += Vector2(5, 0)
+				glow.z_index = 100
 			
 			get_child(index).get_node("Flame").material.set_shader_parameter("flame_height", new_flame_height)
 			get_child(index).get_node("Flame").material.set_shader_parameter("flame_width", new_flame_width)
@@ -96,6 +97,7 @@ func _checklist_changed():
 			active_checkboxes.append(current_checkbox.name)
 			
 	for i in range(active_checkboxes.size()):
+		get_child(i).symptom_name = active_checkboxes[i]
 		show_flame(i)
 		_on_change_potency()
 	for i in range(active_checkboxes.size(), 5):

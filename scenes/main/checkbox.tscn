@@ -41,11 +41,14 @@ theme_override_font_sizes/font_size = 8
 
 [node name="SfxTick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_ptftm")
+bus = &"Sfx"
 
 [node name="SfxLight" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_ch3kj")
 volume_db = -10.0
+bus = &"Sfx"
 
 [node name="SfxExtinguish" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_p6t0k")
 volume_db = -10.0
+bus = &"Sfx"

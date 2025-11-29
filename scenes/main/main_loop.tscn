@@ -1,25 +1,22 @@
-[gd_scene load_steps=30 format=3 uid="uid://cvhtpwumormog"]
+[gd_scene load_steps=36 format=3 uid="uid://cvhtpwumormog"]
 
 [ext_resource type="Texture2D" uid="uid://cpv3v0018eft" path="res://assets/background/game_background.png" id="1_l1b4v"]
 [ext_resource type="Script" uid="uid://dkt7ee5n3gh3e" path="res://scenes/main/main_loop.gd" id="1_olyg1"]
 [ext_resource type="Texture2D" uid="uid://cmssfptn6xb3j" path="res://assets/background/npc_background.png" id="2_xfve2"]
 [ext_resource type="PackedScene" uid="uid://6jc4y545usrx" path="res://scenes/main/workstation.tscn" id="6_isaxb"]
-[ext_resource type="AudioStream" uid="uid://dpjqk0axsu3l1" path="res://assets/audio/bgm.mp3" id="15_m757o"]
-[ext_resource type="Script" uid="uid://bs6bt6fc72lm2" path="res://scenes/main/book_toggle.gd" id="16_eexwu"]
+[ext_resource type="AudioStream" uid="uid://d12d74oyw802i" path="res://assets/audio/bgm.mp3" id="15_m757o"]
+[ext_resource type="PackedScene" uid="uid://bkixi8ye30e3" path="res://scenes/main/book_toggle.tscn" id="17_eexwu"]
 [ext_resource type="Shader" uid="uid://87k5bptnb1d8" path="res://scenes/main/night_shader.gdshader" id="18_isaxb"]
 [ext_resource type="PackedScene" uid="uid://c3f5eobhumfge" path="res://scenes/main/checklist_toggle.tscn" id="19_h6rqw"]
 [ext_resource type="PackedScene" uid="uid://q7r0gd4vn1yf" path="res://scenes/manual/manual.tscn" id="20_22fp7"]
 [ext_resource type="Texture2D" uid="uid://1nxi17npukpj" path="res://assets/workstation/candle.png" id="20_isaxb"]
 [ext_resource type="Texture2D" uid="uid://chw76k6sft5nm" path="res://assets/workstation/bowl.png" id="20_r5fat"]
-[ext_resource type="AudioStream" uid="uid://datwsr2d6bm76" path="res://assets/audio/book_open.ogg" id="20_wh6i2"]
 [ext_resource type="Texture2D" uid="uid://wjlyw6tyblxi" path="res://assets/workstation/tawas.png" id="21_wh6i2"]
-[ext_resource type="AudioStream" uid="uid://dc4wfubthodha" path="res://assets/audio/book_close.ogg" id="21_xtyir"]
 [ext_resource type="Texture2D" uid="uid://cp1pcuo3v2c4b" path="res://assets/workstation/flame.png" id="22_1v0k2"]
 [ext_resource type="PackedScene" uid="uid://cfxd1fnbvxnxb" path="res://scenes/main/red_candles.tscn" id="25_wh6i2"]
 [ext_resource type="Texture2D" uid="uid://c3uqkhmcsly4y" path="res://assets/workstation/paper.png" id="25_xtyir"]
 [ext_resource type="AudioStream" uid="uid://bjq1kh6ic3xsu" path="res://assets/audio/crickets.mp3" id="27_diimi"]
 [ext_resource type="Texture2D" uid="uid://bpbbahsnkwba6" path="res://assets/ui/dialogue/dialogue_icon.png" id="27_eergd"]
-[ext_resource type="Texture2D" uid="uid://cr2b8yye4bf5n" path="res://assets/ui/book_toggle.png" id="28_kgr6p"]
 [ext_resource type="Script" uid="uid://co0plr4sjtyp0" path="res://scenes/main/dialogue_repeat_button.gd" id="29_kgr6p"]
 [ext_resource type="Script" uid="uid://b44hole47ia3q" path="res://scenes/main/patient_area.gd" id="33_2wxho"]
 [ext_resource type="AudioStream" uid="uid://8n5d5fw42yrr" path="res://assets/audio/click_3.ogg" id="33_rmity"]
@@ -129,6 +126,51 @@ shader_parameter/thresh_f2 = 0.3
 shader_parameter/thresh_f3 = 0.5
 shader_parameter/thresh_f4 = 0.7
 
+[sub_resource type="Curve" id="Curve_eexwu"]
+_limits = [0.0, 0.3, 0.0, 1.0]
+_data = [Vector2(0, 0.03707865), 0.0, 0.0, 0, 0, Vector2(0.20588234, 0.20898877), 0.0, 0.0, 0, 0, Vector2(0.49999997, 0.28314608), 0.0, 0.0, 0, 0, Vector2(0.80588233, 0.17865169), 0.0, 0.0, 0, 0, Vector2(0.9941176, 0.0067415833), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_22fp7"]
+curve = SubResource("Curve_eexwu")
+
+[sub_resource type="Gradient" id="Gradient_1v0k2"]
+colors = PackedColorArray(1, 1, 1, 0.078431375, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_r5fat"]
+gradient = SubResource("Gradient_1v0k2")
+
+[sub_resource type="Curve" id="Curve_wh6i2"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_xtyir"]
+_limits = [0.0, 30.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.12352942, 5.056179), 0.0, 0.0, 0, 0, Vector2(0.29411763, 5.730339), 0.0, 0.0, 0, 0, Vector2(0.94705886, 5.056179), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_qryyp"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_eergd"]
+curve_x = SubResource("Curve_wh6i2")
+curve_y = SubResource("Curve_xtyir")
+curve_z = SubResource("Curve_qryyp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eexwu"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(34.715, 18.78, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+gravity = Vector3(0, 3000, 0)
+scale_min = 0.19999999
+scale_over_velocity_curve = SubResource("CurveXYZTexture_eergd")
+color_initial_ramp = SubResource("GradientTexture1D_r5fat")
+alpha_curve = SubResource("CurveTexture_22fp7")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eexwu"]
 shader = ExtResource("18_isaxb")
 shader_parameter/progress = 0.0
@@ -168,6 +210,14 @@ scale = Vector2(1, 0.99999994)
 texture = ExtResource("1_l1b4v")
 centered = false
 
+[node name="Rain" type="GPUParticles2D" parent="."]
+z_index = -20
+position = Vector2(31, 6)
+amount = 50
+lifetime = 0.5
+preprocess = 0.5
+process_material = SubResource("ParticleProcessMaterial_eexwu")
+
 [node name="NpcBackground" type="Sprite2D" parent="."]
 z_index = -30
 material = SubResource("ShaderMaterial_eexwu")
@@ -177,30 +227,28 @@ centered = false
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("15_m757o")
-volume_db = -15.0
+volume_db = -5.0
+bus = &"Bgm"
 
 [node name="BackgroundCricket" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("27_diimi")
+bus = &"Bgm"
 
 [node name="Dialogue" type="Node2D" parent="."]
-
-[node name="ChecklistControl" parent="." instance=ExtResource("19_h6rqw")]
-z_index = 20
-z_as_relative = false
-position = Vector2(284, 190)
 
 [node name="Paper" type="Sprite2D" parent="."]
 position = Vector2(52, 106)
 texture = ExtResource("25_xtyir")
 
 [node name="RedCandles" parent="." instance=ExtResource("25_wh6i2")]
-position = Vector2(75, 115)
+position = Vector2(72, 115)
 
 [node name="WorkstationUI" type="Node2D" parent="."]
 position = Vector2(109, 118)
 
 [node name="SfxClick" type="AudioStreamPlayer" parent="WorkstationUI"]
 stream = ExtResource("33_rmity")
+bus = &"Sfx"
 
 [node name="DialogueRepeatButton" type="TextureButton" parent="WorkstationUI"]
 offset_left = 20.0
@@ -210,20 +258,15 @@ offset_bottom = 14.0
 texture_normal = ExtResource("27_eergd")
 script = ExtResource("29_kgr6p")
 
-[node name="BookToggle" type="TextureButton" parent="WorkstationUI"]
-offset_right = 19.0
-offset_bottom = 13.0
-texture_normal = ExtResource("28_kgr6p")
-script = ExtResource("16_eexwu")
-
-[node name="SfxOpen" type="AudioStreamPlayer" parent="WorkstationUI/BookToggle"]
-stream = ExtResource("20_wh6i2")
-
-[node name="SfxClose" type="AudioStreamPlayer" parent="WorkstationUI/BookToggle"]
-stream = ExtResource("21_xtyir")
+[node name="BookToggle" parent="WorkstationUI" instance=ExtResource("17_eexwu")]
 
 [node name="Manual" parent="WorkstationUI" instance=ExtResource("20_22fp7")]
-position = Vector2(-109, 17)
+position = Vector2(-109, 9)
+
+[node name="ChecklistControl" parent="." instance=ExtResource("19_h6rqw")]
+z_index = 20
+z_as_relative = false
+position = Vector2(284, 190)
 
 [node name="PatientArea" type="Area2D" parent="."]
 position = Vector2(11, 11)
@@ -235,6 +278,7 @@ shape = SubResource("RectangleShape2D_v2yyn")
 
 [node name="SfxGold" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("34_v2yyn")
+bus = &"Sfx"
 
 [node name="NightTimer" type="Timer" parent="."]
 process_callback = 0

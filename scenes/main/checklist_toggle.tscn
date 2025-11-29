@@ -20,9 +20,11 @@ shape = SubResource("RectangleShape2D_y8cto")
 
 [node name="SfxOpen" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_7fces")
+bus = &"Sfx"
 
 [node name="SfxClose" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_y8cto")
+bus = &"Sfx"
 
 [node name="Checkboxes" type="Node2D" parent="."]
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cgpq1nqsuqhud" path="res://scenes/main/patient_path.gd" id="1_0w0f1"]
 [ext_resource type="Script" uid="uid://drbuaqfxp67ke" path="res://scenes/main/patient_path_follow.gd" id="1_vypb8"]
-[ext_resource type="Script" uid="uid://br752qlu8numu" path="res://scenes/main/patient.gd" id="2_0w0f1"]
+[ext_resource type="Script" uid="uid://dyijtjm18tlsx" path="res://scenes/main/patient.gd" id="2_0w0f1"]
 
 [sub_resource type="Curve2D" id="Curve2D_5xoao"]
 _data = {

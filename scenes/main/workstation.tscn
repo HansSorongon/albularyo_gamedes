@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://6jc4y545usrx"]
+[gd_scene load_steps=21 format=3 uid="uid://6jc4y545usrx"]
 
 [ext_resource type="Script" uid="uid://c4k3aoq7o81c5" path="res://scenes/main/pentagram.gd" id="1_nccq7"]
 [ext_resource type="Texture2D" uid="uid://pyguyoj7h22c" path="res://assets/workstation/pentagram/pentagram_confirm.png" id="2_fmd20"]
 [ext_resource type="Script" uid="uid://cnyg40f75353a" path="res://scenes/main/pentagram_confirm.gd" id="3_gsd44"]
-[ext_resource type="Texture2D" uid="uid://dxl7f4c1kpv30" path="res://assets/workstation/pentagram/pentagram.png" id="4_m1ni0"]
+[ext_resource type="Shader" uid="uid://dhlhf25tbq7xm" path="res://scenes/main/pentagram_animation.gdshader" id="4_gsd44"]
 [ext_resource type="PackedScene" uid="uid://pe35hcx4pegf" path="res://scenes/workstation/PentagramPoint.tscn" id="5_eothm"]
+[ext_resource type="Texture2D" uid="uid://b8r3toadp533w" path="res://assets/workstation/pentagram/pentagram_2.png" id="5_gsd44"]
 [ext_resource type="Texture2D" uid="uid://bmpfbm8mjrmpm" path="res://assets/workstation/pentagram/pentagram_circle.png" id="6_8odvh"]
 [ext_resource type="AudioStream" uid="uid://drwli7wcujfbf" path="res://assets/audio/light_flame.ogg" id="7_nd4ce"]
 [ext_resource type="AudioStream" uid="uid://doa6mfbatmlrl" path="res://assets/audio/poof.wav" id="8_hpcsr"]
@@ -18,6 +19,14 @@
 [ext_resource type="Texture2D" uid="uid://4u30paakubgn" path="res://assets/workstation/herbs/herb_root.png" id="15_5l6hs"]
 [ext_resource type="Texture2D" uid="uid://b5v0j6hxoytvt" path="res://assets/workstation/herbs/herb_bark.png" id="16_oux5g"]
 [ext_resource type="PackedScene" uid="uid://ch06j3uikjcka" path="res://scenes/workstation/herb.tscn" id="17_xtsio"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m1ni0"]
+shader = ExtResource("4_gsd44")
+shader_parameter/progress = 0.0
+shader_parameter/fade = 1.0
+shader_parameter/gold_color = Color(0.9, 0.82845, 0.423, 1)
+shader_parameter/pixel_size = 0.02
+shader_parameter/blend_steps = 4.0
 
 [node name="Workstation" type="Node2D"]
 
@@ -33,8 +42,9 @@ texture_normal = ExtResource("2_fmd20")
 script = ExtResource("3_gsd44")
 
 [node name="PentagramSprite" type="Sprite2D" parent="Pentagram"]
-position = Vector2(119, 77)
-texture = ExtResource("4_m1ni0")
+material = SubResource("ShaderMaterial_m1ni0")
+position = Vector2(119, 75)
+texture = ExtResource("5_gsd44")
 centered = false
 
 [node name="PentagramPoint1" parent="Pentagram" groups=["pentagram_drop_zone"] instance=ExtResource("5_eothm")]
@@ -56,6 +66,7 @@ position = Vector2(130, 102)
 position = Vector2(173, 96)
 
 [node name="PentagramCircle" type="Sprite2D" parent="Pentagram"]
+visible = false
 position = Vector2(128, 74)
 texture = ExtResource("6_8odvh")
 centered = false
@@ -64,9 +75,11 @@ centered = false
 
 [node name="SfxBurn" type="AudioStreamPlayer" parent="Pentagram"]
 stream = ExtResource("7_nd4ce")
+bus = &"Sfx"
 
 [node name="SfxPoof" type="AudioStreamPlayer" parent="Pentagram"]
 stream = ExtResource("8_hpcsr")
+bus = &"Sfx"
 
 [node name="ExplosionParticles" parent="Pentagram" instance=ExtResource("9_r4mv6")]
 z_index = 10
@@ -77,6 +90,7 @@ script = ExtResource("10_fddi6")
 [node name="SfxIgnition" type="AudioStreamPlayer" parent="Pentagram"]
 stream = ExtResource("11_fmd20")
 volume_db = -10.0
+bus = &"Sfx"
 
 [node name="Herbs" type="Node2D" parent="."]
 

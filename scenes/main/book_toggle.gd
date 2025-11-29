@@ -1,4 +1,6 @@
-extends TextureButton
+# i had to make this class to fix a bug with the hitbox of the book toggle
+
+extends Sprite2D
 @export var normal_color: Color = Color(1, 1, 1, 1)
 @export var hover_color: Color = Color(1.2, 1.2, 1.2, 1)
 @export var slide_distance: float = 250.0
@@ -13,9 +15,9 @@ extends TextureButton
 var is_book_visible: bool = false
 
 func _ready():
-	mouse_entered.connect(_on_mouse_entered)
-	mouse_exited.connect(_on_mouse_exited)
-	pressed.connect(_on_mouse_click)
+	$Area2D.mouse_entered.connect(_on_mouse_entered)
+	$Area2D.mouse_exited.connect(_on_mouse_exited)
+	$Area2D.input_event.connect(_on_mouse_click)
 	modulate = normal_color
 	
 	book_instance.z_index = 100
@@ -24,13 +26,15 @@ func _ready():
 
 	$"../Manual/ManualX".close.connect(_hide_book)
 
-func _on_mouse_click():
-	sfx_click.play()
+func _on_mouse_click(_viewport, event, _idx):
 	
-	if is_book_visible:
-		_hide_book()
-	else:
-		_show_book()
+	if event.is_action_pressed("click"):
+		sfx_click.play()
+		
+		if is_book_visible:
+			_hide_book()
+		else:
+			_show_book()
 
 func _show_book():
 	sfx_open.play()

@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://cu02khkp6ayey"]
+
+[ext_resource type="Script" uid="uid://cydwca23gmtm7" path="res://scenes/ui/menu_button.gd" id="1_14o44"]
+[ext_resource type="Texture2D" uid="uid://dtflt4dobbpdx" path="res://assets/ui/menu_button.png" id="1_x83m7"]
+[ext_resource type="FontFile" uid="uid://b5bptjjfvw3i2" path="res://assets/ui/dialogue/tiny5.ttf" id="2_14o44"]
+
+[node name="MenuButton" type="MarginContainer"]
+offset_right = 66.0
+offset_bottom = 19.0
+script = ExtResource("1_14o44")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_x83m7")
+region_rect = Rect2(0, 0, 38, 19)
+patch_margin_left = 9
+patch_margin_top = 2
+patch_margin_right = 9
+patch_margin_bottom = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.49803922, 0.18431373, 0.14901961, 1)
+theme_override_fonts/font = ExtResource("2_14o44")
+theme_override_font_sizes/font_size = 8
+text = "SETTINGS"
+horizontal_alignment = 1
+vertical_alignment = 1

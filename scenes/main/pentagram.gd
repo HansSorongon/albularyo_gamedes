@@ -189,9 +189,21 @@ func _confirm_craft():
 	sfx_ignition.play()
 	destroy_herbs()
 	
+	var tween_pentagram = create_tween()
+	tween_pentagram.tween_property($PentagramSprite.material, "shader_parameter/progress", 5.0, 1.0)
+	tween_pentagram.set_ease(Tween.EASE_OUT)
+	
 	await get_tree().create_timer(1.0).timeout
 		
 	sfx_poof.play()
+	
+	tween_pentagram = create_tween()
+	tween_pentagram.tween_property($PentagramSprite.material, "shader_parameter/fade", 0.0, 0.6)
+	tween_pentagram.set_ease(Tween.EASE_OUT)
+	tween_pentagram.tween_callback(func():
+		$PentagramSprite.material.set_shader_parameter("progress", 0.0)
+		$PentagramSprite.material.set_shader_parameter("fade", 1.0)
+	)
 	
 	$ExplosionParticles.restart()
 		

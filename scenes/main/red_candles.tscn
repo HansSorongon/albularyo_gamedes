@@ -1,10 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://cfxd1fnbvxnxb"]
+[gd_scene load_steps=19 format=3 uid="uid://cfxd1fnbvxnxb"]
 
 [ext_resource type="Script" uid="uid://bqay1d7jl085p" path="res://scenes/main/red_candles.gd" id="1_svxdf"]
-[ext_resource type="Texture2D" uid="uid://c71ituvyw8ljv" path="res://assets/workstation/red_candle.png" id="2_324gd"]
+[ext_resource type="Texture2D" uid="uid://cb7l5fxc4xfa5" path="res://assets/workstation/red_candles/red_candle_1.png" id="2_701og"]
 [ext_resource type="Texture2D" uid="uid://cp1pcuo3v2c4b" path="res://assets/workstation/flame.png" id="3_701og"]
+[ext_resource type="Script" uid="uid://0uoc4ww2cwmm" path="res://scenes/main/red_candle.gd" id="3_fb02m"]
 [ext_resource type="Texture2D" uid="uid://bkf2lrw4hnkxk" path="res://assets/workstation/flame_base.png" id="4_6vrae"]
 [ext_resource type="AudioStream" uid="uid://cn5cul7ypy07v" path="res://assets/audio/max_feedback.wav" id="5_324gd"]
+[ext_resource type="Texture2D" uid="uid://bkteup5q4s513" path="res://assets/workstation/red_candles/red_candle_2.png" id="5_pxrni"]
+[ext_resource type="Texture2D" uid="uid://dxedfw58kd4tk" path="res://assets/workstation/red_candles/red_candle_3.png" id="6_fb02m"]
+[ext_resource type="Texture2D" uid="uid://cgtybvs6ie2g3" path="res://assets/workstation/red_candles/red_candle_4.png" id="7_6h35h"]
+[ext_resource type="Texture2D" uid="uid://bfogmeo347g58" path="res://assets/workstation/red_candles/red_candle_5.png" id="8_ps0bl"]
 
 [sub_resource type="Shader" id="Shader_qryyp"]
 code = "shader_type canvas_item;
@@ -110,6 +115,9 @@ shader_parameter/thresh_f2 = 0.3
 shader_parameter/thresh_f3 = 0.5
 shader_parameter/thresh_f4 = 0.7
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6h35h"]
+size = Vector2(16, 44.75)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kgr6p"]
 shader = SubResource("Shader_qryyp")
 shader_parameter/debug = false
@@ -202,84 +210,125 @@ shader_parameter/thresh_f4 = 0.7
 script = ExtResource("1_svxdf")
 
 [node name="RedCandle" type="Sprite2D" parent="."]
-position = Vector2(-51, -25)
-texture = ExtResource("2_324gd")
+position = Vector2(-65, -12)
+texture = ExtResource("2_701og")
+centered = false
+script = ExtResource("3_fb02m")
 
 [node name="Flame" type="Sprite2D" parent="RedCandle"]
 visible = false
 material = SubResource("ShaderMaterial_ynl2v")
-position = Vector2(-5, -18)
+position = Vector2(3, -6)
 texture = ExtResource("3_701og")
 centered = false
 
 [node name="FlameBase" type="Sprite2D" parent="RedCandle"]
 visible = false
-position = Vector2(0, -8)
+position = Vector2(8, 4)
 texture = ExtResource("4_6vrae")
 
+[node name="Area2D" type="Area2D" parent="RedCandle"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RedCandle/Area2D"]
+position = Vector2(8, -6)
+shape = SubResource("RectangleShape2D_6h35h")
+
 [node name="RedCandle2" type="Sprite2D" parent="."]
-position = Vector2(-38, -8)
-texture = ExtResource("2_324gd")
+position = Vector2(-49, -30)
+texture = ExtResource("5_pxrni")
+centered = false
+script = ExtResource("3_fb02m")
 
 [node name="Flame" type="Sprite2D" parent="RedCandle2"]
 visible = false
 material = SubResource("ShaderMaterial_kgr6p")
-position = Vector2(-5, -18)
+position = Vector2(3, -6)
 texture = ExtResource("3_701og")
 centered = false
 
 [node name="FlameBase" type="Sprite2D" parent="RedCandle2"]
 visible = false
-position = Vector2(0, -8)
+position = Vector2(8, 4)
 texture = ExtResource("4_6vrae")
 
+[node name="Area2D" type="Area2D" parent="RedCandle2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RedCandle2/Area2D"]
+position = Vector2(8, 3)
+shape = SubResource("RectangleShape2D_6h35h")
+
 [node name="RedCandle3" type="Sprite2D" parent="."]
-position = Vector2(-23, -25)
-texture = ExtResource("2_324gd")
+position = Vector2(-30, -44)
+texture = ExtResource("6_fb02m")
+centered = false
+script = ExtResource("3_fb02m")
 
 [node name="Flame" type="Sprite2D" parent="RedCandle3"]
 visible = false
 material = SubResource("ShaderMaterial_umiu5")
-position = Vector2(-5, -18)
+position = Vector2(3, -6)
 texture = ExtResource("3_701og")
 centered = false
 
 [node name="FlameBase" type="Sprite2D" parent="RedCandle3"]
 visible = false
-position = Vector2(0, -8)
+position = Vector2(8, 4)
 texture = ExtResource("4_6vrae")
 
+[node name="Area2D" type="Area2D" parent="RedCandle3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RedCandle3/Area2D"]
+position = Vector2(8, 12)
+shape = SubResource("RectangleShape2D_6h35h")
+
 [node name="RedCandle4" type="Sprite2D" parent="."]
-position = Vector2(-8, -9)
-texture = ExtResource("2_324gd")
+position = Vector2(-11, -41)
+texture = ExtResource("7_6h35h")
+centered = false
+script = ExtResource("3_fb02m")
 
 [node name="Flame" type="Sprite2D" parent="RedCandle4"]
 visible = false
 material = SubResource("ShaderMaterial_7fx7v")
-position = Vector2(-5, -18)
+position = Vector2(2, -6)
 texture = ExtResource("3_701og")
 centered = false
 
 [node name="FlameBase" type="Sprite2D" parent="RedCandle4"]
 visible = false
-position = Vector2(0, -8)
+position = Vector2(7, 4)
 texture = ExtResource("4_6vrae")
 
+[node name="Area2D" type="Area2D" parent="RedCandle4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RedCandle4/Area2D"]
+position = Vector2(8, 15)
+shape = SubResource("RectangleShape2D_6h35h")
+
 [node name="RedCandle5" type="Sprite2D" parent="."]
-position = Vector2(7, -25)
-texture = ExtResource("2_324gd")
+position = Vector2(5, -37)
+texture = ExtResource("8_ps0bl")
+centered = false
+script = ExtResource("3_fb02m")
 
 [node name="Flame" type="Sprite2D" parent="RedCandle5"]
 visible = false
 material = SubResource("ShaderMaterial_r5fat")
-position = Vector2(-5, -18)
+position = Vector2(3, -6)
 texture = ExtResource("3_701og")
 centered = false
 
 [node name="FlameBase" type="Sprite2D" parent="RedCandle5"]
 visible = false
-position = Vector2(0, -8)
+position = Vector2(8, 4)
 texture = ExtResource("4_6vrae")
+
+[node name="Area2D" type="Area2D" parent="RedCandle5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RedCandle5/Area2D"]
+position = Vector2(8, 19.375)
+shape = SubResource("RectangleShape2D_6h35h")
 
 [node name="SfxFeedback" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_324gd")
+bus = &"Sfx"

@@ -96,7 +96,7 @@ offset_left = 52.0
 offset_top = 17.0
 offset_right = 92.0
 offset_bottom = 26.0
-theme_override_colors/font_color = Color(0.2784314, 0.22352941, 0.13333334, 1)
+theme_override_colors/font_color = Color(0.101960786, 0.06666667, 0.039215688, 1)
 theme_override_fonts/font = ExtResource("3_116d0")
 theme_override_font_sizes/font_size = 8
 text = "Lagundi"
@@ -130,6 +130,8 @@ script = ExtResource("13_n7ifm")
 
 [node name="SfxPageFlip" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_phsb1")
+bus = &"Sfx"
 
 [node name="SfxPageFlipBack" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("14_rayxo")
+bus = &"Sfx"

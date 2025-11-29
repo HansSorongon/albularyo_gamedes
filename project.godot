@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Albularyo"
-run/main_scene="uid://cvhtpwumormog"
+run/main_scene="uid://lpw0hc116s01"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -22,11 +22,14 @@ MessageManager="*res://scenes/ui/message_manager.gd"
 GameState="*res://scenes/globals/GameState.gd"
 TransitionScript="*res://scenes/globals/TransitionScript.gd"
 TooltipManager="*res://scenes/ui/tooltip_manager.gd"
+Cursor="*res://scenes/globals/Cursor.gd"
+MusicManager="*res://scenes/globals/MusicManager.gd"
 
 [display]
 
 window/size/viewport_width=240
 window/size/viewport_height=135
+window/size/mode=3
 window/size/resizable=false
 window/size/window_width_override=1920
 window/size/window_height_override=1080

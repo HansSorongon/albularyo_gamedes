@@ -34,5 +34,6 @@ theme_override_font_sizes/font_size = 8
 [node name="sfx_dialogue" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_gm23c")
 volume_db = 10.0
+bus = &"Sfx"
 
 [connection signal="timeout" from="LetterDisplayTimer" to="." method="_on_letter_display_timer_timeout"]

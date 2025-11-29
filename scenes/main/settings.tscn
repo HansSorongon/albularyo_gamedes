@@ -1,0 +1,92 @@
+[gd_scene load_steps=6 format=3 uid="uid://6fbtcn02cg7e"]
+
+[ext_resource type="PackedScene" uid="uid://cu02khkp6ayey" path="res://scenes/ui/menu_button.tscn" id="1_p7dqi"]
+[ext_resource type="Texture2D" uid="uid://c4b4pjpwy4r8" path="res://assets/ui/menu_background.png" id="2_i54ep"]
+[ext_resource type="FontFile" uid="uid://b5bptjjfvw3i2" path="res://assets/ui/dialogue/tiny5.ttf" id="3_oivgi"]
+[ext_resource type="PackedScene" uid="uid://bfp8wpjxyijko" path="res://scenes/ui/slider.tscn" id="4_i54ep"]
+[ext_resource type="PackedScene" uid="uid://rrkendp20mls" path="res://scenes/ui/ui_button.tscn" id="5_oivgi"]
+
+[node name="Settings" type="Node2D"]
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 240.0
+offset_bottom = 135.0
+color = Color(0, 0, 0, 1)
+
+[node name="PlayButton" parent="." instance=ExtResource("1_p7dqi")]
+offset_left = 90.0
+offset_top = 6.0
+offset_right = 145.0
+offset_bottom = 25.0
+size_flags_horizontal = 4
+script = null
+
+[node name="SettingsContainer" type="Node2D" parent="."]
+position = Vector2(84, 31)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="SettingsContainer"]
+offset_left = -8.0
+offset_right = 75.0
+offset_bottom = 95.0
+texture = ExtResource("2_i54ep")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 2
+
+[node name="Label" type="Label" parent="SettingsContainer"]
+offset_left = -3.0
+offset_top = 4.0
+offset_right = 59.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color(0.31764707, 0.12156863, 0.08235294, 1)
+theme_override_fonts/font = ExtResource("3_oivgi")
+theme_override_font_sizes/font_size = 8
+text = "Master Volume"
+
+[node name="Label2" type="Label" parent="SettingsContainer"]
+offset_left = -3.0
+offset_top = 22.0
+offset_right = 59.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0.31764707, 0.12156863, 0.08235294, 1)
+theme_override_fonts/font = ExtResource("3_oivgi")
+theme_override_font_sizes/font_size = 8
+text = "Background Music"
+
+[node name="Label3" type="Label" parent="SettingsContainer"]
+offset_left = -3.0
+offset_top = 40.0
+offset_right = 59.0
+offset_bottom = 49.0
+theme_override_colors/font_color = Color(0.31764707, 0.12156863, 0.08235294, 1)
+theme_override_fonts/font = ExtResource("3_oivgi")
+theme_override_font_sizes/font_size = 8
+text = "Sound Effects"
+
+[node name="Slider" parent="SettingsContainer" instance=ExtResource("4_i54ep")]
+offset_left = -3.0
+offset_top = 15.0
+offset_right = 69.0
+offset_bottom = 20.0
+bus_name = "Master"
+
+[node name="Slider2" parent="SettingsContainer" instance=ExtResource("4_i54ep")]
+offset_left = -3.0
+offset_top = 33.0
+offset_right = 69.0
+offset_bottom = 38.0
+bus_name = "Bgm"
+
+[node name="Slider3" parent="SettingsContainer" instance=ExtResource("4_i54ep")]
+offset_left = -3.0
+offset_top = 51.0
+offset_right = 69.0
+offset_bottom = 56.0
+bus_name = "Sfx"
+
+[node name="UiButton" parent="SettingsContainer" instance=ExtResource("5_oivgi")]
+offset_left = -4.0
+offset_top = 79.0
+offset_right = 26.0
+offset_bottom = 89.0
