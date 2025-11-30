@@ -1,9 +1,9 @@
-[gd_scene load_steps=38 format=3 uid="uid://cvhtpwumormog"]
+[gd_scene load_steps=39 format=3 uid="uid://cvhtpwumormog"]
 
 [ext_resource type="Texture2D" uid="uid://cpv3v0018eft" path="res://assets/background/game_background.png" id="1_l1b4v"]
 [ext_resource type="Script" uid="uid://dkt7ee5n3gh3e" path="res://scenes/main/main_loop.gd" id="1_olyg1"]
+[ext_resource type="Texture2D" uid="uid://cmssfptn6xb3j" path="res://assets/background/npc_background.png" id="2_xfve2"]
 [ext_resource type="PackedScene" uid="uid://6jc4y545usrx" path="res://scenes/main/workstation.tscn" id="6_isaxb"]
-[ext_resource type="Texture2D" uid="uid://csy3b3px2fmmo" path="res://assets/background/npc_background_nc.png" id="9_22fp7"]
 [ext_resource type="AudioStream" uid="uid://d12d74oyw802i" path="res://assets/audio/bgm.mp3" id="15_m757o"]
 [ext_resource type="PackedScene" uid="uid://bkixi8ye30e3" path="res://scenes/main/book_toggle.tscn" id="17_eexwu"]
 [ext_resource type="Shader" uid="uid://87k5bptnb1d8" path="res://scenes/main/night_shader.gdshader" id="18_isaxb"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://wjlyw6tyblxi" path="res://assets/workstation/tawas.png" id="21_wh6i2"]
 [ext_resource type="Texture2D" uid="uid://cp1pcuo3v2c4b" path="res://assets/workstation/flame.png" id="22_1v0k2"]
 [ext_resource type="Shader" uid="uid://dv8n5l2t6vrtg" path="res://scenes/main/clouds.gdshader" id="22_22fp7"]
+[ext_resource type="Texture2D" uid="uid://bk23022eafoqk" path="res://assets/hourglass/hourglass_1.png" id="23_1v0k2"]
 [ext_resource type="PackedScene" uid="uid://cfxd1fnbvxnxb" path="res://scenes/main/red_candles.tscn" id="25_wh6i2"]
 [ext_resource type="Texture2D" uid="uid://c3uqkhmcsly4y" path="res://assets/workstation/paper.png" id="25_xtyir"]
 [ext_resource type="AudioStream" uid="uid://bjq1kh6ic3xsu" path="res://assets/audio/crickets.mp3" id="27_diimi"]
@@ -176,7 +177,7 @@ alpha_curve = SubResource("CurveTexture_22fp7")
 shader = ExtResource("22_22fp7")
 shader_parameter/cloud_color = Color(0.8, 0.5411765, 0.3764706, 1)
 shader_parameter/sky_color = Color(0.396, 0.5975999, 0.9, 0)
-shader_parameter/speed = 0.010000000475
+shader_parameter/speed = 0.0950000045125
 shader_parameter/scale = 6.0000002375
 shader_parameter/pixel_size = 0.03300000121824
 shader_parameter/edge_border = 0.30000001192093
@@ -229,6 +230,7 @@ preprocess = 0.5
 process_material = SubResource("ParticleProcessMaterial_eexwu")
 
 [node name="Clouds" type="ColorRect" parent="."]
+visible = false
 z_index = -29
 z_as_relative = false
 material = SubResource("ShaderMaterial_1v0k2")
@@ -241,7 +243,7 @@ offset_bottom = 23.0
 z_index = -30
 material = SubResource("ShaderMaterial_eexwu")
 position = Vector2(1, 1)
-texture = ExtResource("9_22fp7")
+texture = ExtResource("2_xfve2")
 centered = false
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
@@ -305,6 +307,11 @@ process_callback = 0
 [node name="FullDayTimer" type="Timer" parent="."]
 wait_time = 10.0
 one_shot = true
+
+[node name="Hourglass1" type="Sprite2D" parent="."]
+position = Vector2(96, 5)
+texture = ExtResource("23_1v0k2")
+centered = false
 
 [connection signal="timeout" from="NightTimer" to="." method="_on_night_timer_timeout"]
 [connection signal="timeout" from="FullDayTimer" to="." method="_on_full_day_timer_timeout"]

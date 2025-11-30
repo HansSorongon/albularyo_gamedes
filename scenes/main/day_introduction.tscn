@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://3x2h3cy4ieyj"]
+
+[ext_resource type="FontFile" uid="uid://b5bptjjfvw3i2" path="res://assets/ui/dialogue/tiny5.ttf" id="1_bc87o"]
+[ext_resource type="Script" uid="uid://c3jmcr0jk7pr2" path="res://scenes/main/day_intro_label.gd" id="2_bc87o"]
+[ext_resource type="AudioStream" uid="uid://dyviqeht4fu12" path="res://assets/audio/typewriter/typewriter1.wav" id="3_106kb"]
+[ext_resource type="AudioStream" uid="uid://c1ftd6lp2x0be" path="res://assets/audio/typewriter/typewriter2.wav" id="4_vn8r1"]
+[ext_resource type="AudioStream" uid="uid://cj5phrutf84uc" path="res://assets/audio/typewriter/typewriter3.wav" id="5_eikqh"]
+[ext_resource type="AudioStream" uid="uid://dlmnnq1cjopo8" path="res://assets/audio/typewriter/typewriter4.wav" id="6_sw608"]
+[ext_resource type="AudioStream" uid="uid://cahq6suclq7g4" path="res://assets/audio/typewriter/typewriter5.wav" id="7_tgubl"]
+[ext_resource type="AudioStream" uid="uid://bn4ofm114c3eq" path="res://assets/audio/typewriter/typewriter6.wav" id="8_14231"]
+
+[node name="DayIntroduction" type="Node2D"]
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 241.0
+offset_bottom = 135.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 73.0
+offset_top = 51.0
+offset_right = 164.0
+offset_bottom = 61.0
+theme_override_fonts/font = ExtResource("1_bc87o")
+theme_override_font_sizes/font_size = 8
+text = "The day comes to a close..."
+horizontal_alignment = 1
+script = ExtResource("2_bc87o")
+
+[node name="Label4" type="Label" parent="."]
+offset_left = 71.0
+offset_top = 101.0
+offset_right = 162.0
+offset_bottom = 111.0
+theme_override_fonts/font = ExtResource("1_bc87o")
+theme_override_font_sizes/font_size = 8
+
+[node name="SfxTypewriter1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_106kb")
+bus = &"Sfx"
+
+[node name="SfxTypewriter2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_vn8r1")
+bus = &"Sfx"
+
+[node name="SfxTypewriter3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_eikqh")
+bus = &"Sfx"
+
+[node name="SfxTypewriter4" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_sw608")
+bus = &"Sfx"
+
+[node name="SfxTypewriter5" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_tgubl")
+bus = &"Sfx"
+
+[node name="SfxTypewriter6" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_14231")
+bus = &"Sfx"

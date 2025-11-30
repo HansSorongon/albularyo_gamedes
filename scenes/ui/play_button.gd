@@ -43,4 +43,4 @@ func _gui_input(event: InputEvent) -> void:
 		
 		MusicManager.stop_music()
 		sfx_play.play()
-		TransitionScript.fade_to_scene_path("res://scenes/main/main_loop.tscn", 5.58)
+		TransitionScript.fade_to_scene_path("res://scenes/main/day_introduction.tscn", 5.58)

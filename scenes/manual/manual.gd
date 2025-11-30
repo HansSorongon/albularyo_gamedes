@@ -5,6 +5,7 @@ extends Node2D
 @onready var sfx_page_flip_back: AudioStreamPlayer = $SfxPageFlipBack
 
 var current_page = 0
+var max_pages = 6
 
 var herb_mappings_json_path = "res://data/herb_mapping.json"
 var herb_mappings = null
@@ -117,6 +118,7 @@ func _ready():
 	
 	$ManualPageFlipButtons/ManualNext.page_next.connect(_page_next)
 	$ManualPageFlipButtons/ManualBack.page_back.connect(_page_back)
+	$ManualPageFlipButtons/ManualBack.visible = false
 	load_herb_mappings()
 	
 	change_page(0)
@@ -129,6 +131,10 @@ func _page_next():
 		sfx_page_flip.play()
 		current_page += 1
 		change_page(current_page)
+		if current_page == max_pages - 1:
+			$ManualPageFlipButtons/ManualNext.visible = false
+		else:
+			$ManualPageFlipButtons/ManualBack.visible = true
 		
 func _page_back():
 	
@@ -136,3 +142,7 @@ func _page_back():
 		sfx_page_flip_back.play()
 		current_page -= 1
 		change_page(current_page)
+		if current_page == 0:
+			$ManualPageFlipButtons/ManualBack.visible = false
+		else:
+			$ManualPageFlipButtons/ManualNext.visible = true

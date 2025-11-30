@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://lpw0hc116s01"]
+[gd_scene load_steps=10 format=3 uid="uid://lpw0hc116s01"]
 
 [ext_resource type="Script" uid="uid://c7plu6qt3x18o" path="res://scenes/main/main_menu.gd" id="1_nm0l4"]
 [ext_resource type="FontFile" uid="uid://b5bptjjfvw3i2" path="res://assets/ui/dialogue/tiny5.ttf" id="1_sd5it"]
 [ext_resource type="PackedScene" uid="uid://cu02khkp6ayey" path="res://scenes/ui/menu_button.tscn" id="2_5vafy"]
+[ext_resource type="Texture2D" uid="uid://7yixaam5h83k" path="res://scenes/main/main_menu_bg.png" id="2_75pso"]
 [ext_resource type="Script" uid="uid://dd7wfa5oo6g65" path="res://scenes/ui/play_button.gd" id="3_byqcc"]
 [ext_resource type="Script" uid="uid://dcwm5s5yq3ahi" path="res://scenes/ui/settings_button.gd" id="4_hiibk"]
 [ext_resource type="Script" uid="uid://bb5tqpds1fjcg" path="res://scenes/ui/exit_button.gd" id="5_swlpu"]
@@ -12,7 +13,12 @@
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_nm0l4")
 
+[node name="MainMenuBg" type="Sprite2D" parent="."]
+texture = ExtResource("2_75pso")
+centered = false
+
 [node name="Background" type="ColorRect" parent="."]
+visible = false
 offset_right = 240.0
 offset_bottom = 135.0
 color = Color(0, 0, 0, 1)
@@ -22,6 +28,8 @@ offset_left = 70.0
 offset_top = 10.0
 offset_right = 166.0
 offset_bottom = 37.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 7
 theme_override_fonts/font = ExtResource("1_sd5it")
 theme_override_font_sizes/font_size = 24
 text = "Albularyo"

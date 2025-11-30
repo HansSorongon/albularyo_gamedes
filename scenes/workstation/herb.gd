@@ -37,11 +37,13 @@ func _on_click_target_input(viewport, event, shape_idx):
 		sfx_click.play()
 		TooltipManager.hide_tooltip(self)
 		is_dragging = true
+		z_index = 20
 		$ClickTarget/CollisionShape2D.scale = Vector2(0.5, 0.5)
 	elif event.is_action_released("click"):
 		sfx_click_2.play()
 		is_dragging = false
 		_check_drop_target()
+		z_index = 0
 		#position = original_position
 
 func _check_drop_target():

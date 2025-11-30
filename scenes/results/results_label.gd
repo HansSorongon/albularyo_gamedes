@@ -4,6 +4,8 @@ extends Label
 @export var type_speed: float = 0.05   # seconds per character (tweak for faster/slower)
 @onready var sfx_gold: AudioStreamPlayer = $"../SfxGold"
 
+@onready var sfx_typewriter = [$"../SfxTypewriter1", $"../SfxTypewriter2", $"../SfxTypewriter3", $"../SfxTypewriter4", $"../SfxTypewriter5", $"../SfxTypewriter6"]
+
 var can_continue: bool = false
 
 func _ready():
@@ -18,13 +20,14 @@ func start_typewriter():
 	for i in text.length():
 		await get_tree().create_timer(type_speed).timeout
 		visible_characters = i + 1
+		sfx_typewriter[randi() % 6].play()
 	
 	# small pause after text is fully shown
 	await get_tree().create_timer(1.0).timeout
 	on_typewriter_finished()
 	
 func on_typewriter_finished():
-	$'../Label2'.text = "Money earned: " + str(GameState.day_earnings) + " P"
+	$'../Label2'.text = "Patients Cured: " + str(GameState.day_patients_cured) + "/" + str(GameState.day_total_patients)
 	sfx_gold.play()
 	
 	await get_tree().create_timer(0.6).timeout
@@ -34,13 +37,15 @@ func on_typewriter_finished():
 	
 	await get_tree().create_timer(0.6).timeout
 	
-	$'../Label5'.text = "Total Money: " + str(int(GameState.total_money))
-	sfx_gold.play()
+	#$'../Label5'.text = "Total Reputation: " + str(int(GameState.total_reputation))
+	#sfx_gold.play()
+	##
+	#await get_tree().create_timer(0.6).timeout
 	
 	GameState.day_earnings = 0
 	GameState.day_reputation = 0
-	
-	await get_tree().create_timer(0.6).timeout
+	GameState.day_patients_cured = 0
+	GameState.day_total_patients = 0
 	
 	$'../Label4'.text = "Click anywhere to continue..."
 	can_continue = true
@@ -75,5 +80,5 @@ func get_reputation_word(reputation: int) -> String:
 	
 func start_new_day():
 	print("Starting new day...")		
-	TransitionScript.fade_to_scene_path("res://scenes/main/main_loop.tscn")
+	TransitionScript.fade_to_scene_path("res://scenes/main/day_introduction.tscn")
 			

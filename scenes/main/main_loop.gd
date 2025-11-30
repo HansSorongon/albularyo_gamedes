@@ -9,7 +9,7 @@ var current_patient = null
 var day_earnings: int = 0
 var day_reputation = 0.0
 
-var day_seconds = 300
+var day_seconds = 3
 var night_progress = 0.0
 
 var is_spawning = true
@@ -70,13 +70,17 @@ func sell_potion(potencies):
 			total_reputation_earned += reputation_earned
 			
 		else:
-			total_reputation_earned -= 10.0
-			day_reputation -= 10.0
+			total_reputation_earned -= 30.0
+			day_reputation -= 30.0
 			
 	#MessageManager.show_message("+" + str(total_money_earned) + " P")
 	var msg = ""
 	if total_reputation_earned >= 0.0:
 		msg += "+"
+		GameState.day_patients_cured += 1
+	
+	GameState.day_total_patients += 1
+	GameState.total_reputation += int(total_reputation_earned)
 	msg += str(int(total_reputation_earned)) + " Rep"
 	
 	MessageManager.show_message(msg)
@@ -95,6 +99,7 @@ func end_day():
 	GameState.day_earnings = day_earnings
 	GameState.total_money += day_earnings
 	GameState.day_reputation = day_reputation
+	GameState.day_number += 1
 
 	TransitionScript.fade_to_scene_path("res://scenes/results/results.tscn")
 
