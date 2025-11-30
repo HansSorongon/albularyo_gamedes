@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://cvhtpwumormog"]
+[gd_scene load_steps=41 format=3 uid="uid://cvhtpwumormog"]
 
 [ext_resource type="Texture2D" uid="uid://cpv3v0018eft" path="res://assets/background/game_background.png" id="1_l1b4v"]
 [ext_resource type="Script" uid="uid://dkt7ee5n3gh3e" path="res://scenes/main/main_loop.gd" id="1_olyg1"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://cp1pcuo3v2c4b" path="res://assets/workstation/flame.png" id="22_1v0k2"]
 [ext_resource type="Shader" uid="uid://dv8n5l2t6vrtg" path="res://scenes/main/clouds.gdshader" id="22_22fp7"]
 [ext_resource type="Texture2D" uid="uid://bk23022eafoqk" path="res://assets/hourglass/hourglass_1.png" id="23_1v0k2"]
+[ext_resource type="Shader" uid="uid://buy361hvi7da0" path="res://scenes/main/vignette.gdshader" id="24_r5fat"]
 [ext_resource type="PackedScene" uid="uid://cfxd1fnbvxnxb" path="res://scenes/main/red_candles.tscn" id="25_wh6i2"]
 [ext_resource type="Texture2D" uid="uid://c3uqkhmcsly4y" path="res://assets/workstation/paper.png" id="25_xtyir"]
 [ext_resource type="AudioStream" uid="uid://bjq1kh6ic3xsu" path="res://assets/audio/crickets.mp3" id="27_diimi"]
@@ -191,6 +192,17 @@ shader_parameter/night_tint = Color(0, 0.10266678, 0.44, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v2yyn"]
 size = Vector2(63, 63)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wh6i2"]
+shader = ExtResource("24_r5fat")
+shader_parameter/radius = 0.2800000133
+shader_parameter/softness = 1.0
+shader_parameter/intensity = 0.726000034485
+shader_parameter/contrast = 4.0
+shader_parameter/vignette_color = Color(0, 0, 0, 0.64705884)
+shader_parameter/pixel_size = 0.006000000284999999
+shader_parameter/blend_steps = 7.170000245575
+shader_parameter/noise_strength = 0.0
+
 [node name="MainLoop" type="Node2D"]
 script = ExtResource("1_olyg1")
 
@@ -312,6 +324,13 @@ one_shot = true
 position = Vector2(96, 5)
 texture = ExtResource("23_1v0k2")
 centered = false
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 500
+material = SubResource("ShaderMaterial_wh6i2")
+offset_right = 240.0
+offset_bottom = 135.0
+mouse_filter = 2
 
 [connection signal="timeout" from="NightTimer" to="." method="_on_night_timer_timeout"]
 [connection signal="timeout" from="FullDayTimer" to="." method="_on_full_day_timer_timeout"]

@@ -9,7 +9,7 @@ var current_patient = null
 var day_earnings: int = 0
 var day_reputation = 0.0
 
-var day_seconds = 3
+var day_seconds = 300
 var night_progress = 0.0
 
 var is_spawning = true

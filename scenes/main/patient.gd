@@ -22,6 +22,30 @@ var symptom_size_weights := {
 #sizes of each symptom
 const SYMPTOM_SIZES := [1, 2, 3, 4, 5]
 
+func get_symptom_distribution(difficulty: int) -> Dictionary:
+	var distribution := {}
+	
+	difficulty = clamp(difficulty, 1, 7)
+	
+	var shift := (difficulty - 4.0) / 3.0
+	
+	for symptom_count in range(1, 6):
+		var distance_from_center := symptom_count - 3.0
+		
+		var adjusted_distance := distance_from_center - (shift * 2.0)
+		
+		var weight := exp(-pow(adjusted_distance, 2) / 2.0)
+		distribution[symptom_count] = weight
+	
+	var total := 0.0
+	for key in distribution:
+		total += distribution[key]
+	
+	for key in distribution:
+		distribution[key] /= total
+	
+	return distribution
+
 var visual_symptoms: Array[String] = [
 	"pale_lips",
 	"sweat",
@@ -272,6 +296,8 @@ func _repeat_dialogue():
 		DialogueManager.start_dialog(patient_dialogue)
 
 func _ready():
+	
+	symptom_size_weights = get_symptom_distribution(GameState.day_number)
 	
 	var root_node = get_tree().current_scene
 	root_node.get_node("WorkstationUI/DialogueRepeatButton").pressed.connect(_repeat_dialogue)
