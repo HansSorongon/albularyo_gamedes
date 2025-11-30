@@ -116,7 +116,7 @@ shader_parameter/thresh_f3 = 0.5
 shader_parameter/thresh_f4 = 0.7
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6h35h"]
-size = Vector2(16, 44.75)
+size = Vector2(16, 38.375)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kgr6p"]
 shader = SubResource("Shader_qryyp")
@@ -230,7 +230,7 @@ texture = ExtResource("4_6vrae")
 [node name="Area2D" type="Area2D" parent="RedCandle"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RedCandle/Area2D"]
-position = Vector2(8, -6)
+position = Vector2(8, -3)
 shape = SubResource("RectangleShape2D_6h35h")
 
 [node name="RedCandle2" type="Sprite2D" parent="."]
@@ -278,7 +278,7 @@ texture = ExtResource("4_6vrae")
 [node name="Area2D" type="Area2D" parent="RedCandle3"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RedCandle3/Area2D"]
-position = Vector2(8, 12)
+position = Vector2(8, 15.1875)
 shape = SubResource("RectangleShape2D_6h35h")
 
 [node name="RedCandle4" type="Sprite2D" parent="."]
@@ -302,7 +302,7 @@ texture = ExtResource("4_6vrae")
 [node name="Area2D" type="Area2D" parent="RedCandle4"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RedCandle4/Area2D"]
-position = Vector2(8, 15)
+position = Vector2(8, 16)
 shape = SubResource("RectangleShape2D_6h35h")
 
 [node name="RedCandle5" type="Sprite2D" parent="."]
@@ -326,7 +326,7 @@ texture = ExtResource("4_6vrae")
 [node name="Area2D" type="Area2D" parent="RedCandle5"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RedCandle5/Area2D"]
-position = Vector2(8, 19.375)
+position = Vector2(8, 22)
 shape = SubResource("RectangleShape2D_6h35h")
 
 [node name="SfxFeedback" type="AudioStreamPlayer" parent="."]

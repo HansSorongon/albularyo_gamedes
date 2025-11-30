@@ -1,5 +1,6 @@
 extends MarginContainer
 
+@onready var sfx_scroll: AudioStreamPlayer2D = $"../SfxScroll"
 var tween: Tween
 
 func _ready():
@@ -28,5 +29,6 @@ func _on_mouse_exited():
 
 func _gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("click"):
-		TransitionScript.fade_to_scene_path("res://scenes/main/settings.tscn")
+		sfx_scroll.play()
+		TransitionScript.fade_to_scene_path("res://scenes/main/settings.tscn", 0.4)
 		

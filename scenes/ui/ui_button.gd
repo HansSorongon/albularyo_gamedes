@@ -1,6 +1,6 @@
 extends MarginContainer
 
-@onready var sfx_play: AudioStreamPlayer2D = $"../SfxPlay"
+@onready var sfx_click: AudioStreamPlayer2D = $"../SfxClick"
 
 var tween: Tween
 
@@ -30,4 +30,5 @@ func _on_mouse_exited():
 
 func _gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("click"):
-		TransitionScript.fade_to_scene_path("res://scenes/main/main_menu.tscn")
+		sfx_click.play()
+		TransitionScript.fade_to_scene_path("res://scenes/main/main_menu.tscn", 0.4)

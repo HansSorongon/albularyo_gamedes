@@ -32,8 +32,8 @@ func _input(event):
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_Q:
 			get_tree().quit()
-		if event.keycode == KEY_R:
-			spawn_patient()
+		#if event.keycode == KEY_R:
+			#spawn_patient()
 			
 func spawn_patient():
 	if current_patient:
@@ -57,7 +57,12 @@ func sell_potion(potencies):
 			sfx_gold.play()
 			
 			var money_earned = int(min(potencies[symptom], 100))
-			var reputation_earned = min(potencies[symptom], 100) / 3
+			
+			var reputation_earned = 0.0
+			if potencies[symptom] >= 50.0:
+				reputation_earned = 10
+				reputation_earned += (potencies[symptom] - 50.0) / 5
+				
 			day_earnings += money_earned
 			day_reputation += reputation_earned
 			
@@ -65,9 +70,16 @@ func sell_potion(potencies):
 			total_reputation_earned += reputation_earned
 			
 		else:
+			total_reputation_earned -= 10.0
 			day_reputation -= 10.0
 			
-	MessageManager.show_message("+" + str(total_money_earned) + " P")
+	#MessageManager.show_message("+" + str(total_money_earned) + " P")
+	var msg = ""
+	if total_reputation_earned >= 0.0:
+		msg += "+"
+	msg += str(int(total_reputation_earned)) + " Rep"
+	
+	MessageManager.show_message(msg)
 	current_patient.get_node("PatientPathFollow/Patient").npc_leave()
 	$ChecklistControl.clear_checkboxes()
 	$RedCandles.hide_flames()

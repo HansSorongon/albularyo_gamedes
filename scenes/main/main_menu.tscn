@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://lpw0hc116s01"]
+[gd_scene load_steps=9 format=3 uid="uid://lpw0hc116s01"]
 
 [ext_resource type="Script" uid="uid://c7plu6qt3x18o" path="res://scenes/main/main_menu.gd" id="1_nm0l4"]
 [ext_resource type="FontFile" uid="uid://b5bptjjfvw3i2" path="res://assets/ui/dialogue/tiny5.ttf" id="1_sd5it"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dd7wfa5oo6g65" path="res://scenes/ui/play_button.gd" id="3_byqcc"]
 [ext_resource type="Script" uid="uid://dcwm5s5yq3ahi" path="res://scenes/ui/settings_button.gd" id="4_hiibk"]
 [ext_resource type="Script" uid="uid://bb5tqpds1fjcg" path="res://scenes/ui/exit_button.gd" id="5_swlpu"]
+[ext_resource type="AudioStream" uid="uid://qn8bp0o5rht8" path="res://assets/audio/page_flip_back.ogg" id="8_75pso"]
 [ext_resource type="AudioStream" uid="uid://bms7eykr1clb7" path="res://assets/audio/death_bell.wav" id="8_bxtry"]
 
 [node name="MainMenu" type="Node2D"]
@@ -51,6 +52,11 @@ script = ExtResource("5_swlpu")
 
 [node name="SfxPlay" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_bxtry")
+bus = &"Sfx"
+
+[node name="SfxScroll" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_75pso")
+pitch_scale = 0.72
 bus = &"Sfx"
 
 [connection signal="mouse_entered" from="ExitButton" to="ExitButton" method="_on_mouse_entered"]

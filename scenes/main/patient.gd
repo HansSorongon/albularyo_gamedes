@@ -2,7 +2,7 @@ extends Node2D
 
 var dialogue_symptoms: Dictionary = {
 	"chest_pain": ["My chest feels tight.", "It hurts when I breathe deeply.", "I feel heaviness on my chest."],
-	"cough": ["My cough keeps coming back.", "My cough gets worse at night.", "I've been coughing for a month now."],
+	"cough": ["My cough keeps coming back.", "My cough gets worse at night.", "I've been coughing for a month."],
 	"sore_throat": ["It's painful when I swallow.", "My throat is hoarse.", "It's hard to speak."],
 	"headache": ["My head hurts when I wake up.", "My head is throbbing.", "It feels like the world is spinning."]
 }
