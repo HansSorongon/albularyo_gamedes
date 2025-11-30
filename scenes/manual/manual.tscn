@@ -114,17 +114,17 @@ script = ExtResource("8_8hbc8")
 
 [node name="ManualNext" type="TextureButton" parent="ManualPageFlipButtons"]
 offset_left = 205.0
-offset_top = 115.0
+offset_top = 111.0
 offset_right = 213.0
-offset_bottom = 122.0
+offset_bottom = 118.0
 texture_normal = ExtResource("9_gm275")
 script = ExtResource("11_1ry3k")
 
 [node name="ManualBack" type="TextureButton" parent="ManualPageFlipButtons"]
 offset_left = 30.0
-offset_top = 115.0
+offset_top = 111.0
 offset_right = 38.0
-offset_bottom = 122.0
+offset_bottom = 118.0
 texture_normal = ExtResource("10_emltn")
 script = ExtResource("13_n7ifm")
 

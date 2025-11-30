@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://cvhtpwumormog"]
+[gd_scene load_steps=42 format=3 uid="uid://cvhtpwumormog"]
 
 [ext_resource type="Texture2D" uid="uid://cpv3v0018eft" path="res://assets/background/game_background.png" id="1_l1b4v"]
 [ext_resource type="Script" uid="uid://dkt7ee5n3gh3e" path="res://scenes/main/main_loop.gd" id="1_olyg1"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://6jc4y545usrx" path="res://scenes/main/workstation.tscn" id="6_isaxb"]
 [ext_resource type="AudioStream" uid="uid://d12d74oyw802i" path="res://assets/audio/bgm.mp3" id="15_m757o"]
 [ext_resource type="PackedScene" uid="uid://bkixi8ye30e3" path="res://scenes/main/book_toggle.tscn" id="17_eexwu"]
+[ext_resource type="Texture2D" uid="uid://btwlckvgm25b2" path="res://assets/ui/dialogue/dialogue_icon_disabled.png" id="17_wh6i2"]
 [ext_resource type="Shader" uid="uid://87k5bptnb1d8" path="res://scenes/main/night_shader.gdshader" id="18_isaxb"]
 [ext_resource type="PackedScene" uid="uid://c3f5eobhumfge" path="res://scenes/main/checklist_toggle.tscn" id="19_h6rqw"]
 [ext_resource type="PackedScene" uid="uid://q7r0gd4vn1yf" path="res://scenes/manual/manual.tscn" id="20_22fp7"]
@@ -289,6 +290,7 @@ offset_top = 6.0
 offset_right = 28.0
 offset_bottom = 14.0
 texture_normal = ExtResource("27_eergd")
+texture_disabled = ExtResource("17_wh6i2")
 script = ExtResource("29_kgr6p")
 
 [node name="BookToggle" parent="WorkstationUI" instance=ExtResource("17_eexwu")]

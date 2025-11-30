@@ -1,11 +1,19 @@
 extends Node2D
 
+
 var dialogue_symptoms: Dictionary = {
 	"chest_pain": ["My chest feels tight.", "It hurts when I breathe deeply.", "I feel heaviness on my chest."],
 	"cough": ["My cough keeps coming back.", "My cough gets worse at night.", "I've been coughing for a month."],
 	"sore_throat": ["It's painful when I swallow.", "My throat is hoarse.", "It's hard to speak."],
 	"headache": ["My head hurts when I wake up.", "My head is throbbing.", "It feels like the world is spinning."]
 }
+
+var greetings = [
+	"Magandang araw, Albularyo.",
+	"Good day.",
+	"Good to see you.",
+	"Greetings.",
+]
 
 # Cached data from the JSON file
 var symptom_sets_by_size: Dictionary = {}
@@ -60,7 +68,7 @@ var visual_symptoms: Array[String] = [
 ]
 
 var symptoms: Array[String] = []
-var patient_dialogue: Array[String] = ["Magandang araw, Albularyo."]
+var patient_dialogue: Array[String] = []
 
 var layers = {
 	"hair_back": "hair_back/",
@@ -185,6 +193,10 @@ func generate_random_npc() -> Node2D:
 		npc.add_child(sprite)
 		
 	for symptom in symptoms:
+		
+		if dialogue_symptoms.has(symptom):
+			patient_dialogue.append(dialogue_symptoms[symptom][randi() % dialogue_symptoms[symptom].size()])
+		
 		if visual_symptoms.has(symptom):
 			var symptom_name = symptom
 			if (symptom == "wound"):
@@ -202,9 +214,6 @@ func generate_random_npc() -> Node2D:
 				base_face.add_sibling(sprite)
 			else:
 				npc.add_child(sprite)
-		
-		if dialogue_symptoms.has(symptom):
-			patient_dialogue.append(dialogue_symptoms[symptom][randi() % dialogue_symptoms[symptom].size()])
 			
 	return npc
 
@@ -238,7 +247,7 @@ func get_random_texture_from_folder(folder_path: String) -> Texture2D:
 	return load(folder_path + chosen_file)
 
 func spawn_npc():
-	
+		
 	generate_symptoms()
 	
 	if npc_instance and npc_instance.is_inside_tree():
@@ -252,6 +261,11 @@ func spawn_npc():
 		DialogueManager.start_dialog(patient_dialogue)
 		
 	print(symptoms)
+	
+	#var dialogue_button = get_tree().current_scene.get_node("WorkstationUI/DialogueRepeatButton")
+	#if dialogue_button.pressed.is_connected(_repeat_dialogue):
+		#dialogue_button.pressed.disconnect(_repeat_dialogue)
+	#dialogue_button.pressed.connect(_repeat_dialogue)
 	
 	# reset path
 	get_parent().time = 0
@@ -291,16 +305,19 @@ func npc_leave(duration: float = 2.0):
 		npc_instance.queue_free()
 		npc_instance = null
 
-func _repeat_dialogue():
-	if not DialogueManager.is_dialog_active:
-		DialogueManager.start_dialog(patient_dialogue)
-
 func _ready():
 	
+	#var dialogue_button = get_tree().current_scene.get_node("WorkstationUI/DialogueRepeatButton")
+	#dialogue_button.pressed.connect(_repeat_dialogue)	
+	#dialogue_button.disabled = true
+	
+	#var root_node = get_tree().current_scene
+	#root_node.get_node("WorkstationUI/DialogueRepeatButton").pressed.connect(_repeat_dialogue)
+	
+	patient_dialogue.append(greetings[randi() % greetings.size()])
 	symptom_size_weights = get_symptom_distribution(GameState.day_number)
 	
-	var root_node = get_tree().current_scene
-	root_node.get_node("WorkstationUI/DialogueRepeatButton").pressed.connect(_repeat_dialogue)
-	
 	randomize()
-	spawn_npc()
+	await spawn_npc()
+	
+	#dialogue_button.disabled = false

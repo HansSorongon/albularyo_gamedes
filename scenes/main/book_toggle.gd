@@ -20,7 +20,7 @@ func _ready():
 	$Area2D.input_event.connect(_on_mouse_click)
 	modulate = normal_color
 	
-	book_instance.z_index = 100
+	book_instance.z_index = 15
 	book_instance.position.y = get_viewport_rect().size.y + slide_distance
 	is_book_visible = false
 

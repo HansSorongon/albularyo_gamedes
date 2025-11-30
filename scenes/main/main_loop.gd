@@ -16,6 +16,8 @@ var is_spawning = true
 
 func _ready():
 	
+	$WorkstationUI/DialogueRepeatButton.pressed.connect(_on_dialogue_repeat)
+	
 	get_viewport().physics_object_picking_sort = true
 	get_viewport().physics_object_picking_first_only = true
 	
@@ -34,6 +36,11 @@ func _input(event):
 			get_tree().quit()
 		#if event.keycode == KEY_R:
 			#spawn_patient()
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_D:
+			if current_patient:
+				print(current_patient.get_node("PatientPathFollow/Patient").patient_dialogue)
+				print(current_patient.get_node("PatientPath/PatientPathFollow/Patient").patient_dialogue)
 			
 func spawn_patient():
 	if current_patient:
@@ -107,6 +114,12 @@ func _on_night_timer_timeout() -> void:
 	if night_progress < 1.0:
 		night_progress += 1.0 / day_seconds
 		$NpcBackground.material.set_shader_parameter("progress", night_progress)
+
+func _on_dialogue_repeat():
+	if current_patient:
+		if not DialogueManager.is_dialog_active:
+			var patient_dialogue = current_patient.get_node("PatientPathFollow/Patient").patient_dialogue
+			DialogueManager.start_dialog(patient_dialogue)
 
 func _on_full_day_timer_timeout() -> void:
 	
