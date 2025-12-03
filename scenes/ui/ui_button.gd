@@ -5,7 +5,7 @@ extends MarginContainer
 var tween: Tween
 
 func _ready():
-	$MarginContainer/Label.text = "BACK"
+	$MarginContainer/Label.text = "Back"
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
 	modulate = Color.WHITE

@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccrlbh62ur4im"]
+
+[ext_resource type="Texture2D" uid="uid://b1ut4taib1yiv" path="res://assets/workstation/fever_smoke.png" id="1_kivj7"]
+
+[sub_resource type="Gradient" id="Gradient_kivj7"]
+colors = PackedColorArray(0.75, 0.75, 0.75, 0.972549, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8gpsc"]
+gradient = SubResource("Gradient_kivj7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8gpsc"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(2.52, 5.68, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 0.94, 1)
+gravity = Vector3(0, -70, 0)
+color_ramp = SubResource("GradientTexture1D_8gpsc")
+
+[node name="FeverSmoke" type="GPUParticles2D"]
+amount = 3
+texture = ExtResource("1_kivj7")
+lifetime = 4.0
+speed_scale = 0.25
+explosiveness = 0.47
+randomness = 0.44
+process_material = SubResource("ParticleProcessMaterial_8gpsc")

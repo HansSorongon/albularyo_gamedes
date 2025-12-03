@@ -1,5 +1,7 @@
 extends Node2D
 
+var breathing
+var is_tutorial = false
 
 var dialogue_symptoms: Dictionary = {
 	"chest_pain": ["My chest feels tight.", "It hurts when I breathe deeply.", "I feel heaviness on my chest."],
@@ -29,6 +31,10 @@ var symptom_size_weights := {
 }
 #sizes of each symptom
 const SYMPTOM_SIZES := [1, 2, 3, 4, 5]
+
+var breathing_tween: Tween = null
+const BREATHING_AMPLITUDE = 1.0
+const BREATHING_DURATION = 7.5
 
 func get_symptom_distribution(difficulty: int) -> Dictionary:
 	var distribution := {}
@@ -217,6 +223,42 @@ func generate_random_npc() -> Node2D:
 			
 	return npc
 
+func start_breathing_animation():
+	if breathing_tween:
+		breathing_tween.kill()
+	
+	if not npc_instance or not npc_instance.is_inside_tree():
+		return
+	
+	var original_y = npc_instance.position.y
+	
+	breathing_tween = create_tween()
+	breathing_tween.set_loops()
+	breathing_tween.set_trans(Tween.TRANS_SINE)
+	breathing_tween.set_ease(Tween.EASE_IN_OUT)
+	
+	# Move down (exhale) - rounded to full pixels
+	breathing_tween.tween_method(
+		func(value): 
+			if npc_instance:
+				npc_instance.position.y = round(original_y + value),
+		0.0,
+		BREATHING_AMPLITUDE,
+		BREATHING_DURATION / 2.0
+	)
+	# Move back up to original (inhale) - rounded to full pixels
+	breathing_tween.tween_method(
+		func(value): npc_instance.position.y = round(original_y + value),
+		BREATHING_AMPLITUDE,
+		0.0,
+		BREATHING_DURATION / 2.0
+	)
+
+func stop_breathing_animation():
+	if breathing_tween:
+		breathing_tween.kill()
+		breathing_tween = null
+
 func fade_in_npc(duration: float = 1.0):
 	var tween = create_tween()
 	tween.set_parallel(true)
@@ -224,6 +266,11 @@ func fade_in_npc(duration: float = 1.0):
 	for child in npc_instance.get_children():
 		if child is Sprite2D:
 			tween.tween_property(child, "modulate", Color.WHITE, duration).set_delay(2.0)
+			
+	await tween.finished
+	start_breathing_animation()
+	if symptoms.has("fever"):
+		get_tree().current_scene.get_node("FeverSmoke").visible = true
 
 func get_random_texture_from_folder(folder_path: String) -> Texture2D:
 
@@ -250,15 +297,16 @@ func spawn_npc():
 		
 	generate_symptoms()
 	
+	if is_tutorial:
+		symptoms.clear()
+		symptoms = ["rashes", "cough"]	
+
 	if npc_instance and npc_instance.is_inside_tree():
 		npc_instance.queue_free()
 	
 	npc_instance = generate_random_npc()
 	add_child(npc_instance)
 	fade_in_npc(1)
-	
-	if not DialogueManager.is_dialog_active:
-		DialogueManager.start_dialog(patient_dialogue)
 		
 	print(symptoms)
 	
@@ -271,8 +319,13 @@ func spawn_npc():
 	get_parent().time = 0
 
 func npc_leave(duration: float = 2.0):
+	
+	get_tree().current_scene.get_node("FeverSmoke").visible = false
+	
 	if not npc_instance or not npc_instance.is_inside_tree():
 		return
+	
+	stop_breathing_animation()
 	
 	# Get the PathFollow2D parent
 	var path_follow = get_parent()

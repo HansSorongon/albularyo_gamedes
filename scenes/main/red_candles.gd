@@ -56,7 +56,7 @@ func _on_change_potency():
 
 				glow.position = Vector2.ZERO
 				glow.position += Vector2(5, 0)
-				glow.z_index = 100
+				glow.z_index = 5
 			
 			get_child(index).get_node("Flame").material.set_shader_parameter("flame_height", new_flame_height)
 			get_child(index).get_node("Flame").material.set_shader_parameter("flame_width", new_flame_width)

@@ -9,6 +9,8 @@ var closed_position: Vector2
 var target_position: Vector2
 var is_open: bool = false
 
+signal checklist_opened
+
 var possible_symptoms: Array[String] = [
 	"Pale Skin",
 	"Pale Lips",
@@ -27,7 +29,7 @@ var possible_symptoms: Array[String] = [
 	"Headache"
 ]
 
-signal checklist_changed()
+signal checklist_changed
 
 func _ready():
 	
@@ -46,6 +48,7 @@ func _ready():
 
 func _on_mouse_entered():
 	if not is_open:
+		checklist_opened.emit()
 		sfx_open.play()
 		is_open = true
 		target_position = closed_position + slide_offset  # move diagonally

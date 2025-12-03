@@ -1,14 +1,26 @@
-[gd_scene load_steps=10 format=3 uid="uid://lpw0hc116s01"]
+[gd_scene load_steps=12 format=3 uid="uid://lpw0hc116s01"]
 
 [ext_resource type="Script" uid="uid://c7plu6qt3x18o" path="res://scenes/main/main_menu.gd" id="1_nm0l4"]
-[ext_resource type="FontFile" uid="uid://b5bptjjfvw3i2" path="res://assets/ui/dialogue/tiny5.ttf" id="1_sd5it"]
 [ext_resource type="PackedScene" uid="uid://cu02khkp6ayey" path="res://scenes/ui/menu_button.tscn" id="2_5vafy"]
 [ext_resource type="Texture2D" uid="uid://7yixaam5h83k" path="res://scenes/main/main_menu_bg.png" id="2_75pso"]
 [ext_resource type="Script" uid="uid://dd7wfa5oo6g65" path="res://scenes/ui/play_button.gd" id="3_byqcc"]
+[ext_resource type="Texture2D" uid="uid://bwyjpkl0wtp6n" path="res://assets/ui/dialogue/title_art.png" id="3_cnht7"]
 [ext_resource type="Script" uid="uid://dcwm5s5yq3ahi" path="res://scenes/ui/settings_button.gd" id="4_hiibk"]
 [ext_resource type="Script" uid="uid://bb5tqpds1fjcg" path="res://scenes/ui/exit_button.gd" id="5_swlpu"]
 [ext_resource type="AudioStream" uid="uid://qn8bp0o5rht8" path="res://assets/audio/page_flip_back.ogg" id="8_75pso"]
 [ext_resource type="AudioStream" uid="uid://bms7eykr1clb7" path="res://assets/audio/death_bell.wav" id="8_bxtry"]
+[ext_resource type="Shader" uid="uid://buy361hvi7da0" path="res://scenes/main/vignette.gdshader" id="10_cnht7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s2sug"]
+shader = ExtResource("10_cnht7")
+shader_parameter/radius = 0.2400000114
+shader_parameter/softness = 1.0
+shader_parameter/intensity = 0.726000034485
+shader_parameter/contrast = 4.0
+shader_parameter/vignette_color = Color(0, 0, 0, 0.64705884)
+shader_parameter/pixel_size = 0.00600000028499999
+shader_parameter/blend_steps = 7.170000245575
+shader_parameter/noise_strength = 0.0
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_nm0l4")
@@ -23,38 +35,31 @@ offset_right = 240.0
 offset_bottom = 135.0
 color = Color(0, 0, 0, 1)
 
-[node name="Label" type="Label" parent="."]
-offset_left = 70.0
-offset_top = 10.0
-offset_right = 166.0
-offset_bottom = 37.0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 7
-theme_override_fonts/font = ExtResource("1_sd5it")
-theme_override_font_sizes/font_size = 24
-text = "Albularyo"
+[node name="TitleArt" type="Sprite2D" parent="."]
+position = Vector2(165, 65)
+texture = ExtResource("3_cnht7")
 
 [node name="PlayButton" parent="." instance=ExtResource("2_5vafy")]
-offset_left = 90.0
-offset_top = 52.0
-offset_right = 145.0
-offset_bottom = 71.0
+offset_left = 104.0
+offset_top = 43.0
+offset_right = 159.0
+offset_bottom = 62.0
 size_flags_horizontal = 4
 script = ExtResource("3_byqcc")
 
 [node name="SettingsButton" parent="." instance=ExtResource("2_5vafy")]
-offset_left = 90.0
-offset_top = 73.0
-offset_right = 145.0
-offset_bottom = 92.0
+offset_left = 104.0
+offset_top = 64.0
+offset_right = 159.0
+offset_bottom = 83.0
 size_flags_horizontal = 4
 script = ExtResource("4_hiibk")
 
 [node name="ExitButton" parent="." instance=ExtResource("2_5vafy")]
-offset_left = 90.0
-offset_top = 94.0
-offset_right = 145.0
-offset_bottom = 113.0
+offset_left = 104.0
+offset_top = 85.0
+offset_right = 159.0
+offset_bottom = 104.0
 size_flags_horizontal = 4
 script = ExtResource("5_swlpu")
 
@@ -66,5 +71,12 @@ bus = &"Sfx"
 stream = ExtResource("8_75pso")
 pitch_scale = 0.72
 bus = &"Sfx"
+
+[node name="Vignette" type="ColorRect" parent="."]
+z_index = 900
+material = SubResource("ShaderMaterial_s2sug")
+offset_right = 240.0
+offset_bottom = 135.0
+mouse_filter = 2
 
 [connection signal="mouse_entered" from="ExitButton" to="ExitButton" method="_on_mouse_entered"]

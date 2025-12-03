@@ -1,8 +1,9 @@
-[gd_scene load_steps=42 format=3 uid="uid://cvhtpwumormog"]
+[gd_scene load_steps=51 format=3 uid="uid://cvhtpwumormog"]
 
 [ext_resource type="Texture2D" uid="uid://cpv3v0018eft" path="res://assets/background/game_background.png" id="1_l1b4v"]
 [ext_resource type="Script" uid="uid://dkt7ee5n3gh3e" path="res://scenes/main/main_loop.gd" id="1_olyg1"]
 [ext_resource type="Texture2D" uid="uid://cmssfptn6xb3j" path="res://assets/background/npc_background.png" id="2_xfve2"]
+[ext_resource type="PackedScene" uid="uid://cgw328qwqjsc6" path="res://scenes/main/hourglass.tscn" id="4_ynl2v"]
 [ext_resource type="PackedScene" uid="uid://6jc4y545usrx" path="res://scenes/main/workstation.tscn" id="6_isaxb"]
 [ext_resource type="AudioStream" uid="uid://d12d74oyw802i" path="res://assets/audio/bgm.mp3" id="15_m757o"]
 [ext_resource type="PackedScene" uid="uid://bkixi8ye30e3" path="res://scenes/main/book_toggle.tscn" id="17_eexwu"]
@@ -15,13 +16,19 @@
 [ext_resource type="Texture2D" uid="uid://wjlyw6tyblxi" path="res://assets/workstation/tawas.png" id="21_wh6i2"]
 [ext_resource type="Texture2D" uid="uid://cp1pcuo3v2c4b" path="res://assets/workstation/flame.png" id="22_1v0k2"]
 [ext_resource type="Shader" uid="uid://dv8n5l2t6vrtg" path="res://scenes/main/clouds.gdshader" id="22_22fp7"]
-[ext_resource type="Texture2D" uid="uid://bk23022eafoqk" path="res://assets/hourglass/hourglass_1.png" id="23_1v0k2"]
 [ext_resource type="Shader" uid="uid://buy361hvi7da0" path="res://scenes/main/vignette.gdshader" id="24_r5fat"]
 [ext_resource type="PackedScene" uid="uid://cfxd1fnbvxnxb" path="res://scenes/main/red_candles.tscn" id="25_wh6i2"]
 [ext_resource type="Texture2D" uid="uid://c3uqkhmcsly4y" path="res://assets/workstation/paper.png" id="25_xtyir"]
+[ext_resource type="PackedScene" uid="uid://ccrlbh62ur4im" path="res://scenes/main/fever_smoke.tscn" id="26_xtyir"]
 [ext_resource type="AudioStream" uid="uid://bjq1kh6ic3xsu" path="res://assets/audio/crickets.mp3" id="27_diimi"]
 [ext_resource type="Texture2D" uid="uid://bpbbahsnkwba6" path="res://assets/ui/dialogue/dialogue_icon.png" id="27_eergd"]
+[ext_resource type="PackedScene" uid="uid://dd1ytc7q00wmo" path="res://scenes/ui/PauseMenu.tscn" id="27_qryyp"]
+[ext_resource type="AudioStream" uid="uid://bms7eykr1clb7" path="res://assets/audio/death_bell.wav" id="28_eergd"]
 [ext_resource type="Script" uid="uid://co0plr4sjtyp0" path="res://scenes/main/dialogue_repeat_button.gd" id="29_kgr6p"]
+[ext_resource type="Shader" uid="uid://c12l47lprbxwi" path="res://scenes/main/test_glow.gdshader" id="29_umiu5"]
+[ext_resource type="Texture2D" uid="uid://bucqmxngdnps8" path="res://assets/background/night_overlay.png" id="29_ynl2v"]
+[ext_resource type="Shader" uid="uid://bso1evmwerk6" path="res://scenes/main/tutorial_focus.gdshader" id="30_umiu5"]
+[ext_resource type="Script" uid="uid://crhu64q243kt0" path="res://scenes/main/tutorial_focus.gd" id="31_7fx7v"]
 [ext_resource type="Script" uid="uid://b44hole47ia3q" path="res://scenes/main/patient_area.gd" id="33_2wxho"]
 [ext_resource type="AudioStream" uid="uid://8n5d5fw42yrr" path="res://assets/audio/click_3.ogg" id="33_rmity"]
 [ext_resource type="AudioStream" uid="uid://c85qdupi0gda" path="res://assets/audio/gold.wav" id="34_v2yyn"]
@@ -179,16 +186,26 @@ alpha_curve = SubResource("CurveTexture_22fp7")
 shader = ExtResource("22_22fp7")
 shader_parameter/cloud_color = Color(0.8, 0.5411765, 0.3764706, 1)
 shader_parameter/sky_color = Color(0.396, 0.5975999, 0.9, 0)
-shader_parameter/speed = 0.0950000045125
-shader_parameter/scale = 6.0000002375
-shader_parameter/pixel_size = 0.03300000121824
-shader_parameter/edge_border = 0.30000001192093
+shader_parameter/speed = 0.0150000007125
+shader_parameter/scale = 5.6000002185
+shader_parameter/pixel_size = 0.03500000131324
+shader_parameter/edge_border = 0.162000007695
+shader_parameter/edge_softness = 0.0
+shader_parameter/vignette_strength = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eexwu"]
 shader = ExtResource("18_isaxb")
 shader_parameter/progress = 0.0
 shader_parameter/day_tint = Color(1, 1, 1, 1)
 shader_parameter/night_tint = Color(0, 0.10266678, 0.44, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7fx7v"]
+shader = ExtResource("29_umiu5")
+shader_parameter/glow_intensity = 1.098000052155
+shader_parameter/glow_radius = 5.1610001976475
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/samples = 16
+shader_parameter/fade = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v2yyn"]
 size = Vector2(63, 63)
@@ -200,11 +217,24 @@ shader_parameter/softness = 1.0
 shader_parameter/intensity = 0.726000034485
 shader_parameter/contrast = 4.0
 shader_parameter/vignette_color = Color(0, 0, 0, 0.64705884)
-shader_parameter/pixel_size = 0.006000000284999999
+shader_parameter/pixel_size = 0.00600000028499999
 shader_parameter/blend_steps = 7.170000245575
 shader_parameter/noise_strength = 0.0
 
-[node name="MainLoop" type="Node2D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2wxho"]
+shader = ExtResource("30_umiu5")
+shader_parameter/radius = 0.2800000133
+shader_parameter/softness = 1.0
+shader_parameter/intensity = 0.726000034485
+shader_parameter/contrast = 4.0
+shader_parameter/vignette_color = Color(0, 0, 0, 1)
+shader_parameter/center_offset = Vector2(0, 0)
+shader_parameter/clear_area_size = Vector2(1, 1)
+shader_parameter/pixel_size = 0.004
+shader_parameter/blend_steps = 8.5
+shader_parameter/noise_strength = 0.0
+
+[node name="MainLoop" type="Node2D" groups=["pausable_scenes"]]
 script = ExtResource("1_olyg1")
 
 [node name="Bowl" type="Sprite2D" parent="."]
@@ -214,6 +244,9 @@ texture = ExtResource("20_r5fat")
 [node name="Tawas" type="Sprite2D" parent="Bowl"]
 position = Vector2(-1, -12)
 texture = ExtResource("21_wh6i2")
+
+[node name="Hourglass" parent="." instance=ExtResource("4_ynl2v")]
+position = Vector2(106, 19)
 
 [node name="Candle" type="Sprite2D" parent="."]
 position = Vector2(105, 63)
@@ -248,9 +281,9 @@ z_index = -29
 z_as_relative = false
 material = SubResource("ShaderMaterial_1v0k2")
 offset_left = 1.0
-offset_top = -15.0
+offset_top = -18.0
 offset_right = 64.0
-offset_bottom = 23.0
+offset_bottom = 20.0
 
 [node name="NpcBackground" type="Sprite2D" parent="."]
 z_index = -30
@@ -258,6 +291,19 @@ material = SubResource("ShaderMaterial_eexwu")
 position = Vector2(1, 1)
 texture = ExtResource("2_xfve2")
 centered = false
+
+[node name="NightOverlay" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+z_index = -29
+material = SubResource("ShaderMaterial_7fx7v")
+position = Vector2(1, 1)
+texture = ExtResource("29_ynl2v")
+centered = false
+
+[node name="FeverSmoke" parent="." instance=ExtResource("26_xtyir")]
+visible = false
+position = Vector2(33, 42)
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("15_m757o")
@@ -296,6 +342,7 @@ script = ExtResource("29_kgr6p")
 [node name="BookToggle" parent="WorkstationUI" instance=ExtResource("17_eexwu")]
 
 [node name="Manual" parent="WorkstationUI" instance=ExtResource("20_22fp7")]
+z_index = 10
 position = Vector2(-109, 9)
 
 [node name="ChecklistControl" parent="." instance=ExtResource("19_h6rqw")]
@@ -304,6 +351,7 @@ z_as_relative = false
 position = Vector2(284, 190)
 
 [node name="PatientArea" type="Area2D" parent="."]
+visible = false
 position = Vector2(11, 11)
 script = ExtResource("33_2wxho")
 
@@ -322,17 +370,29 @@ process_callback = 0
 wait_time = 10.0
 one_shot = true
 
-[node name="Hourglass1" type="Sprite2D" parent="."]
-position = Vector2(96, 5)
-texture = ExtResource("23_1v0k2")
-centered = false
+[node name="PauseMenu" parent="." instance=ExtResource("27_qryyp")]
+visible = false
 
-[node name="ColorRect" type="ColorRect" parent="."]
-z_index = 500
+[node name="VignetteOld" type="ColorRect" parent="."]
+visible = false
+z_index = 900
 material = SubResource("ShaderMaterial_wh6i2")
 offset_right = 240.0
 offset_bottom = 135.0
 mouse_filter = 2
+
+[node name="Vignette" type="ColorRect" parent="."]
+z_index = 900
+material = SubResource("ShaderMaterial_2wxho")
+offset_right = 240.0
+offset_bottom = 135.0
+mouse_filter = 2
+script = ExtResource("31_7fx7v")
+
+[node name="SfxPause" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("28_eergd")
+volume_db = -15.0
 
 [connection signal="timeout" from="NightTimer" to="." method="_on_night_timer_timeout"]
 [connection signal="timeout" from="FullDayTimer" to="." method="_on_full_day_timer_timeout"]

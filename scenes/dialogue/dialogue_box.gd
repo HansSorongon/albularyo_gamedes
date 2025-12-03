@@ -4,6 +4,7 @@ extends MarginContainer
 @onready var timer = $LetterDisplayTimer
 @onready var sfx_dialogue: AudioStreamPlayer = $sfx_dialogue
 
+var is_tutorial_box = false
 const MAX_WIDTH = 120
 var text = ""
 var letter_index = 0
@@ -13,6 +14,11 @@ var punctuation_time = 0.2
 signal finished_displaying()
 
 func display_text(text_to_display: String):
+	
+	if is_tutorial_box:
+		$NinePatchRect.hide()
+		$TutorialBox.show()
+		$MarginContainer/Label.set("theme_override_colors/font_color", Color(0.24, 0.18, 0.09, 1))
 	text = text_to_display
 	letter_index = 0
 	label.text = text_to_display  # Set full text temporarily

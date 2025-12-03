@@ -1,0 +1,398 @@
+[gd_scene load_steps=51 format=3 uid="uid://cvhtpwumormog"]
+
+[ext_resource type="Texture2D" uid="uid://cpv3v0018eft" path="res://assets/background/game_background.png" id="1_l1b4v"]
+[ext_resource type="Script" uid="uid://dkt7ee5n3gh3e" path="res://scenes/main/main_loop.gd" id="1_olyg1"]
+[ext_resource type="Texture2D" uid="uid://cmssfptn6xb3j" path="res://assets/background/npc_background.png" id="2_xfve2"]
+[ext_resource type="PackedScene" uid="uid://cgw328qwqjsc6" path="res://scenes/main/hourglass.tscn" id="4_ynl2v"]
+[ext_resource type="PackedScene" uid="uid://6jc4y545usrx" path="res://scenes/main/workstation.tscn" id="6_isaxb"]
+[ext_resource type="AudioStream" uid="uid://d12d74oyw802i" path="res://assets/audio/bgm.mp3" id="15_m757o"]
+[ext_resource type="PackedScene" uid="uid://bkixi8ye30e3" path="res://scenes/main/book_toggle.tscn" id="17_eexwu"]
+[ext_resource type="Texture2D" uid="uid://btwlckvgm25b2" path="res://assets/ui/dialogue/dialogue_icon_disabled.png" id="17_wh6i2"]
+[ext_resource type="Shader" uid="uid://87k5bptnb1d8" path="res://scenes/main/night_shader.gdshader" id="18_isaxb"]
+[ext_resource type="PackedScene" uid="uid://c3f5eobhumfge" path="res://scenes/main/checklist_toggle.tscn" id="19_h6rqw"]
+[ext_resource type="PackedScene" uid="uid://q7r0gd4vn1yf" path="res://scenes/manual/manual.tscn" id="20_22fp7"]
+[ext_resource type="Texture2D" uid="uid://1nxi17npukpj" path="res://assets/workstation/candle.png" id="20_isaxb"]
+[ext_resource type="Texture2D" uid="uid://chw76k6sft5nm" path="res://assets/workstation/bowl.png" id="20_r5fat"]
+[ext_resource type="Texture2D" uid="uid://wjlyw6tyblxi" path="res://assets/workstation/tawas.png" id="21_wh6i2"]
+[ext_resource type="Texture2D" uid="uid://cp1pcuo3v2c4b" path="res://assets/workstation/flame.png" id="22_1v0k2"]
+[ext_resource type="Shader" uid="uid://dv8n5l2t6vrtg" path="res://scenes/main/clouds.gdshader" id="22_22fp7"]
+[ext_resource type="Shader" uid="uid://buy361hvi7da0" path="res://scenes/main/vignette.gdshader" id="24_r5fat"]
+[ext_resource type="PackedScene" uid="uid://cfxd1fnbvxnxb" path="res://scenes/main/red_candles.tscn" id="25_wh6i2"]
+[ext_resource type="Texture2D" uid="uid://c3uqkhmcsly4y" path="res://assets/workstation/paper.png" id="25_xtyir"]
+[ext_resource type="PackedScene" uid="uid://ccrlbh62ur4im" path="res://scenes/main/fever_smoke.tscn" id="26_xtyir"]
+[ext_resource type="AudioStream" uid="uid://bjq1kh6ic3xsu" path="res://assets/audio/crickets.mp3" id="27_diimi"]
+[ext_resource type="Texture2D" uid="uid://bpbbahsnkwba6" path="res://assets/ui/dialogue/dialogue_icon.png" id="27_eergd"]
+[ext_resource type="PackedScene" uid="uid://dd1ytc7q00wmo" path="res://scenes/ui/PauseMenu.tscn" id="27_qryyp"]
+[ext_resource type="AudioStream" uid="uid://bms7eykr1clb7" path="res://assets/audio/death_bell.wav" id="28_eergd"]
+[ext_resource type="Script" uid="uid://co0plr4sjtyp0" path="res://scenes/main/dialogue_repeat_button.gd" id="29_kgr6p"]
+[ext_resource type="Shader" uid="uid://c12l47lprbxwi" path="res://scenes/main/test_glow.gdshader" id="29_umiu5"]
+[ext_resource type="Texture2D" uid="uid://bucqmxngdnps8" path="res://assets/background/night_overlay.png" id="29_ynl2v"]
+[ext_resource type="Shader" uid="uid://bso1evmwerk6" path="res://scenes/main/tutorial_focus.gdshader" id="30_umiu5"]
+[ext_resource type="Script" uid="uid://crhu64q243kt0" path="res://scenes/main/tutorial_focus.gd" id="31_7fx7v"]
+[ext_resource type="Script" uid="uid://b44hole47ia3q" path="res://scenes/main/patient_area.gd" id="33_2wxho"]
+[ext_resource type="AudioStream" uid="uid://8n5d5fw42yrr" path="res://assets/audio/click_3.ogg" id="33_rmity"]
+[ext_resource type="AudioStream" uid="uid://c85qdupi0gda" path="res://assets/audio/gold.wav" id="34_v2yyn"]
+
+[sub_resource type="Shader" id="Shader_qryyp"]
+code = "shader_type canvas_item;
+// Debug mode to see the raw flame shape
+uniform bool debug = false;
+// Number of color bands in the flame (3-4 recommended for pixel art)
+uniform int pallet_size = 4;
+// Flame shape controls
+uniform float flame_height = 1.0; // How tall the flame is
+uniform float flame_width = 0.7; // How wide the flame is (increased for more body)
+uniform float flame_taper = 1.2; // How much it tapers at top (lower = more body)
+uniform float flame_flicker = 0.2; // How much the flame flickers
+uniform float step_frequency = 8.0; // How \"choppy\" the animation is (higher = more steps)
+uniform float scroll_speed = 0.1; // How fast it actually moves
+// Noise texture for flame animation (use low-res noise for pixel art)
+uniform sampler2D noise_tex: filter_nearest, repeat_enable;
+// Flame colors (from hottest/center to coolest/outer) - pixel art palette
+uniform vec4 flame_0: source_color = vec4(1.0, 1.0, 0.8, 1.0); // Bright yellow core
+uniform vec4 flame_1: source_color = vec4(1.0, 0.7, 0.2, 1.0); // Orange
+uniform vec4 flame_2: source_color = vec4(0.9, 0.3, 0.1, 1.0); // Red-orange
+uniform vec4 flame_3: source_color = vec4(0.6, 0.2, 0.1, 0.8); // Dark red edge
+uniform vec4 flame_4: source_color = vec4(0.4, 0.1, 0.0, 0.3); // Very dark edge
+// Brightness thresholds for each color band (tuned for 16x16)
+uniform float thresh_f0 = 0.05;
+uniform float thresh_f1 = 0.15;
+uniform float thresh_f2 = 0.3;
+uniform float thresh_f3 = 0.5;
+uniform float thresh_f4 = 0.7;
+void fragment() {
+	// Snap to pixel grid for crisp pixel art
+	vec2 pixel_uv = floor(UV / TEXTURE_PIXEL_SIZE) * TEXTURE_PIXEL_SIZE;
+	// Center the UV coordinates
+	vec2 uv = pixel_uv;
+	uv.x = (uv.x - 0.5) * 2.0; // Range from -1 to 1
+	uv.y = 1.0 - uv.y; // Flip Y so flame goes upward
+	// Create small candle flame shape (optimized for 16x16)
+	// Classic candle flame: rounded bottom, pointed top
+	// Vertical gradient: strong at bottom (y=0), weak at top (y=1)
+	float vertical_strength = 1.0 - uv.y; // Bottom (0) = 1.0, Top (1) = 0.0
+	vertical_strength = pow(vertical_strength, 1.0 / flame_height); // Control height
+	// Taper the width as we go up (uv.y increases going up)
+	float width_at_height = mix(flame_width, flame_width * 0.15, pow(uv.y, flame_taper));
+	float horizontal_falloff = 1.0 - (abs(uv.x) / width_at_height);
+	horizontal_falloff = max(0.0, horizontal_falloff);
+	// Combine for final shape
+	float base_flame = vertical_strength * horizontal_falloff * 1.5;
+	// Add pixel-stepped animation for flickering
+	float time_step = floor(TIME * step_frequency) / step_frequency;
+	vec2 noise_uv = vec2(pixel_uv.x * 0.5, pixel_uv.y * 0.8 + time_step * scroll_speed);
+	vec4 noise_color = texture(noise_tex, noise_uv);
+	float noise_val = (noise_color.r + noise_color.g + noise_color.b) / 3.0;
+	// Apply noise to create flickering effect
+	float flicker = (noise_val - 0.5) * flame_flicker;
+	base_flame += flicker;
+	// Add secondary noise for detail
+	vec2 detail_uv = vec2(pixel_uv.x * 2.0, pixel_uv.y * 1.5 + time_step * scroll_speed * 1.5);
+	vec4 detail_noise = texture(noise_tex, detail_uv);
+	float detail_val = (detail_noise.r + detail_noise.g + detail_noise.b) / 3.0;
+	base_flame += (detail_val - 0.5) * 0.08;
+	// Clamp the result
+	float map_lum = clamp(base_flame, 0.0, 1.0);
+	// Apply color bands based on luminance thresholds (inverted logic - higher values = hotter)
+	if (map_lum > thresh_f4 && pallet_size >= 1) {
+		COLOR = flame_0;
+	} else if (map_lum > thresh_f3 && pallet_size >= 2) {
+		COLOR = flame_1;
+	} else if (map_lum > thresh_f2 && pallet_size >= 3) {
+		COLOR = flame_2;
+	} else if (map_lum > thresh_f1 && pallet_size >= 4) {
+		COLOR = flame_3;
+	} else if (map_lum > thresh_f0 && pallet_size >= 5) {
+		COLOR = flame_4;
+	} else {
+		COLOR = vec4(0.0, 0.0, 0.0, 0.0); // Transparent background
+	}
+	// Debug mode shows the raw luminance map
+	if (debug) {
+		COLOR = vec4(vec3(map_lum), 1.0);
+	}
+}"
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_22fp7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eergd"]
+shader = SubResource("Shader_qryyp")
+shader_parameter/debug = false
+shader_parameter/pallet_size = 3
+shader_parameter/flame_height = 2.78
+shader_parameter/flame_width = 2.26
+shader_parameter/flame_taper = 0.535
+shader_parameter/flame_flicker = 0.5
+shader_parameter/step_frequency = 8.0
+shader_parameter/scroll_speed = 0.3
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_22fp7")
+shader_parameter/flame_0 = Color(0.96862745, 0.8901961, 0.5764706, 1)
+shader_parameter/flame_1 = Color(1, 0.9019608, 0.3764706, 1)
+shader_parameter/flame_2 = Color(1, 0.9019608, 0.3764706, 1)
+shader_parameter/flame_3 = Color(0, 0, 0, 0.8)
+shader_parameter/flame_4 = Color(0, 0, 0, 0.3019608)
+shader_parameter/thresh_f0 = 0.05
+shader_parameter/thresh_f1 = 0.15
+shader_parameter/thresh_f2 = 0.3
+shader_parameter/thresh_f3 = 0.5
+shader_parameter/thresh_f4 = 0.7
+
+[sub_resource type="Curve" id="Curve_eexwu"]
+_limits = [0.0, 0.3, 0.0, 1.0]
+_data = [Vector2(0, 0.03707865), 0.0, 0.0, 0, 0, Vector2(0.20588234, 0.20898877), 0.0, 0.0, 0, 0, Vector2(0.49999997, 0.28314608), 0.0, 0.0, 0, 0, Vector2(0.80588233, 0.17865169), 0.0, 0.0, 0, 0, Vector2(0.9941176, 0.0067415833), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_22fp7"]
+curve = SubResource("Curve_eexwu")
+
+[sub_resource type="Gradient" id="Gradient_1v0k2"]
+colors = PackedColorArray(1, 1, 1, 0.078431375, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_r5fat"]
+gradient = SubResource("Gradient_1v0k2")
+
+[sub_resource type="Curve" id="Curve_wh6i2"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_xtyir"]
+_limits = [0.0, 30.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.12352942, 5.056179), 0.0, 0.0, 0, 0, Vector2(0.29411763, 5.730339), 0.0, 0.0, 0, 0, Vector2(0.94705886, 5.056179), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_qryyp"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_eergd"]
+curve_x = SubResource("Curve_wh6i2")
+curve_y = SubResource("Curve_xtyir")
+curve_z = SubResource("Curve_qryyp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eexwu"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(34.715, 18.78, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+gravity = Vector3(0, 3000, 0)
+scale_min = 0.19999999
+scale_over_velocity_curve = SubResource("CurveXYZTexture_eergd")
+color_initial_ramp = SubResource("GradientTexture1D_r5fat")
+alpha_curve = SubResource("CurveTexture_22fp7")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1v0k2"]
+shader = ExtResource("22_22fp7")
+shader_parameter/cloud_color = Color(0.8, 0.5411765, 0.3764706, 1)
+shader_parameter/sky_color = Color(0.396, 0.5975999, 0.9, 0)
+shader_parameter/speed = 0.0150000007125
+shader_parameter/scale = 5.6000002185
+shader_parameter/pixel_size = 0.03500000131324
+shader_parameter/edge_border = 0.162000007695
+shader_parameter/edge_softness = 0.0
+shader_parameter/vignette_strength = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eexwu"]
+shader = ExtResource("18_isaxb")
+shader_parameter/progress = 0.0
+shader_parameter/day_tint = Color(1, 1, 1, 1)
+shader_parameter/night_tint = Color(0, 0.10266678, 0.44, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7fx7v"]
+shader = ExtResource("29_umiu5")
+shader_parameter/glow_intensity = 1.098000052155
+shader_parameter/glow_radius = 5.1610001976475
+shader_parameter/glow_color = Color(1, 1, 1, 1)
+shader_parameter/samples = 16
+shader_parameter/fade = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v2yyn"]
+size = Vector2(63, 63)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wh6i2"]
+shader = ExtResource("24_r5fat")
+shader_parameter/radius = 0.2800000133
+shader_parameter/softness = 1.0
+shader_parameter/intensity = 0.726000034485
+shader_parameter/contrast = 4.0
+shader_parameter/vignette_color = Color(0, 0, 0, 0.64705884)
+shader_parameter/pixel_size = 0.00600000028499999
+shader_parameter/blend_steps = 7.170000245575
+shader_parameter/noise_strength = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2wxho"]
+shader = ExtResource("30_umiu5")
+shader_parameter/radius = 0.2800000133
+shader_parameter/softness = 1.0
+shader_parameter/intensity = 0.726000034485
+shader_parameter/contrast = 4.0
+shader_parameter/vignette_color = Color(0, 0, 0, 1)
+shader_parameter/center_offset = Vector2(0, 0)
+shader_parameter/clear_area_size = Vector2(1, 1)
+shader_parameter/pixel_size = 0.004
+shader_parameter/blend_steps = 8.5
+shader_parameter/noise_strength = 0.0
+
+[node name="MainLoop" type="Node2D" groups=["pausable_scenes"]]
+script = ExtResource("1_olyg1")
+
+[node name="Bowl" type="Sprite2D" parent="."]
+position = Vector2(107, 61)
+texture = ExtResource("20_r5fat")
+
+[node name="Tawas" type="Sprite2D" parent="Bowl"]
+position = Vector2(-1, -12)
+texture = ExtResource("21_wh6i2")
+
+[node name="Hourglass" parent="." instance=ExtResource("4_ynl2v")]
+position = Vector2(106, 19)
+
+[node name="Candle" type="Sprite2D" parent="."]
+position = Vector2(105, 63)
+texture = ExtResource("20_isaxb")
+centered = false
+
+[node name="Flame" type="Sprite2D" parent="Candle"]
+material = SubResource("ShaderMaterial_eergd")
+position = Vector2(7, -2)
+texture = ExtResource("22_1v0k2")
+centered = false
+
+[node name="Workstation" parent="." instance=ExtResource("6_isaxb")]
+
+[node name="GameBackground" type="Sprite2D" parent="."]
+z_index = -10
+scale = Vector2(1, 0.99999994)
+texture = ExtResource("1_l1b4v")
+centered = false
+
+[node name="Rain" type="GPUParticles2D" parent="."]
+z_index = -20
+position = Vector2(31, 6)
+amount = 50
+lifetime = 0.5
+preprocess = 0.5
+process_material = SubResource("ParticleProcessMaterial_eexwu")
+
+[node name="Clouds" type="ColorRect" parent="."]
+visible = false
+z_index = -29
+z_as_relative = false
+material = SubResource("ShaderMaterial_1v0k2")
+offset_left = 1.0
+offset_top = -18.0
+offset_right = 64.0
+offset_bottom = 20.0
+
+[node name="NpcBackground" type="Sprite2D" parent="."]
+z_index = -30
+material = SubResource("ShaderMaterial_eexwu")
+position = Vector2(1, 1)
+texture = ExtResource("2_xfve2")
+centered = false
+
+[node name="NightOverlay" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+z_index = -29
+material = SubResource("ShaderMaterial_7fx7v")
+position = Vector2(1, 1)
+texture = ExtResource("29_ynl2v")
+centered = false
+
+[node name="FeverSmoke" parent="." instance=ExtResource("26_xtyir")]
+visible = false
+position = Vector2(33, 42)
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_m757o")
+volume_db = -5.0
+bus = &"Bgm"
+
+[node name="BackgroundCricket" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("27_diimi")
+bus = &"Bgm"
+
+[node name="Dialogue" type="Node2D" parent="."]
+
+[node name="Paper" type="Sprite2D" parent="."]
+position = Vector2(52, 106)
+texture = ExtResource("25_xtyir")
+
+[node name="RedCandles" parent="." instance=ExtResource("25_wh6i2")]
+position = Vector2(72, 115)
+
+[node name="WorkstationUI" type="Node2D" parent="."]
+position = Vector2(109, 118)
+
+[node name="SfxClick" type="AudioStreamPlayer" parent="WorkstationUI"]
+stream = ExtResource("33_rmity")
+bus = &"Sfx"
+
+[node name="DialogueRepeatButton" type="TextureButton" parent="WorkstationUI"]
+offset_left = 20.0
+offset_top = 6.0
+offset_right = 28.0
+offset_bottom = 14.0
+texture_normal = ExtResource("27_eergd")
+texture_disabled = ExtResource("17_wh6i2")
+script = ExtResource("29_kgr6p")
+
+[node name="BookToggle" parent="WorkstationUI" instance=ExtResource("17_eexwu")]
+
+[node name="Manual" parent="WorkstationUI" instance=ExtResource("20_22fp7")]
+z_index = 10
+position = Vector2(-109, 9)
+
+[node name="ChecklistControl" parent="." instance=ExtResource("19_h6rqw")]
+z_index = 20
+z_as_relative = false
+position = Vector2(284, 190)
+
+[node name="PatientArea" type="Area2D" parent="."]
+visible = false
+position = Vector2(11, 11)
+script = ExtResource("33_2wxho")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PatientArea"]
+position = Vector2(21.5, 21.5)
+shape = SubResource("RectangleShape2D_v2yyn")
+
+[node name="SfxGold" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("34_v2yyn")
+bus = &"Sfx"
+
+[node name="NightTimer" type="Timer" parent="."]
+process_callback = 0
+
+[node name="FullDayTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="PauseMenu" parent="." instance=ExtResource("27_qryyp")]
+visible = false
+
+[node name="VignetteOld" type="ColorRect" parent="."]
+visible = false
+z_index = 900
+material = SubResource("ShaderMaterial_wh6i2")
+offset_right = 240.0
+offset_bottom = 135.0
+mouse_filter = 2
+
+[node name="Vignette" type="ColorRect" parent="."]
+z_index = 900
+material = SubResource("ShaderMaterial_2wxho")
+offset_right = 240.0
+offset_bottom = 135.0
+mouse_filter = 2
+script = ExtResource("31_7fx7v")
+
+[node name="SfxPause" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("28_eergd")
+volume_db = -15.0
+
+[connection signal="timeout" from="NightTimer" to="." method="_on_night_timer_timeout"]
+[connection signal="timeout" from="FullDayTimer" to="." method="_on_full_day_timer_timeout"]

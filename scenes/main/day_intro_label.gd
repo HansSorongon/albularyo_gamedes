@@ -20,8 +20,6 @@ func start_typewriter():
 	text = text_to_show
 	visible_characters = 0
 	
-	
-	
 	for i in text.length():
 		await get_tree().create_timer(type_speed).timeout
 		visible_characters = i + 1
@@ -35,8 +33,10 @@ func on_typewriter_finished():
 	
 	await get_tree().create_timer(0.6).timeout
 
-	$'../Label4'.text = "Click anywhere to continue..."
-	can_continue = true
+	$'../Label2'.start_typewriter()
+
+	#$'../Label4'.text = "Click anywhere to continue..."
+	#can_continue = true
 
 func _input(event):
 	if not can_continue:

@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bajy82qnb58j"]
+
+[ext_resource type="Script" uid="uid://daba5ujj5rbux" path="res://intro_scene.gd" id="1_2glrg"]
+[ext_resource type="Texture2D" uid="uid://d1mws42vxgjrd" path="res://assets/gole.png" id="2_o8unc"]
+[ext_resource type="FontFile" uid="uid://b5bptjjfvw3i2" path="res://assets/ui/dialogue/tiny5.ttf" id="3_b1u3c"]
+[ext_resource type="AudioStream" uid="uid://3u84ubkh42ke" path="res://assets/audio/gole_games.mp3" id="4_o8unc"]
+
+[node name="IntroScene" type="Node2D"]
+script = ExtResource("1_2glrg")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 240.0
+offset_bottom = 135.0
+color = Color(0, 0, 0, 1)
+
+[node name="Gole" type="Sprite2D" parent="."]
+position = Vector2(116, 52)
+texture = ExtResource("2_o8unc")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 77.0
+offset_top = 89.0
+offset_right = 157.0
+offset_bottom = 107.0
+theme_override_fonts/font = ExtResource("3_b1u3c")
+text = "Gole Games"
+
+[node name="SfxGole" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_o8unc")

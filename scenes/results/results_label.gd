@@ -2,7 +2,7 @@ extends Label
 
 @export var text_to_show: String = "The day comes to a close..."
 @export var type_speed: float = 0.05   # seconds per character (tweak for faster/slower)
-@onready var sfx_gold: AudioStreamPlayer = $"../SfxGold"
+@onready var sfx_return: AudioStreamPlayer = $"../SfxReturn"
 
 @onready var sfx_typewriter = [$"../SfxTypewriter1", $"../SfxTypewriter2", $"../SfxTypewriter3", $"../SfxTypewriter4", $"../SfxTypewriter5", $"../SfxTypewriter6"]
 
@@ -28,17 +28,27 @@ func start_typewriter():
 	
 func on_typewriter_finished():
 	$'../Label2'.text = "Patients Cured: " + str(GameState.day_patients_cured) + "/" + str(GameState.day_total_patients)
-	sfx_gold.play()
+	sfx_return.play()
 	
 	await get_tree().create_timer(0.6).timeout
 	
 	$'../Label3'.text = "Reputation: " + get_reputation_word(int(GameState.total_reputation))
-	sfx_gold.play()
+	sfx_return.play()
 	
 	await get_tree().create_timer(0.6).timeout
 	
-	#$'../Label5'.text = "Total Reputation: " + str(int(GameState.total_reputation))
-	#sfx_gold.play()
+	$'../Label5'.text = "Quota: " + str(int(GameState.day_patients_cured)) + "/3"
+	sfx_return.play()
+	
+	await get_tree().create_timer(0.6).timeout
+	
+	if GameState.day_patients_cured < 3:
+		await get_tree().create_timer(0.6).timeout
+		$'../Label6'.text = "Failed to achieve quota."
+		if GameState.day_number >= 2:
+			GameState.total_reputation -= 200
+		await get_tree().create_timer(1.0).timeout
+	
 	##
 	#await get_tree().create_timer(0.6).timeout
 	

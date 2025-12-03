@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://3x2h3cy4ieyj"]
+[gd_scene load_steps=10 format=3 uid="uid://3x2h3cy4ieyj"]
 
 [ext_resource type="FontFile" uid="uid://b5bptjjfvw3i2" path="res://assets/ui/dialogue/tiny5.ttf" id="1_bc87o"]
 [ext_resource type="Script" uid="uid://c3jmcr0jk7pr2" path="res://scenes/main/day_intro_label.gd" id="2_bc87o"]
 [ext_resource type="AudioStream" uid="uid://dyviqeht4fu12" path="res://assets/audio/typewriter/typewriter1.wav" id="3_106kb"]
+[ext_resource type="Script" uid="uid://cy3wagdhv370p" path="res://scenes/main/day_intro_quota_label.gd" id="3_vn8r1"]
 [ext_resource type="AudioStream" uid="uid://c1ftd6lp2x0be" path="res://assets/audio/typewriter/typewriter2.wav" id="4_vn8r1"]
 [ext_resource type="AudioStream" uid="uid://cj5phrutf84uc" path="res://assets/audio/typewriter/typewriter3.wav" id="5_eikqh"]
 [ext_resource type="AudioStream" uid="uid://dlmnnq1cjopo8" path="res://assets/audio/typewriter/typewriter4.wav" id="6_sw608"]
@@ -23,15 +24,27 @@ offset_right = 164.0
 offset_bottom = 61.0
 theme_override_fonts/font = ExtResource("1_bc87o")
 theme_override_font_sizes/font_size = 8
-text = "The day comes to a close..."
+text = "Day 1"
 horizontal_alignment = 1
 script = ExtResource("2_bc87o")
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 73.0
+offset_top = 63.0
+offset_right = 164.0
+offset_bottom = 73.0
+theme_override_fonts/font = ExtResource("1_bc87o")
+theme_override_font_sizes/font_size = 8
+text = "Quota: Cure 3 Patients"
+horizontal_alignment = 1
+script = ExtResource("3_vn8r1")
 
 [node name="Label4" type="Label" parent="."]
 offset_left = 71.0
 offset_top = 101.0
 offset_right = 162.0
 offset_bottom = 111.0
+theme_override_colors/font_color = Color(0.58909595, 0.5890955, 0.5890956, 1)
 theme_override_fonts/font = ExtResource("1_bc87o")
 theme_override_font_sizes/font_size = 8
 

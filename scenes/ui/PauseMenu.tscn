@@ -1,0 +1,181 @@
+[gd_scene load_steps=14 format=3 uid="uid://dd1ytc7q00wmo"]
+
+[ext_resource type="Texture2D" uid="uid://c4b4pjpwy4r8" path="res://assets/ui/menu_background.png" id="1_5twic"]
+[ext_resource type="Shader" uid="uid://b5e1u71l2pgnm" path="res://scenes/ui/blur.gdshader" id="1_csaq8"]
+[ext_resource type="FontFile" uid="uid://b5bptjjfvw3i2" path="res://assets/ui/dialogue/tiny5.ttf" id="2_v5pi0"]
+[ext_resource type="PackedScene" uid="uid://rrkendp20mls" path="res://scenes/ui/ui_button.tscn" id="3_cctyv"]
+[ext_resource type="AudioStream" uid="uid://8n5d5fw42yrr" path="res://assets/audio/click_3.ogg" id="4_csaq8"]
+[ext_resource type="Script" uid="uid://cwx40mbla7vg3" path="res://scenes/ui/pause_resume.gd" id="4_v5pi0"]
+[ext_resource type="Script" uid="uid://qesbu5gwu7a7" path="res://scenes/ui/pause_quit.gd" id="5_cctyv"]
+[ext_resource type="Script" uid="uid://b6wm2leu3w5dr" path="res://scenes/ui/pause_settings.gd" id="7_px486"]
+[ext_resource type="AudioStream" uid="uid://b003g56n2t27v" path="res://assets/audio/intro/rezero.mp3" id="8_rw35d"]
+[ext_resource type="PackedScene" uid="uid://bfp8wpjxyijko" path="res://scenes/ui/slider.tscn" id="9_m3ie4"]
+[ext_resource type="Script" uid="uid://d4bwvsubqgr8q" path="res://scenes/ui/pause_settings_back.gd" id="10_3wlsb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rw35d"]
+shader = ExtResource("1_csaq8")
+shader_parameter/amount = 1.0000000475
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o0a0r"]
+
+[node name="PauseMenu" type="Control"]
+process_mode = 2
+z_index = 700
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_rw35d")
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 135.0
+
+[node name="ButtonsContainer" type="Node2D" parent="."]
+clip_children = 2
+material = SubResource("ShaderMaterial_o0a0r")
+position = Vector2(92, 42)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="ButtonsContainer"]
+use_parent_material = true
+offset_left = -8.0
+offset_right = 62.0
+offset_bottom = 58.0
+texture = ExtResource("1_5twic")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 2
+
+[node name="Label" type="Label" parent="ButtonsContainer"]
+use_parent_material = true
+offset_left = -3.0
+offset_top = 4.0
+offset_right = 59.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color(0.31764707, 0.12156863, 0.08235294, 1)
+theme_override_fonts/font = ExtResource("2_v5pi0")
+theme_override_font_sizes/font_size = 8
+text = "Paused"
+
+[node name="ResumeButton" parent="ButtonsContainer" instance=ExtResource("3_cctyv")]
+use_parent_material = true
+offset_left = -4.0
+offset_top = 15.0
+offset_right = 58.0
+offset_bottom = 25.0
+theme_override_constants/margin_top = 0
+script = ExtResource("4_v5pi0")
+
+[node name="QuitButton" parent="ButtonsContainer" instance=ExtResource("3_cctyv")]
+use_parent_material = true
+offset_left = -4.0
+offset_top = 41.0
+offset_right = 58.0
+offset_bottom = 52.0
+theme_override_constants/margin_top = 0
+script = ExtResource("5_cctyv")
+
+[node name="SettingsButton" parent="ButtonsContainer" instance=ExtResource("3_cctyv")]
+use_parent_material = true
+offset_left = -4.0
+offset_top = 28.0
+offset_right = 58.0
+offset_bottom = 39.0
+theme_override_constants/margin_top = 0
+script = ExtResource("7_px486")
+
+[node name="SfxClick" type="AudioStreamPlayer2D" parent="ButtonsContainer"]
+stream = ExtResource("4_csaq8")
+pitch_scale = 0.7
+bus = &"Sfx"
+
+[node name="SettingsContainer" type="Node2D" parent="."]
+visible = false
+position = Vector2(86, 20)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="SettingsContainer"]
+offset_left = -8.0
+offset_right = 75.0
+offset_bottom = 95.0
+texture = ExtResource("1_5twic")
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="SettingsContainer"]
+offset_left = -3.0
+offset_top = 4.0
+offset_right = 59.0
+offset_bottom = 13.0
+theme_override_colors/font_color = Color(0.31764707, 0.12156863, 0.08235294, 1)
+theme_override_fonts/font = ExtResource("2_v5pi0")
+theme_override_font_sizes/font_size = 8
+text = "Master Volume"
+metadata/_edit_use_anchors_ = true
+
+[node name="Label2" type="Label" parent="SettingsContainer"]
+offset_left = -3.0
+offset_top = 22.0
+offset_right = 59.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0.31764707, 0.12156863, 0.08235294, 1)
+theme_override_fonts/font = ExtResource("2_v5pi0")
+theme_override_font_sizes/font_size = 8
+text = "Background Music"
+metadata/_edit_use_anchors_ = true
+
+[node name="Label3" type="Label" parent="SettingsContainer"]
+offset_left = -3.0
+offset_top = 40.0
+offset_right = 59.0
+offset_bottom = 49.0
+theme_override_colors/font_color = Color(0.31764707, 0.12156863, 0.08235294, 1)
+theme_override_fonts/font = ExtResource("2_v5pi0")
+theme_override_font_sizes/font_size = 8
+text = "Sound Effects"
+metadata/_edit_use_anchors_ = true
+
+[node name="Slider" parent="SettingsContainer" instance=ExtResource("9_m3ie4")]
+offset_left = -3.0
+offset_top = 15.0
+offset_right = 69.0
+offset_bottom = 20.0
+bus_name = "Master"
+metadata/_edit_use_anchors_ = true
+
+[node name="Slider2" parent="SettingsContainer" instance=ExtResource("9_m3ie4")]
+offset_left = -3.0
+offset_top = 33.0
+offset_right = 69.0
+offset_bottom = 38.0
+bus_name = "Bgm"
+metadata/_edit_use_anchors_ = true
+
+[node name="Slider3" parent="SettingsContainer" instance=ExtResource("9_m3ie4")]
+offset_left = -3.0
+offset_top = 51.0
+offset_right = 69.0
+offset_bottom = 56.0
+bus_name = "Sfx"
+metadata/_edit_use_anchors_ = true
+
+[node name="UiButton" parent="SettingsContainer" instance=ExtResource("3_cctyv")]
+offset_left = -4.0
+offset_top = 79.0
+offset_right = 26.0
+offset_bottom = 89.0
+script = ExtResource("10_3wlsb")
+metadata/_edit_use_anchors_ = true
+
+[node name="SfxClick" type="AudioStreamPlayer2D" parent="SettingsContainer"]
+stream = ExtResource("4_csaq8")
+pitch_scale = 0.7
+bus = &"Sfx"
+
+[node name="SfxPause" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_rw35d")
+
+[node name="SfxResume" type="AudioStreamPlayer" parent="."]

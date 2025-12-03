@@ -5,6 +5,7 @@
 [ext_resource type="FontFile" uid="uid://b5bptjjfvw3i2" path="res://assets/ui/dialogue/tiny5.ttf" id="3_acp5l"]
 
 [node name="Tooltip" type="MarginContainer"]
+z_as_relative = false
 script = ExtResource("1_kv0sd")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
