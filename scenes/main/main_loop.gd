@@ -34,20 +34,18 @@ func _ready():
 	get_viewport().physics_object_picking_sort = true
 	get_viewport().physics_object_picking_first_only = true
 	
-	print(GameState.day_number)
+	$FullDayTimer.wait_time = day_seconds
 	if GameState.day_number == 1 and tutorial:
 		start_tutorial()
 	else:
 		spawn_patient()
-	
-	$FullDayTimer.wait_time = day_seconds
+		
+		$FullDayTimer.start()
+		$NightTimer.start()
 	
 	background_music.play()
-	
 	$Rain.visible = true
 	$NightOverlay.visible = false
-	$FullDayTimer.start()
-	$NightTimer.start()
 
 func _input(event):
 	if event is InputEventKey and event.pressed:
@@ -90,9 +88,6 @@ func start_tutorial():
 	DialogueManager.start_dialog(["A new patient has arrived.", "Your goal is to craft a potion that cures the symptoms they are suffering from."], Vector2(1, 70), 950, true)
 	
 	await DialogueManager.dialogue_finished
-	waiting_for_click = true
-	await click_detected
-	waiting_for_click = false
 		
 	DialogueManager.start_dialog(["Let’s start with a visual diagnosis.", "This patient clearly has rashes."], Vector2(1, 70), 950, true)
 	await $Vignette.move_box(Vector2(-0.365, -0.12), Vector2(0.13, 0.285))
@@ -264,7 +259,7 @@ func start_tutorial():
 			break;
 			
 	DialogueManager.start_dialog([
-	"There. Now they're all fully lit",
+	"There. Now they're all fully lit.",
 	"Let's perform the ritual.",
 	],
 	Vector2(5, 40), 950, true)
@@ -289,6 +284,9 @@ func start_tutorial():
 	Vector2(115, 40), 950, true)
 	
 	await $Vignette.move_box(Vector2(0, 0), Vector2(1, 1))
+	
+	$FullDayTimer.start()
+	$NightTimer.start()
 
 func spawn_patient():
 	if current_patient:
